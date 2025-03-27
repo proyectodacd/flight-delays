@@ -1,8 +1,6 @@
 
-package com.duodinamico.controller;
-import com.duodinamico.controller.apiconsumer.AviationStackProcessor;
+package com.duodinamico.controller.apiconsumer;
 
-import com.duodinamico.controller.apiconsumer.FlightDeserializer;
 import com.duodinamico.model.Flight;
 
 import java.util.List;

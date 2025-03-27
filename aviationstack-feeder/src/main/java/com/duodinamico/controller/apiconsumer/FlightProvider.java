@@ -1,4 +1,4 @@
-package com.duodinamico.controller;
+package com.duodinamico.controller.apiconsumer;
 import com.duodinamico.model.Flight;
 
 import java.util.List;
