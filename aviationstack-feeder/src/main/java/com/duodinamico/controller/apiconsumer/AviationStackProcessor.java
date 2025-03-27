@@ -1,5 +1,5 @@
 
-package com.duodinamico.controller;
+package com.duodinamico.controller.apiconsumer;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 

@@ -1,4 +1,4 @@
-package com.duodinamico.controller;
+package com.duodinamico.controller.apiconsumer;
 
 public class AviationStackProcessorTest {
     public static void main(String[] args) {
