@@ -1,5 +1,7 @@
 package com.duodinamico.controller.apiconsumer;
 
+import com.duodinamico.model.WeatherResult;
+import com.duodinamico.model.schema.WeatherResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -7,12 +9,12 @@ import java.util.List;
 
 public class WeatherDeserializer {
 
-    public WeatherInformation weatherDeserializer(String json) {
+    public WeatherResult weatherDeserializer(String json) {
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        WeatherInformation response = gson.fromJson(json, WeatherInformation.class);
+        WeatherResponse response = gson.fromJson(json, WeatherResponse.class);
 
-        return response;
+        return new WeatherResult(response);
 
     }
 }
