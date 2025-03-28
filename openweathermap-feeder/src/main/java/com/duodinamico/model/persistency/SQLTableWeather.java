@@ -1,5 +1,7 @@
 package com.duodinamico.model.persistency;
 
+import com.duodinamico.controller.persistency.SQLConnection;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -8,41 +10,46 @@ public class SQLTableWeather {
 
     public void createTable(Statement statement) throws SQLException {
         statement.execute("create table weather (" +
-                "    location text," +
-
-                "    query_time text," +
-                "    flight_date text," +
-                "    flight_status text," +
-                "    departure_airport text," +
-                "    departure_timezone text," +
-                "    departure_iata text," +
-                "    departure_icao text," +
-                "    departure_delay integer," +
-                "    departure_scheduled text," +
-                "    departure_actual text," +
-                "    arrival_airport text," +
-                "    arrival_timezone text," +
-                "    arrival_iata text," +
-                "    arrival_icao text," +
-                "    arrival_delay integer," +
-                "    arrival_scheduled text," +
-                "    arrival_actual text," +
-                "    livestatus_updated text," +
-                "    livestatus_latitude real," +
-                "    livestatus_longitude real," +
-                "    livestatus_altitude real," +
-                "    livestatus_horizontalspeed real," +
-                "    livestatus_verticalspeed real," +
-                "    livestatus_isground boolean," +
-                "    primary key (flight_icao, flight_date)" +
+                "    flight_icao text," +
+                "    unixtime integer," +
+                "    standard_time text," +
+                "    airport_name text," +
+                "    timezone text," +
+                "    temperature real," +
+                "    feels_like real," +
+                "    wind_speed real," +
+                "    wind_direction integer," +
+                "    precipitations real," +
+                "    snow_measurement real," +
+                "    description text," +
+                "    airport_description text," +
+                "    primary key (flight_icao, standard_time)" +
                 ");");
     }
+
+    // C:\Users\Ayoze\Desktop\DACDproyect\flightdelays\flightdelaysv1.db
 
     public static void main(String[] args) {
         SQLConnection sql = new SQLConnection();
         String dbPath = "";
         try(Connection connection = sql.connect(dbPath)) {
             Statement statement = connection.createStatement();
+            statement.execute("create table weather (" +
+                    "    flight_icao text," +
+                    "    unixtime integer," +
+                    "    standard_time text," +
+                    "    airport_name text," +
+                    "    timezone text," +
+                    "    temperature real," +
+                    "    feels_like real," +
+                    "    wind_speed real," +
+                    "    wind_direction integer," +
+                    "    precipitations real," +
+                    "    snow_measurement real," +
+                    "    description text," +
+                    "    airport_description text," +
+                    "    primary key (flight_icao, standard_time)" +
+                    ");");
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }

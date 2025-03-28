@@ -5,5 +5,5 @@ import java.util.List;
 
 public interface FlightStore {
     public void saveFlights (List<Flight> flights, String[] args);
-    public Flight loadFlight (String flightIcao, String date, String[] args);
+    public List<Flight> loadFlights (String[] args);
 }

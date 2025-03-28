@@ -23,11 +23,11 @@ public class SQLStore implements FlightStore{
     }
 
     @Override
-    public Flight loadFlight(String flightIcao, String date, String[] args){
+    public List<Flight> loadFlights(String[] args){
         SQLConnection sql = new SQLConnection();
         SQLRetrieverFlights sqlretriever = new SQLRetrieverFlights();
         try(Connection connection = sql.connect(args[0])) {
-            return sqlretriever.select(connection, flightIcao, date);
+            return sqlretriever.select(connection);
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }

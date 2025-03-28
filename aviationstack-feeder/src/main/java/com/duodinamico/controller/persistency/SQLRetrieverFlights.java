@@ -4,21 +4,27 @@ package com.duodinamico.controller.persistency;
 import com.duodinamico.model.*;
 
 import java.sql.*;
+import java.time.LocalDate;
 
+
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SQLRetrieverFlights {
 
-    public Flight select(Connection connection, String flightIcao, String date) throws SQLException {
+    public List<Flight> select(Connection connection) throws SQLException {
+        List<Flight> flights = new ArrayList<>();
 
-        String sql = "SELECT * FROM flights WHERE flight_icao = ? & flight_date = ?";
+        String sql = "SELECT * FROM flights WHERE flight_date = ?";
 
-        try {
-            PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, flightIcao);
-            pstmt.setString(2, date);
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, LocalDate.now().minusDays(1).toString());
             ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                return new Flight(
+
+            while (rs.next()) {
+                Flight flight = new Flight(
                         new Departure(rs.getString("departure_airport"),
                                 rs.getString("departure_timezone"),
                                 rs.getString("departure_iata"),
@@ -44,13 +50,11 @@ public class SQLRetrieverFlights {
                                 rs.getBoolean("livestatus_isground")),
                         new FlightId(rs.getString("flight_icao"))
                 );
+                flights.add(flight);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return flights;
     }
-
 }
-
