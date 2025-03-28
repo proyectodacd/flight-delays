@@ -16,10 +16,10 @@ public class SQLiteStore implements WeatherStore{
         OpenWeatherMapProvider openWeatherMapProvider = new OpenWeatherMapProvider();
         UnixConverter unixConverter = new UnixConverter();
         AirportToCoordinates coordinates = new AirportToCoordinates(args);
-        WeatherResult departureInfo = openWeatherMapProvider.weatherProvider(String.valueOf(coordinates.getAirportCoordinates(flight.getDeparture().getIcao())[0]),
-                String.valueOf(coordinates.getAirportCoordinates(flight.getDeparture().getIcao())[1]), String.valueOf(unixConverter.convertToUnix(flight.getDeparture().getScheduled(),flight.getDeparture().getTimezone())), args);
-        WeatherResult arrivalInfo = openWeatherMapProvider.weatherProvider(String.valueOf(coordinates.getAirportCoordinates(flight.getArrival().getIcao())[0]),
-                String.valueOf(coordinates.getAirportCoordinates(flight.getArrival().getIcao())[1]), String.valueOf(unixConverter.convertToUnix(flight.getArrival().getScheduled(),flight.getArrival().getTimezone())), args);
+        WeatherResult departureInfo = (coordinates.getAirportCoordinates(flight.getDeparture().getIata()) != null) ? openWeatherMapProvider.weatherProvider(String.valueOf(coordinates.getAirportCoordinates(flight.getDeparture().getIata())[0]),
+                String.valueOf(coordinates.getAirportCoordinates(flight.getDeparture().getIata())[1]), String.valueOf(unixConverter.convertToUnix(flight.getDeparture().getScheduled(),flight.getDeparture().getTimezone())), args) : null;
+        WeatherResult arrivalInfo = (coordinates.getAirportCoordinates(flight.getArrival().getIata()) != null) ? openWeatherMapProvider.weatherProvider(String.valueOf(coordinates.getAirportCoordinates(flight.getArrival().getIata())[0]),
+                String.valueOf(coordinates.getAirportCoordinates(flight.getArrival().getIata())[1]), String.valueOf(unixConverter.convertToUnix(flight.getArrival().getScheduled(),flight.getArrival().getTimezone())), args) : null;
         try(Connection connection = sql.connect(args[0])) {
             Statement statement = connection.createStatement();
             sqlModifierWeather.insertDepartureWeather(statement,flight,departureInfo);

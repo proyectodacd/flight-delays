@@ -19,7 +19,6 @@ public class SQLModifierWeather {
                         flight.getFlightId().getFlightIcao() + "', '" +
                         converter.convertToUnix(flight.getDeparture().getScheduled(),flight.getDeparture().getTimezone()) + "'," +
                         "'" + flight.getDeparture().getScheduled() + "'," +
-                        "'" + flight.getFlightStatus() + "'," +
                         "'" + flight.getDeparture().getAirport() + "'," +
                         "'" + flight.getDeparture().getTimezone() + "'," +
                         "'" + weatherResult.getTemperature() + "'," +
@@ -29,7 +28,7 @@ public class SQLModifierWeather {
                         "'" + weatherResult.getPrecipitation() + "'," +
                         "'" + weatherResult.getSnowmeasurement() + "'," +
                         "'" + weatherResult.getWeatherDescription() + "'," +
-                        "'" + "departure" + "'," +
+                        "'" + "departure" + "')" +
                         ";");
 
 
@@ -49,7 +48,6 @@ public class SQLModifierWeather {
                     flight.getFlightId().getFlightIcao() + "', '" +
                     converter.convertToUnix(flight.getArrival().getScheduled(),flight.getArrival().getTimezone()) + "'," +
                     "'" + flight.getArrival().getScheduled() + "'," +
-                    "'" + flight.getFlightStatus() + "'," +
                     "'" + flight.getArrival().getAirport() + "'," +
                     "'" + flight.getArrival().getTimezone() + "'," +
                     "'" + weatherResult.getTemperature() + "'," +
@@ -59,7 +57,7 @@ public class SQLModifierWeather {
                     "'" + weatherResult.getPrecipitation() + "'," +
                     "'" + weatherResult.getSnowmeasurement() + "'," +
                     "'" + weatherResult.getWeatherDescription() + "'," +
-                    "'" + "arrival" + "'," +
+                    "'" + "arrival" + "')" +
                     ";");
 
 

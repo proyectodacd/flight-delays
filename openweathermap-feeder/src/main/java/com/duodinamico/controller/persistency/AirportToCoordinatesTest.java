@@ -1,5 +1,8 @@
 package com.duodinamico.controller.persistency;
 
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
+
 import java.io.IOException;
 import java.io.*;
 import java.util.*;
@@ -9,33 +12,23 @@ public class AirportToCoordinatesTest {
         String filePath = args[2];
         Map<String, double[]> airportCoordinates = new HashMap<>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            br.readLine();
+        try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
+            List<String[]> records = reader.readAll();
+            records.remove(0); // Saltar la primera fila (encabezado)
 
-            while ((line = br.readLine()) != null) {
-                String[] values = line.replace("\"", "").split(",");
-
+            for (String[] values : records) {
                 if (values.length >= 7) {
-                    String airportName = values[4].trim();
-                    String latStr = values[5].trim().replaceAll("[^0-9.-]", "");
-                    String lonStr = values[6].trim().replaceAll("[^0-9.-]", "");
-
-                    if (!latStr.isEmpty() && !lonStr.isEmpty()) {
-                        try {
-                            double latitude = Double.parseDouble(latStr);
-                            double longitude = Double.parseDouble(lonStr);
-                            airportCoordinates.put(airportName, new double[]{latitude, longitude});
-                        } catch (NumberFormatException e) {
-                            System.err.println("❌ Error al convertir coordenadas para: " + airportName +
-                                    " (lat: " + latStr + ", lon: " + lonStr + ")");
-                        }
-                    } else {
-                        System.err.println("⚠️ Coordenadas vacías para: " + airportName);
+                    String airportName = values[2].trim();
+                    try {
+                        double latitude = Double.parseDouble(values[5].trim());
+                        double longitude = Double.parseDouble(values[6].trim());
+                        airportCoordinates.put(airportName, new double[]{latitude, longitude});
+                    } catch (NumberFormatException e) {
+                        System.err.println("❌ Error al convertir coordenadas para: " + airportName);
                     }
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | CsvException e) {
             e.printStackTrace();
         }
 
