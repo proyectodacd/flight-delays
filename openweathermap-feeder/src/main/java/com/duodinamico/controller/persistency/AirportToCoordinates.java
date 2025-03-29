@@ -18,7 +18,7 @@ public class AirportToCoordinates {
 
         try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
             List<String[]> records = reader.readAll();
-            records.remove(0); // Saltar la primera fila (encabezado)
+            records.remove(0);
 
             for (String[] values : records) {
                 if (values.length >= 7) {

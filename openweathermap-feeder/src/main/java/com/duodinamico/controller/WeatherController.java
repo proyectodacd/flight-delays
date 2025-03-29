@@ -19,7 +19,7 @@ public class WeatherController {
 
     public void execute(String[] args) {
 
-        List<Flight> flightsList = store.loadFlights(args); // sacar lista de vuelos de ayer
+        List<Flight> flightsList = store.loadFlights(args);
         for (Flight flight : flightsList) {
             sqLiteStore.saveWeather(flight,args);
         }

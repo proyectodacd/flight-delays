@@ -27,8 +27,6 @@ public class SQLTableWeather {
                 ");");
     }
 
-    // C:\Users\Ayoze\Desktop\DACDproyect\flightdelays\flightdelaysv1.db
-
     public static void main(String[] args) {
         SQLConnection sql = new SQLConnection();
         String dbPath = "";

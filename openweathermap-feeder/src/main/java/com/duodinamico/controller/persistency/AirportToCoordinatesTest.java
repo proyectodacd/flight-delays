@@ -14,7 +14,7 @@ public class AirportToCoordinatesTest {
 
         try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
             List<String[]> records = reader.readAll();
-            records.remove(0); // Saltar la primera fila (encabezado)
+            records.remove(0);
 
             for (String[] values : records) {
                 if (values.length >= 7) {
@@ -32,10 +32,8 @@ public class AirportToCoordinatesTest {
             e.printStackTrace();
         }
 
-        // Verificar cuántas entradas se cargaron
         System.out.println("Total aeropuertos cargados: " + airportCoordinates.size());
 
-        // Imprimir algunos ejemplos
         airportCoordinates.forEach((key, value) ->
                 System.out.println(key + " -> Lat: " + value[0] + ", Lng: " + value[1])
         );
