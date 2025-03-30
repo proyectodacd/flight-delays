@@ -21,7 +21,12 @@ public class WeatherController {
 
         List<Flight> flightsList = store.loadFlights(args);
         for (Flight flight : flightsList) {
-            sqLiteStore.saveWeather(flight,args);
+            try {
+                sqLiteStore.saveWeather(flight, args);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
 
