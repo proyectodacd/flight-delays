@@ -16,7 +16,7 @@ public class OpenWeatherMapProcessor {
             connection.data("lon", longitude);
             connection.data("lat", latitude);
             connection.data("type", "hour");
-            connection.data("appid", args[1]);
+            connection.data("appid", args[2]);
             connection.data("units", "metric");
             connection.data("start", time);
             connection.data("cnt", "1");

@@ -14,6 +14,8 @@ public class FlightController {
     }
 
     public void execute(String[] args) {
+
         sqliteStore.saveFlights(aviationStackProvider.flightProvider(args), args);
+        System.out.println("Vuelos guardados");
     }
 }

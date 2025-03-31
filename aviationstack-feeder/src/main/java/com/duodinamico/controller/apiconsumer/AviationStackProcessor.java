@@ -10,7 +10,7 @@ public class AviationStackProcessor {
     private int currentKey;
 
     public AviationStackProcessor() {
-        this.currentKey = 1;
+        this.currentKey = 3;
     }
 
     public int getCurrentKey() {
@@ -44,7 +44,7 @@ public class AviationStackProcessor {
                 setCurrentKey(getCurrentKey()+1);
                 return petitionValidator(flightsPetition(args), args);
             } else {
-                setCurrentKey(1);
+                setCurrentKey(3);
                 return petitionValidator(flightsPetition(args), args);
             }
         } else {

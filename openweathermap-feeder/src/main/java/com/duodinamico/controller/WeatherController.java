@@ -28,6 +28,7 @@ public class WeatherController {
                 e.printStackTrace();
             }
         }
+        System.out.println("Clima de aeropuertos guardados");
 
 
 

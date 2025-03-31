@@ -13,7 +13,7 @@ public class AirportToCoordinates {
     private final HashMap<String, double[]> airports;
 
     public AirportToCoordinates(String[] args) {
-        String filePath = args[2];
+        String filePath = args[0];
         Map<String, double[]> airportCoordinates = new HashMap<>();
 
         try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
