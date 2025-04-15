@@ -41,8 +41,8 @@ public class SQLModifierFlights {
                         "    livestatus_verticalspeed real," +
                         "    livestatus_isground boolean," +
                         "    primary key (flight_icao, flight_date)" +
-                        ");" +
-                        " insert into flights (flight_icao, query_time, flight_date, flight_status, departure_airport, departure_timezone, departure_iata, departure_icao, departure_delay, departure_scheduled, departure_actual, arrival_airport, arrival_timezone, arrival_iata, arrival_icao, arrival_delay, arrival_scheduled, arrival_actual, livestatus_updated, livestatus_latitude, livestatus_longitude, livestatus_altitude, livestatus_horizontalspeed, livestatus_verticalspeed, livestatus_isground) values ('" +
+                        ");");
+                statement.execute(" insert into flights (flight_icao, query_time, flight_date, flight_status, departure_airport, departure_timezone, departure_iata, departure_icao, departure_delay, departure_scheduled, departure_actual, arrival_airport, arrival_timezone, arrival_iata, arrival_icao, arrival_delay, arrival_scheduled, arrival_actual, livestatus_updated, livestatus_latitude, livestatus_longitude, livestatus_altitude, livestatus_horizontalspeed, livestatus_verticalspeed, livestatus_isground) values ('" +
                         flight.getFlightIcao() + "', '" +
                         ZonedDateTime.now(ZoneId.of(flight.getArrivalTimezone()))
                                 .format(formatter) + "'," +
@@ -101,8 +101,8 @@ public class SQLModifierFlights {
                         "    livestatus_verticalspeed real," +
                         "    livestatus_isground boolean," +
                         "    primary key (flight_icao, flight_date)" +
-                        ");" +
-                        "insert into flights (flight_icao, query_time, flight_date, flight_status, departure_airport, departure_timezone, departure_iata, departure_icao, departure_delay, departure_scheduled, departure_actual, arrival_airport, arrival_timezone, arrival_iata, arrival_icao, arrival_delay, arrival_scheduled, arrival_actual) values ('" +
+                        ");");
+                statement.execute("insert into flights (flight_icao, query_time, flight_date, flight_status, departure_airport, departure_timezone, departure_iata, departure_icao, departure_delay, departure_scheduled, departure_actual, arrival_airport, arrival_timezone, arrival_iata, arrival_icao, arrival_delay, arrival_scheduled, arrival_actual) values ('" +
                         flight.getFlightIcao() + "', '" +
                         ZonedDateTime.now(ZoneId.of(flight.getArrivalTimezone()))
                                 .format(formatter) + "'," +

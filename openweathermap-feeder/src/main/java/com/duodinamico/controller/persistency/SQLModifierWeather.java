@@ -28,8 +28,8 @@ public class SQLModifierWeather {
                     "    description text," +
                     "    airport_description text," +
                     "    primary key (flight_icao, standard_time)" +
-                    ");"+
-                    "insert into weather (flight_icao, unixtime, standard_time, airport_name, timezone, temperature, feels_like, wind_speed, wind_direction, precipitations, snow_measurement, description, airport_description) values ('" +
+                    ");");
+            statement.execute("insert into weather (flight_icao, unixtime, standard_time, airport_name, timezone, temperature, feels_like, wind_speed, wind_direction, precipitations, snow_measurement, description, airport_description) values ('" +
                     flight.getFlightIcao() + "', '" +
                     converter.convertToUnix(flight.getEstimatedDepartureTime(),flight.getDepartureTimezone()) + "'," +
                     "'" + flight.getEstimatedDepartureTime() + "'," +
@@ -73,8 +73,8 @@ public class SQLModifierWeather {
                     "    description text," +
                     "    airport_description text," +
                     "    primary key (flight_icao, standard_time)" +
-                    ");"+
-                    "insert into weather (flight_icao, unixtime, standard_time, airport_name, timezone, temperature, feels_like, wind_speed, wind_direction, precipitations, snow_measurement, description, airport_description) values ('" +
+                    ");");
+            statement.execute("insert into weather (flight_icao, unixtime, standard_time, airport_name, timezone, temperature, feels_like, wind_speed, wind_direction, precipitations, snow_measurement, description, airport_description) values ('" +
                     flight.getFlightIcao() + "', '" +
                     converter.convertToUnix(flight.getEstimatedArrivalTime(),flight.getArrivalTimezone()) + "'," +
                     "'" + flight.getEstimatedArrivalTime() + "'," +

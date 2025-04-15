@@ -29,7 +29,7 @@ public class FlightController {
         };
 
         programarTarea(scheduler, tarea, 12, 1);
-        programarTarea(scheduler, tarea, 22, 31);
+        programarTarea(scheduler, tarea, 19, 35);
 
         try {
             scheduler.awaitTermination(1, TimeUnit.DAYS);
