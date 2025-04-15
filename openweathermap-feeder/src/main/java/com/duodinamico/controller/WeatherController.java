@@ -1,40 +1,34 @@
 package com.duodinamico.controller;
 
-import com.duodinamico.controller.apiconsumer.AviationStackProvider;
-import com.duodinamico.controller.apiconsumer.OpenWeatherMapProvider;
-import com.duodinamico.controller.persistency.SQLStore;
-import com.duodinamico.controller.persistency.SQLiteStore;
-import com.duodinamico.model.Flight;
+import com.duodinamico.controller.persistency.FlightSQLStore;
+import com.duodinamico.controller.persistency.WeatherSQLStore;
+import com.duodinamico.model.FlightModel;
+import com.duodinamico.model.schema.Flight;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WeatherController {
-    private SQLStore store;
-    private SQLiteStore sqLiteStore;
+    private FlightSQLStore flightSQLStore;
+    private WeatherSQLStore weatherStore;
 
-    public WeatherController() {
-        this.store = new SQLStore();
-        this.sqLiteStore = new SQLiteStore();
+    public WeatherController(String databasePath, String coordinatesDoc, String apiKey) {
+        this.weatherStore = new WeatherSQLStore(databasePath, coordinatesDoc, apiKey);
+        this.flightSQLStore = new FlightSQLStore(databasePath);
     }
 
-    public void execute(String[] args) {
+    public void execute() {
 
-        List<Flight> flightsList = store.loadFlights(args);
-        for (Flight flight : flightsList) {
+        ArrayList<FlightModel> flightsList = flightSQLStore.loadFlights();
+        for (FlightModel flight : flightsList) {
             try {
-                sqLiteStore.saveWeather(flight, args);
+                weatherStore.saveWeather(flight);
             }
             catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        System.out.println("Clima de aeropuertos guardados");
-
-
-
-
-
-
+        System.out.println("Clima de aeropuertos guardados.");
 
 
 

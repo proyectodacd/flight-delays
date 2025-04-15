@@ -10,11 +10,12 @@ import java.util.*;
 
 public class AirportToCoordinates {
 
-    private final HashMap<String, double[]> airports;
+    private final HashMap<String, Coordinates> airports;
+    private final String filePath;
 
-    public AirportToCoordinates(String[] args) {
-        String filePath = args[0];
-        Map<String, double[]> airportCoordinates = new HashMap<>();
+    public AirportToCoordinates(String filePath) {
+        this.filePath = filePath;
+        Map<String, Coordinates> airportCoordinates = new HashMap<>();
 
         try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
             List<String[]> records = reader.readAll();
@@ -26,9 +27,9 @@ public class AirportToCoordinates {
                     try {
                         double latitude = Double.parseDouble(values[5].trim());
                         double longitude = Double.parseDouble(values[6].trim());
-                        airportCoordinates.put(airportName, new double[]{latitude, longitude});
+                        airportCoordinates.put(airportName, new Coordinates(latitude, longitude));
                     } catch (NumberFormatException e) {
-                        System.err.println("❌ Error al convertir coordenadas para: " + airportName);
+                        System.err.println("Error al convertir coordenadas para: " + airportName);
                     }
                 }
             }
@@ -36,15 +37,15 @@ public class AirportToCoordinates {
             e.printStackTrace();
         }
 
-        this.airports = (HashMap<String, double[]>) airportCoordinates;
+        this.airports = (HashMap<String, Coordinates>) airportCoordinates;
 
     }
 
-    public HashMap<String, double[]> getAirports() {
+    public HashMap<String, Coordinates> getAirports() {
         return this.airports;
     }
 
-    public double[] getAirportCoordinates(String airportIata) {
+    public Coordinates getAirportCoordinates(String airportIata) {
         return getAirports().get(airportIata);
     }
 

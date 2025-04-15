@@ -1,4 +1,4 @@
-import com.duodinamico.model.Flight;
+import com.duodinamico.model.schema.Flight;
 import com.duodinamico.model.schema.FlightResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

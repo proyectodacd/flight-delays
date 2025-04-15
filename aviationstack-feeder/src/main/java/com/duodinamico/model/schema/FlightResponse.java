@@ -1,5 +1,4 @@
 package com.duodinamico.model.schema;
-import com.duodinamico.model.Flight;
 
 import java.util.List;
 

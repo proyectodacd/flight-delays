@@ -7,48 +7,62 @@ import java.io.IOException;
 
 public class AviationStackProcessor {
 
-    private int currentKey;
+    private final String[] apiKeyList;
+    private int currentKeyNumber;
 
-    public AviationStackProcessor() {
-        this.currentKey = 3;
+    public AviationStackProcessor(String[] apiKeyList) {
+        this.currentKeyNumber = 0;
+        this.apiKeyList = apiKeyList;
     }
 
-    public int getCurrentKey() {
-        return currentKey;
+    public String[] getApiKeyList() {
+        return apiKeyList;
     }
 
-    public void setCurrentKey(int currentKey) {
-        this.currentKey = currentKey;
+    public int getCurrentKeyNumber() {
+        return currentKeyNumber;
     }
 
-    public Connection.Response flightsPetition(String[] args) {
+    public void setCurrentKeyNumber(int currentKeyNumber) {
+        this.currentKeyNumber = currentKeyNumber;
+    }
+
+    public Connection.Response flightsPetition() {
         Connection.Response response;
         try {
             String endpoint = "https://api.aviationstack.com/v1/flights";
             Connection connection = Jsoup.connect(endpoint);
             connection.ignoreContentType(true);
-            connection.data("access_key", args[getCurrentKey()]);
+            connection.data("access_key", getApiKeyList()[getCurrentKeyNumber()]);
             connection.data("flight_status", "active");
 
             response = connection.method(Connection.Method.GET).execute();
             return response;
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+        return null;
     }
 
-    public String petitionValidator(Connection.Response response, String[] args) {
 
-        if (response.statusCode() != 200) {
-            if (getCurrentKey() < args.length - 1) {
-                setCurrentKey(getCurrentKey()+1);
-                return petitionValidator(flightsPetition(args), args);
-            } else {
-                setCurrentKey(3);
-                return petitionValidator(flightsPetition(args), args);
+    public String petitionValidator(Connection.Response response) {
+        int maxKeys = getApiKeyList().length;
+        int attempts = 0;
+
+        while (response == null || response.statusCode() != 200) {
+            if (attempts >= maxKeys) {
+                return "Error: No se pudo obtener una respuesta válida después de probar todas las claves.";
             }
-        } else {
-            return response.body();
+
+            setCurrentKeyNumber((getCurrentKeyNumber() + 1) % maxKeys);
+
+            response = flightsPetition();
+
+            attempts++;
         }
+
+        return response.body();
     }
+
 }
+

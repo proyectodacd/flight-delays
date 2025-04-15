@@ -1,4 +1,4 @@
-package com.duodinamico.model;
+package com.duodinamico.model.schema;
 
 import com.google.gson.annotations.SerializedName;
 

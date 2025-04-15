@@ -1,21 +1,20 @@
 package com.duodinamico.controller.persistency;
 
 
-import com.duodinamico.model.*;
+import com.duodinamico.model.FlightModel;
+import com.duodinamico.model.schema.*;
 
 import java.sql.*;
 import java.time.LocalDate;
 
 
-import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SQLRetrieverFlights {
 
-    public List<Flight> select(Connection connection) throws SQLException {
-        List<Flight> flights = new ArrayList<>();
+    public ArrayList<FlightModel> select(Connection connection) throws SQLException {
+        ArrayList<FlightModel> flights = new ArrayList<>();
 
         String sql = "SELECT * FROM flights WHERE flight_date = ?";
 
@@ -24,7 +23,7 @@ public class SQLRetrieverFlights {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                Flight flight = new Flight(
+                FlightModel flight = new FlightModel(new Flight(
                         new Departure(rs.getString("departure_airport"),
                                 rs.getString("departure_timezone"),
                                 rs.getString("departure_iata"),
@@ -49,7 +48,7 @@ public class SQLRetrieverFlights {
                                 rs.getFloat("livestatus_verticalspeed"),
                                 rs.getBoolean("livestatus_isground")),
                         new FlightId(rs.getString("flight_icao"))
-                );
+                ));
                 flights.add(flight);
             }
         } catch (SQLException e) {

@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class UnixConverter {
-    public static int convertToUnix(String dateTime, String timeZone) {
+    public int convertToUnix(String dateTime, String timeZone) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 

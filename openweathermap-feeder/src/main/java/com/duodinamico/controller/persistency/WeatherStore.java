@@ -1,10 +1,9 @@
 package com.duodinamico.controller.persistency;
 
-import com.duodinamico.model.Flight;
-import com.duodinamico.model.WeatherResult;
+import com.duodinamico.model.FlightModel;
 
 public interface WeatherStore {
 
-    public void saveWeather (Flight flight, String[] args);
+    public void saveWeather (FlightModel flight);
 
 }

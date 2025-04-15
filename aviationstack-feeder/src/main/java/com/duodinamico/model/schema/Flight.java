@@ -1,4 +1,4 @@
-package com.duodinamico.model;
+package com.duodinamico.model.schema;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -19,7 +19,7 @@ public class Flight {
         this.arrival = arrival;
         this.flightDate = flightDate;
         this.flightStatus = flightStatus;
-        this.liveStatus = liveStatus;
+        this.liveStatus = liveStatus == null ? null : liveStatus;
         this.flightId = flightId;
     }
 

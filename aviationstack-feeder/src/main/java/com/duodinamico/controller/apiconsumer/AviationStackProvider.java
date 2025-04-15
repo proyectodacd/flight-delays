@@ -1,17 +1,30 @@
 
 package com.duodinamico.controller.apiconsumer;
 
-import com.duodinamico.model.Flight;
+import com.duodinamico.model.FlightModel;
+import com.duodinamico.model.schema.Flight;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AviationStackProvider implements FlightProvider {
 
-    @Override
-    public List<Flight> flightProvider(String[] args) {
-        AviationStackProcessor aviationStackProcessor = new AviationStackProcessor();
-        FlightDeserializer flightDeserializer = new FlightDeserializer();
-        return flightDeserializer.flightDeserializer(aviationStackProcessor.petitionValidator(aviationStackProcessor.flightsPetition(args),args));
+    private final String[] apiKeys;
+
+    public AviationStackProvider(String[] apiKeys) {
+        this.apiKeys = apiKeys;
     }
+
+    public String[] getApiKeys() {
+        return apiKeys;
+    }
+
+    @Override
+    public ArrayList<FlightModel> flightProvider() {
+        AviationStackProcessor aviationStackProcessor = new AviationStackProcessor(getApiKeys());
+        FlightDeserializer flightDeserializer = new FlightDeserializer();
+        return flightDeserializer.flightDeserializer(aviationStackProcessor.petitionValidator(aviationStackProcessor.flightsPetition()));
+    }
+
 }
 

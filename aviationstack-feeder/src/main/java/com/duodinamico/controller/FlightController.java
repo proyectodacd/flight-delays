@@ -2,20 +2,19 @@ package com.duodinamico.controller;
 
 
 import com.duodinamico.controller.apiconsumer.AviationStackProvider;
-import com.duodinamico.controller.persistency.SQLStore;
+import com.duodinamico.controller.persistency.FlightSQLStore;
 
 public class FlightController {
     private AviationStackProvider aviationStackProvider;
-    private SQLStore sqliteStore;
+    private FlightSQLStore flightSQLStore;
 
-    public FlightController() {
-        this.aviationStackProvider = new AviationStackProvider();
-        this.sqliteStore = new SQLStore();
+    public FlightController(String[] apiKeys, String databasePath) {
+        this.aviationStackProvider = new AviationStackProvider(apiKeys);
+        this.flightSQLStore = new FlightSQLStore(databasePath);
     }
 
-    public void execute(String[] args) {
-
-        sqliteStore.saveFlights(aviationStackProvider.flightProvider(args), args);
-        System.out.println("Vuelos guardados");
+    public void execute() {
+        flightSQLStore.saveFlights(aviationStackProvider.flightProvider());
+        System.out.println("Vuelos guardados.");
     }
 }

@@ -1,7 +1,4 @@
-package com.duodinamico.model.persistency;
-
-
-import com.duodinamico.controller.persistency.SQLConnection;
+package com.duodinamico.controller.persistency;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -44,7 +41,7 @@ public class SQLTableFlights {
     public static void main(String[] args) {
         SQLConnection sql = new SQLConnection();
         String dbPath = "";
-        try(Connection connection = sql.connect(dbPath)) {
+        try (Connection connection = sql.connect(dbPath)) {
             Statement statement = connection.createStatement();
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
@@ -52,7 +49,4 @@ public class SQLTableFlights {
     }
 
 
-
-
 }
-
