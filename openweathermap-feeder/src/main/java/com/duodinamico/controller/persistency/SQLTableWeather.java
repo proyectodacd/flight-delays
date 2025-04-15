@@ -1,4 +1,4 @@
-package com.duodinamico.model.persistency;
+package com.duodinamico.controller.persistency;
 
 import com.duodinamico.controller.persistency.SQLConnection;
 

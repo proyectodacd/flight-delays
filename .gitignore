@@ -12,6 +12,10 @@ target/
 *.iml
 *.ipr
 
+aviationstack-feeder/src/test/resources/ApiKeys.txt
+aviationstack-feeder/src/test/resources/ApiKeysFake.txt
+openweathermap-feeder/src/test/resources/apikey.txt
+
 ### Eclipse ###
 .apt_generated
 .classpath
