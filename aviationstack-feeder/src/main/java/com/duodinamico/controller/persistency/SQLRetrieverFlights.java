@@ -2,7 +2,7 @@ package com.duodinamico.controller.persistency;
 
 
 import com.duodinamico.controller.FlightMapper;
-import com.duodinamico.model.FlightModel;
+import com.duodinamico.controller.model.FlightModel;
 
 import java.sql.*;
 import java.time.LocalDate;

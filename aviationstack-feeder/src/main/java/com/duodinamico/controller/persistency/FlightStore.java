@@ -1,5 +1,5 @@
 package com.duodinamico.controller.persistency;
-import com.duodinamico.model.FlightModel;
+import com.duodinamico.controller.model.FlightModel;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.duodinamico.model;
+package com.duodinamico.controller.model;
 
 import com.duodinamico.controller.apiconsumer.schema.WeatherResponse;
 

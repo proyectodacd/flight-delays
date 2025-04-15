@@ -1,9 +1,7 @@
 package com.duodinamico.controller.apiconsumer;
 
 import com.duodinamico.controller.persistency.Coordinates;
-import com.duodinamico.model.WeatherResult;
-
-import java.util.List;
+import com.duodinamico.controller.model.WeatherResult;
 
 public interface WeatherProvider {
     WeatherResult weatherProvider(Coordinates coordinates, String time);

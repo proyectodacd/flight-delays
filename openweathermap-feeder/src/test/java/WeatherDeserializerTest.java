@@ -1,5 +1,5 @@
 import com.duodinamico.controller.apiconsumer.WeatherDeserializer;
-import com.duodinamico.model.WeatherResult;
+import com.duodinamico.controller.model.WeatherResult;
 import org.junit.Assert;
 import org.junit.Test;
 

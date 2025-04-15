@@ -1,7 +1,7 @@
 package com.duodinamico.controller;
 
 import com.duodinamico.controller.apiconsumer.schema.WeatherResponse;
-import com.duodinamico.model.WeatherResult;
+import com.duodinamico.controller.model.WeatherResult;
 
 public class WeatherMapper {
 

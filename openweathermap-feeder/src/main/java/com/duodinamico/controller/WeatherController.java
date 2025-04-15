@@ -2,10 +2,9 @@ package com.duodinamico.controller;
 
 import com.duodinamico.controller.persistency.FlightSQLStore;
 import com.duodinamico.controller.persistency.WeatherSQLStore;
-import com.duodinamico.model.FlightModel;
+import com.duodinamico.controller.model.FlightModel;
 
 import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.concurrent.Executors;

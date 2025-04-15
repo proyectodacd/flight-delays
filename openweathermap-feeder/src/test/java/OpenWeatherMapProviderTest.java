@@ -1,6 +1,6 @@
 import com.duodinamico.controller.apiconsumer.OpenWeatherMapProvider;
 import com.duodinamico.controller.persistency.Coordinates;
-import com.duodinamico.model.WeatherResult;
+import com.duodinamico.controller.model.WeatherResult;
 import org.junit.Before;
 import org.junit.Test;
 

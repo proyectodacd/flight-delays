@@ -1,6 +1,5 @@
 import com.duodinamico.controller.apiconsumer.AviationStackProvider;
-import com.duodinamico.model.FlightModel;
-import org.junit.Assert;
+import com.duodinamico.controller.model.FlightModel;
 import org.junit.Before;
 import org.junit.Test;
 

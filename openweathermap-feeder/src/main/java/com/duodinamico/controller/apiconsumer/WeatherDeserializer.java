@@ -1,7 +1,7 @@
 package com.duodinamico.controller.apiconsumer;
 
 import com.duodinamico.controller.WeatherMapper;
-import com.duodinamico.model.WeatherResult;
+import com.duodinamico.controller.model.WeatherResult;
 import com.duodinamico.controller.apiconsumer.schema.WeatherResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

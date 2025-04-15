@@ -1,7 +1,7 @@
 package com.duodinamico.controller;
 
 import com.duodinamico.controller.apiconsumer.schema.Flight;
-import com.duodinamico.model.FlightModel;
+import com.duodinamico.controller.model.FlightModel;
 
 public class FlightMapper {
 
