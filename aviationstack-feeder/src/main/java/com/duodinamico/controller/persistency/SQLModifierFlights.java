@@ -1,7 +1,6 @@
 package com.duodinamico.controller.persistency;
 
 import com.duodinamico.model.FlightModel;
-import com.duodinamico.model.schema.Flight;
 
 import java.sql.SQLException;
 import java.sql.Statement;

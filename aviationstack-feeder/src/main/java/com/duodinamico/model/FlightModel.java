@@ -1,6 +1,6 @@
 package com.duodinamico.model;
 
-import com.duodinamico.model.schema.Flight;
+import com.duodinamico.controller.apiconsumer.schema.Flight;
 
 public class FlightModel {
 
@@ -29,32 +29,34 @@ public class FlightModel {
     private final float verticalSpeed;
     private final boolean isOnGround;
 
-    public FlightModel(Flight flight) {
-        this.flightIcao = flight.getFlightId().getFlightIcao();
-        this.flightDate = flight.getFlightDate();
-        this.flightStatus = flight.getFlightStatus();
-        this.departureAirport = flight.getDeparture().getAirport();
-        this.departureTimezone = flight.getDeparture().getTimezone();
-        this.departureIata = flight.getDeparture().getIata();
-        this.departureIcao = flight.getDeparture().getIcao();
-        this.departureDelay = flight.getDeparture().getDelay();
-        this.estimatedDepartureTime = flight.getDeparture().getScheduled();
-        this.actualDepartureTime = flight.getDeparture().getActual();
-        this.arrivalAirport = flight.getArrival().getAirport();
-        this.arrivalTimezone = flight.getArrival().getTimezone();
-        this.arrivalIata = flight.getArrival().getIata();
-        this.arrivalIcao = flight.getArrival().getIcao();
-        this.arrivalDelay = flight.getArrival().getDelay();
-        this.estimatedArrivalTime = flight.getArrival().getScheduled();
-        this.actualArrivalTime = flight.getArrival().getActual();
-        this.liveStatusTimeStamp = flight.getLiveStatus() == null ? null : flight.getLiveStatus().getUpdated();
-        this.latitude = flight.getLiveStatus() == null ? 0 : flight.getLiveStatus().getLatitude();
-        this.longitude = flight.getLiveStatus() == null ? 0 : flight.getLiveStatus().getLongitude();
-        this.altitude = flight.getLiveStatus() == null ? 0 : flight.getLiveStatus().getAltitude();
-        this.horizontalSpeed = flight.getLiveStatus() == null ? 0 : flight.getLiveStatus().getSpeedHorizontal();
-        this.verticalSpeed = flight.getLiveStatus() == null ? 0 : flight.getLiveStatus().getSpeedVertical();
-        this.isOnGround = flight.getLiveStatus() == null ? false : flight.getLiveStatus().getIsGround();
+    public FlightModel(String flightIcao, String flightDate, String flightStatus, String departureAirport, String departureTimezone, String departureIata, String departureIcao, int departureDelay, String estimatedDepartureTime, String actualDepartureTime, String arrivalAirport, String arrivalTimezone, String arrivalIata, String arrivalIcao, int arrivalDelay, String estimatedArrivalTime, String actualArrivalTime, String liveStatusTimeStamp, float latitude, float longitude, float altitude, float horizontalSpeed, float verticalSpeed, boolean isOnGround) {
+        this.flightIcao = flightIcao;
+        this.flightDate = flightDate;
+        this.flightStatus = flightStatus;
+        this.departureAirport = departureAirport;
+        this.departureTimezone = departureTimezone;
+        this.departureIata = departureIata;
+        this.departureIcao = departureIcao;
+        this.departureDelay = departureDelay;
+        this.estimatedDepartureTime = estimatedDepartureTime;
+        this.actualDepartureTime = actualDepartureTime;
+        this.arrivalAirport = arrivalAirport;
+        this.arrivalTimezone = arrivalTimezone;
+        this.arrivalIata = arrivalIata;
+        this.arrivalIcao = arrivalIcao;
+        this.arrivalDelay = arrivalDelay;
+        this.estimatedArrivalTime = estimatedArrivalTime;
+        this.actualArrivalTime = actualArrivalTime;
+        this.liveStatusTimeStamp = liveStatusTimeStamp;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.altitude = altitude;
+        this.horizontalSpeed = horizontalSpeed;
+        this.verticalSpeed = verticalSpeed;
+        this.isOnGround = isOnGround;
     }
+
+
 
     public String getFlightIcao() {
         return flightIcao;

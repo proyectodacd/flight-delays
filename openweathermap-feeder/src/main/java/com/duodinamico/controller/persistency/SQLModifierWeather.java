@@ -1,7 +1,6 @@
 package com.duodinamico.controller.persistency;
 
 import com.duodinamico.model.FlightModel;
-import com.duodinamico.model.schema.Flight;
 import com.duodinamico.model.WeatherResult;
 
 import java.sql.SQLException;

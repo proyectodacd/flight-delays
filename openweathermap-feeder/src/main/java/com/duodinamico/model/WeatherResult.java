@@ -1,6 +1,6 @@
 package com.duodinamico.model;
 
-import com.duodinamico.model.schema.WeatherResponse;
+import com.duodinamico.controller.apiconsumer.schema.WeatherResponse;
 
 public class WeatherResult {
 
@@ -14,17 +14,16 @@ public class WeatherResult {
     private final float snowmeasurement;
     private final String weatherDescription;
 
-    public WeatherResult(WeatherResponse weatherResponse) {
-        this.time = weatherResponse.getList().getFirst().getTime();
-        this.temperature = weatherResponse.getList().getFirst().getThermalConditions().getTemperature();
-        this.feelsLike = weatherResponse.getList().getFirst().getThermalConditions().getFeelsLike();
-        this.windSpeed = weatherResponse.getList().getFirst().getWind().getSpeed();
-        this.windDirection = weatherResponse.getList().getFirst().getWind().getDeg();
-        this.percentageOfClouds = weatherResponse.getList().getFirst().getClouds().getCloudiness();
-        this.precipitation = weatherResponse.getList().getFirst().getRain().getRainOneHour();
-        this.snowmeasurement = weatherResponse.getList().getFirst().getSnow().getSnowOneHour();
-        this.weatherDescription = weatherResponse.getList().getFirst().getDescription().getFirst().getDescription();
-
+    public WeatherResult(int time, float temperature, float feelsLike, float windSpeed, int windDirection, int percentageOfClouds, float precipitation, float snowmeasurement, String weatherDescription) {
+        this.time = time;
+        this.temperature = temperature;
+        this.feelsLike = feelsLike;
+        this.windSpeed = windSpeed;
+        this.windDirection = windDirection;
+        this.percentageOfClouds = percentageOfClouds;
+        this.precipitation = precipitation;
+        this.snowmeasurement = snowmeasurement;
+        this.weatherDescription = weatherDescription;
     }
 
     public int getTime() {

@@ -3,10 +3,8 @@ package com.duodinamico.controller;
 import com.duodinamico.controller.persistency.FlightSQLStore;
 import com.duodinamico.controller.persistency.WeatherSQLStore;
 import com.duodinamico.model.FlightModel;
-import com.duodinamico.model.schema.Flight;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class WeatherController {
     private FlightSQLStore flightSQLStore;

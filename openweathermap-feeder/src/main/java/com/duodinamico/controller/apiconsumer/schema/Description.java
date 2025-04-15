@@ -1,4 +1,4 @@
-package com.duodinamico.model.schema;
+package com.duodinamico.controller.apiconsumer.schema;
 
 public class Description {
 

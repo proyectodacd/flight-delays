@@ -1,13 +1,14 @@
-import com.duodinamico.model.schema.Flight;
-import com.duodinamico.model.schema.FlightResponse;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.duodinamico.controller.FlightMapper;
+import com.duodinamico.controller.apiconsumer.FlightDeserializer;
+import com.duodinamico.model.FlightModel;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class FlightDeserializerTest {
+
+    FlightMapper mapper = new FlightMapper();
 
     private final String json = "{\n" +
             "    \"pagination\": {\n" +
@@ -82,15 +83,14 @@ public class FlightDeserializerTest {
 
     @Test
     public void deserialize() {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        FlightResponse response = gson.fromJson(json, FlightResponse.class);
-        List<Flight> flights = response.getData();
-        Flight flightExample = flights.get(0);
+        FlightDeserializer deserializer = new FlightDeserializer();
+        ArrayList<FlightModel> flightList = deserializer.flightDeserializer(json);
+        FlightModel flightExample = flightList.get(0);
         Assert.assertEquals("2019-12-12", flightExample.getFlightDate());
         Assert.assertEquals("active", flightExample.getFlightStatus());
-        Assert.assertEquals("San Francisco International", flightExample.getDeparture().getAirport());
-        Assert.assertEquals("America/Los_Angeles", flightExample.getDeparture().getTimezone());
-        Assert.assertEquals("SFO", flightExample.getDeparture().getIata());
+        Assert.assertEquals("San Francisco International", flightExample.getDepartureAirport());
+        Assert.assertEquals("America/Los_Angeles", flightExample.getDepartureTimezone());
+        Assert.assertEquals("SFO", flightExample.getDepartureIata());
 
 
     }

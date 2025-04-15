@@ -1,6 +1,6 @@
-package com.duodinamico.model.schema;
+package com.duodinamico.controller.apiconsumer.schema;
 
-public class Departure {
+public class Arrival {
     private final String airport;
     private final String timezone;
     private final String iata;
@@ -9,7 +9,7 @@ public class Departure {
     private final String scheduled;
     private final String actual;
 
-    public Departure(String airport, String timezone, String iata, String icao, int delay, String scheduled, String actual) {
+    public Arrival(String airport, String timezone, String iata, String icao, int delay, String scheduled, String actual) {
         this.airport = airport;
         this.timezone = timezone;
         this.iata = iata;
@@ -47,3 +47,4 @@ public class Departure {
         return actual;
     }
 }
+
