@@ -27,7 +27,7 @@ public class OpenWeatherMapProcessor {
             connection.data("lon", String.valueOf(coordinates.getLongitude()));
             connection.data("lat", String.valueOf(coordinates.getLatitude()));
             connection.data("type", "hour");
-            connection.data("appid", getApiKey());
+            connection.data("appid", this.apiKey);
             connection.data("units", "metric");
             connection.data("start", time);
             connection.data("cnt", "1");

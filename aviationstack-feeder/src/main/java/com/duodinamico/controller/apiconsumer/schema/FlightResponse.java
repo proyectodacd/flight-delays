@@ -11,10 +11,6 @@ public class FlightResponse {
         this.data = data;
     }
 
-    public Pagination getPagination() {
-        return pagination;
-    }
-
     public List<Flight> getData() {
         return data;
     }

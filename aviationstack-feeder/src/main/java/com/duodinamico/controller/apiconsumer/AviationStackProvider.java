@@ -13,13 +13,9 @@ public class AviationStackProvider implements FlightProvider {
         this.apiKeys = apiKeys;
     }
 
-    public String[] getApiKeys() {
-        return apiKeys;
-    }
-
     @Override
     public ArrayList<FlightModel> flightProvider() {
-        AviationStackProcessor aviationStackProcessor = new AviationStackProcessor(getApiKeys());
+        AviationStackProcessor aviationStackProcessor = new AviationStackProcessor(this.apiKeys);
         FlightDeserializer flightDeserializer = new FlightDeserializer();
         return flightDeserializer.flightDeserializer(aviationStackProcessor.petitionValidator(aviationStackProcessor.flightsPetition()));
     }

@@ -23,17 +23,13 @@ public class AviationStackProcessor {
         return currentKeyNumber;
     }
 
-    public void setCurrentKeyNumber(int currentKeyNumber) {
-        this.currentKeyNumber = currentKeyNumber;
-    }
-
     public Connection.Response flightsPetition() {
         Connection.Response response;
         try {
             String endpoint = "https://api.aviationstack.com/v1/flights";
             Connection connection = Jsoup.connect(endpoint);
             connection.ignoreContentType(true);
-            connection.data("access_key", getApiKeyList()[getCurrentKeyNumber()]);
+            connection.data("access_key", this.apiKeyList[this.currentKeyNumber]);
             connection.data("flight_status", "active");
 
             response = connection.method(Connection.Method.GET).execute();
@@ -46,7 +42,7 @@ public class AviationStackProcessor {
 
 
     public String petitionValidator(Connection.Response response) {
-        int maxKeys = getApiKeyList().length;
+        int maxKeys = this.apiKeyList.length;
         int attempts = 0;
 
         while (response == null || response.statusCode() != 200) {
@@ -54,7 +50,7 @@ public class AviationStackProcessor {
                 return "Error: No se pudo obtener una respuesta válida después de probar todas las claves.";
             }
 
-            setCurrentKeyNumber((getCurrentKeyNumber() + 1) % maxKeys);
+            this.currentKeyNumber = (this.currentKeyNumber + 1) % maxKeys;
 
             response = flightsPetition();
 

@@ -122,10 +122,6 @@ public class FlightModel {
         return estimatedArrivalTime;
     }
 
-    public String getActualArrivalTime() {
-        return actualArrivalTime;
-    }
-
     public String getLiveStatusTimeStamp() {
         return liveStatusTimeStamp;
     }

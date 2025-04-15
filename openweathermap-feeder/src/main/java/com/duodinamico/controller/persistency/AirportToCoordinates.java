@@ -46,7 +46,7 @@ public class AirportToCoordinates {
     }
 
     public Coordinates getAirportCoordinates(String airportIata) {
-        return getAirports().get(airportIata);
+        return this.airports.get(airportIata);
     }
 
 

@@ -9,13 +9,10 @@ public class OpenWeatherMapProvider implements WeatherProvider{
     public OpenWeatherMapProvider(String apiKey) {
         this.apiKey = apiKey;
     }
-    public String getApiKey() {
-        return apiKey;
-    }
 
     @Override
     public WeatherResult weatherProvider(Coordinates coordinates, String time) {
-        OpenWeatherMapProcessor openWeatherMapProcessor = new OpenWeatherMapProcessor(getApiKey());
+        OpenWeatherMapProcessor openWeatherMapProcessor = new OpenWeatherMapProcessor(this.apiKey);
         WeatherDeserializer weatherDeserializer = new WeatherDeserializer();
         return weatherDeserializer.weatherDeserializer(openWeatherMapProcessor.weatherPetition(coordinates, time));
     }

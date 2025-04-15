@@ -24,7 +24,7 @@ public class FlightSQLStore implements FlightStore{
     public void saveFlights(ArrayList<FlightModel> flights) {
         SQLConnection sql = new SQLConnection();
         SQLModifierFlights sqlmodder = new SQLModifierFlights();
-        try(Connection connection = sql.connect(getDbPath())) {
+        try(Connection connection = sql.connect(this.dbPath)) {
             Statement statement = connection.createStatement();
             for(FlightModel flight : flights) {
                 sqlmodder.insert(statement, flight);
@@ -38,7 +38,7 @@ public class FlightSQLStore implements FlightStore{
     public ArrayList<FlightModel> loadFlights(){
         SQLConnection sql = new SQLConnection();
         SQLRetrieverFlights sqlretriever = new SQLRetrieverFlights();
-        try(Connection connection = sql.connect(getDbPath())) {
+        try(Connection connection = sql.connect(this.dbPath)) {
             return sqlretriever.select(connection);
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
