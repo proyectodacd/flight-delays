@@ -12,6 +12,6 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     public static void main(String[] args) {
         FlightController controller = new FlightController(Arrays.copyOfRange(args,1,args.length), args[0]);
-        controller.execute();
+        controller.executeEventSender();
     }
 }

@@ -39,7 +39,7 @@ public class WeatherController {
             System.out.println("Clima de aeropuertos guardados.");
         };
 
-        programarTarea(scheduler, tarea2, 22, 34);
+        programarTarea(scheduler, tarea2, 12, 0);
 
         try {
             scheduler.awaitTermination(1, TimeUnit.DAYS);
