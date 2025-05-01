@@ -1,43 +1,40 @@
-package com.duodinamico.controller.eventIntegration;
+package com.duodinamico.controller.eventintegration;
 
 import jakarta.jms.*;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-import java.util.ArrayList;
+public class WeatherEventSender {
 
-public class FlightEventSender {
-
-    // URL del broker JMS
     private final String url;
 
-    // Nombre del Topic
-    private final String topicName = "Flights";
+    private final String topicName = "Weather";
 
-    private FlightEventSerializer flightEventSerializer = new FlightEventSerializer();
+    private WeatherEventSerializer weatherEventSerializer = new WeatherEventSerializer();
 
-    public FlightEventSender(String url) {
+    public WeatherEventSender(String url) {
         this.url = url;
     }
 
-    public void sendFlightEvents(ArrayList<FlightEvent> flightEvents) {
+    public void sendWeatherEvents(WeatherEvent weatherEvent) {
         Connection connection = null;
-
         try {
             ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
             connection = connectionFactory.createConnection();
             connection.start();
 
+
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
             Topic topic = session.createTopic(topicName);
             MessageProducer producer = session.createProducer(topic);
             producer.setDeliveryMode(DeliveryMode.PERSISTENT);
+            System.out.println("topic created");
 
-            for (FlightEvent flightEvent : flightEvents) {
-                String content = flightEventSerializer.serializeFlightEvent(flightEvent);
-                TextMessage message = session.createTextMessage(content);
-                producer.send(message);
-                System.out.println("Mensaje enviado: " + message.getText());
-            }
+
+            String content = weatherEventSerializer.serializeWeatherEvent(weatherEvent);
+            TextMessage message = session.createTextMessage(content);
+            producer.send(message);
+            System.out.println("Mensaje enviado: " + message.getText());
+
 
         } catch (JMSException e) {
             System.err.println("Error al enviar mensajes: " + e.getMessage());

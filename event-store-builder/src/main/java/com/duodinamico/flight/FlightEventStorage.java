@@ -1,4 +1,4 @@
-package com.duodinamico;
+package com.duodinamico.flight;
 
 import java.io.BufferedWriter;
 import java.io.File;

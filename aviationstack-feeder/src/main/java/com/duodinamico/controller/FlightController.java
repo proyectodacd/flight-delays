@@ -17,11 +17,11 @@ public class FlightController {
     private FlightSQLStore flightSQLStore;
     private TaskScheduler taskScheduler;
 
-    public FlightController(String[] apiKeys, String databasePath) {
+    public FlightController(String[] apiKeys, String databasePath, String url) {
         this.aviationStackProvider = new AviationStackProvider(apiKeys);
         this.flightSQLStore = new FlightSQLStore(databasePath);
         this.taskScheduler = new TaskScheduler();
-        this.flightEventSender = new FlightEventSender();
+        this.flightEventSender = new FlightEventSender(url);
     }
 
     public void executeSQL() {
@@ -33,7 +33,7 @@ public class FlightController {
             System.out.println("Vuelos guardados.");
         };
 
-        this.taskScheduler.programarTarea(scheduler, tarea, 11, 40);
+        this.taskScheduler.programarTarea(scheduler, tarea, 14, 8);
         this.taskScheduler.programarTarea(scheduler, tarea, 23, 32);
 
         try {
@@ -52,7 +52,7 @@ public class FlightController {
             System.out.println("Mensajes de vuelos enviados.");
         };
 
-        this.taskScheduler.programarTarea(scheduler, tarea, 18, 9);
+        this.taskScheduler.programarTarea(scheduler, tarea, 14, 12);
         this.taskScheduler.programarTarea(scheduler, tarea, 23, 32);
 
         try {
