@@ -1,9 +1,11 @@
 package com.duodinamico.controller.persistency;
 
 import com.duodinamico.domain.model.FlightModel;
+import java.util.ArrayList;
 
 public interface WeatherStore {
 
-    public void saveWeather (FlightModel flight);
+    void saveDepartureWeather (ArrayList<FlightModel> flights);
+    void saveArrivalWeather (ArrayList<FlightModel> flights);
 
 }

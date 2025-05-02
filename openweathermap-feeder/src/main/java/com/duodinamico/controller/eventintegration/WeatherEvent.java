@@ -1,11 +1,15 @@
 package com.duodinamico.controller.eventintegration;
 
+import com.duodinamico.domain.model.FlightModel;
+
 import java.time.Instant;
 
 public class WeatherEvent {
 
     private final String ts;
     private final String ss;
+    private final String flighticao;
+    private final String flightDate;
     private final int time;
     private final float temperature;
     private final float feelsLike;
@@ -16,9 +20,11 @@ public class WeatherEvent {
     private final float snowmeasurement;
     private final String weatherDescription;
 
-    public WeatherEvent(int time, float temperature, float feelsLike, float windSpeed, int windDirection, int percentageOfClouds, float precipitation, float snowmeasurement, String weatherDescription) {
+    public WeatherEvent(String flightIcao, String flightDate, int time, float temperature, float feelsLike, float windSpeed, int windDirection, int percentageOfClouds, float precipitation, float snowmeasurement, String weatherDescription) {
         this.ts = Instant.now().toString();
         this.ss = "OpenWeatherMapFeeder";
+        this.flighticao = flightIcao;
+        this.flightDate = flightDate;
         this.time = time;
         this.temperature = temperature;
         this.feelsLike = feelsLike;
