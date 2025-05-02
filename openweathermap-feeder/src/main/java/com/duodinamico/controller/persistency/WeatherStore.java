@@ -1,6 +1,6 @@
 package com.duodinamico.controller.persistency;
 
-import com.duodinamico.controller.model.FlightModel;
+import com.duodinamico.domain.model.FlightModel;
 
 public interface WeatherStore {
 

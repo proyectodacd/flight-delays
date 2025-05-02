@@ -1,5 +1,6 @@
-import com.duodinamico.controller.apiconsumer.AviationStackProvider;
-import com.duodinamico.controller.model.FlightModel;
+import com.duodinamico.infrastructure.adapters.apiconsumer.AviationStackProvider;
+import com.duodinamico.domain.model.FlightModel;
+import com.duodinamico.infrastructure.adapters.apiconsumer.schema.FlightResponse;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,13 +27,8 @@ public class AviationStackProviderTest {
     public void aviationStackProviderTest() throws Exception {
         setUpForRegularCase();
         AviationStackProvider aviationStackProvider = new AviationStackProvider(apiKeys);
-        ArrayList<FlightModel> flightListExample = aviationStackProvider.flightProvider();
-        assertTrue(flightListExample instanceof ArrayList);
-        System.out.println(flightListExample.getFirst().getArrivalAirport());
+        assertTrue(aviationStackProvider.flightProvider() instanceof FlightResponse);
+        System.out.println(aviationStackProvider.flightProvider().toString());
     }
-
-
-
-
 
 }

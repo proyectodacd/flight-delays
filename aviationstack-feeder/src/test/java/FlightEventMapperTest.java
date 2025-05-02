@@ -1,9 +1,9 @@
-import com.duodinamico.infrastructure.adapters.apiconsumer.AviationStackProvider;
 import com.duodinamico.domain.model.FlightEvent;
-import com.duodinamico.infrastructure.adapters.activemq.FlightEventSerializer;
+import com.duodinamico.infrastructure.adapters.apiconsumer.AviationStackProvider;
+import com.duodinamico.infrastructure.adapters.apiconsumer.schema.FlightResponse;
 import com.duodinamico.infrastructure.adapters.mappers.FlightEventMapper;
-import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,8 +12,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class FlightEventSerializerTest {
-
+public class FlightEventMapperTest {
     private String fileContent;
     private String[] apiKeys;
 
@@ -24,14 +23,17 @@ public class FlightEventSerializerTest {
         apiKeys = fileContent.split("\\s+");
     }
 
-    @org.junit.Test
-    public void flightEventSerializerTest() throws Exception {
+    @Test
+    public void flightEventMapperTest() throws Exception {
         setUpForRegularCase();
         AviationStackProvider aviationStackProvider = new AviationStackProvider(apiKeys);
-        FlightEventSerializer flightEventSerializer = new FlightEventSerializer();
         FlightEventMapper flightEventMapper = new FlightEventMapper();
         ArrayList<FlightEvent> flightEvents = flightEventMapper.mapToFlightEvents(aviationStackProvider.flightProvider());
-        Assert.assertTrue(flightEventSerializer.serializeFlightEvent(flightEvents.getFirst()) instanceof String);
-        System.out.println(flightEventSerializer.serializeFlightEvent(flightEvents.getFirst()));
+        assertTrue(flightEvents instanceof ArrayList<FlightEvent>);
+        FlightEvent firstFlight = flightEvents.get(0);
+        System.out.println(firstFlight.getFlightIcao());
+        System.out.println(firstFlight.getFlightDate());
+        System.out.println(firstFlight.getSs());
+        System.out.println(firstFlight.getTs());
     }
 }

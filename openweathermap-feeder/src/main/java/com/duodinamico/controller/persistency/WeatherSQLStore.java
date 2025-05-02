@@ -1,8 +1,9 @@
 package com.duodinamico.controller.persistency;
 
 import com.duodinamico.controller.apiconsumer.OpenWeatherMapProvider;
-import com.duodinamico.controller.model.FlightModel;
+import com.duodinamico.domain.model.FlightModel;
 import com.duodinamico.controller.model.WeatherResult;
+import com.duodinamico.infrastructure.adapters.sqlite.SQLConnection;
 
 import java.sql.Connection;
 import java.sql.SQLException;

@@ -1,4 +1,3 @@
-import com.duodinamico.controller.apiconsumer.AviationStackProcessor;
 import com.duodinamico.controller.apiconsumer.OpenWeatherMapProcessor;
 import com.duodinamico.controller.persistency.Coordinates;
 import org.junit.Before;

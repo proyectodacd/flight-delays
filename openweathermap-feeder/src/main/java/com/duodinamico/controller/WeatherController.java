@@ -4,10 +4,10 @@ import com.duodinamico.controller.apiconsumer.OpenWeatherMapProvider;
 import com.duodinamico.controller.eventintegration.WeatherEvent;
 import com.duodinamico.controller.eventintegration.WeatherEventSender;
 import com.duodinamico.controller.persistency.AirportToCoordinates;
-import com.duodinamico.controller.persistency.FlightSQLStore;
+import com.duodinamico.infrastructure.adapters.sqlite.FlightSQLStore;
 import com.duodinamico.controller.persistency.UnixConverter;
 import com.duodinamico.controller.persistency.WeatherSQLStore;
-import com.duodinamico.controller.model.FlightModel;
+import com.duodinamico.domain.model.FlightModel;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

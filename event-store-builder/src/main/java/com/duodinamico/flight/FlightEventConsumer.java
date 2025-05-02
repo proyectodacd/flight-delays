@@ -1,7 +1,7 @@
 package com.duodinamico.flight;
 
-import com.duodinamico.controller.eventIntegration.FlightEvent;
-import com.duodinamico.controller.eventIntegration.FlightEventDeserializer;
+import com.duodinamico.domain.model.FlightEvent;
+import com.duodinamico.infrastructure.adapters.activemq.FlightEventDeserializer;
 import jakarta.jms.*;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
