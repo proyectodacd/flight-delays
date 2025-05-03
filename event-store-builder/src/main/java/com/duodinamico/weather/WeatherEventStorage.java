@@ -1,5 +1,8 @@
 package com.duodinamico.weather;
 
+import com.duodinamico.controller.eventintegration.WeatherEvent;
+import com.duodinamico.flight.EventsFilePathGeneratorForWriting;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -9,17 +12,15 @@ import java.time.format.DateTimeFormatter;
 
 public class WeatherEventStorage {
 
-    public String getEventFilePath() {
-        String topic = "Weathers";
-        String subSegment = "OpenWeatherMapFeeder";
-        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+    private EventsFilePathGeneratorForWriting eventsFilePathGeneratorForWriting;
 
-        return String.format("eventstore/%s/%s/%s.events", topic, subSegment, date);
+    public WeatherEventStorage(EventsFilePathGeneratorForWriting eventsFilePathGeneratorForWriting) {
+        this.eventsFilePathGeneratorForWriting = eventsFilePathGeneratorForWriting;
     }
 
-    public void saveToEventsFile(String json) {
+    public void saveWeatherToEventsFile(String json, WeatherEvent weatherEvent) {
         try {
-            String path = getEventFilePath();
+            String path = this.eventsFilePathGeneratorForWriting.getWeatherFilePathForWriting(0,weatherEvent);
             File file = new File(path);
             file.getParentFile().mkdirs();
 

@@ -31,7 +31,7 @@ public class FlightController {
             System.out.println("Vuelos guardados.");
         };
 
-        this.taskScheduler.programarTarea(scheduler, tarea, 19, 16);
+        this.taskScheduler.programarTarea(scheduler, tarea, 18, 57);
         this.taskScheduler.programarTarea(scheduler, tarea, 23, 32);
 
         try {

@@ -11,7 +11,7 @@ public class FlightEventConsumer {
     private final String topicName = "Flights";
     private final String clientID = "event-store-consumer";
     private final FlightEventDeserializer deserializer = new FlightEventDeserializer();
-    private final FlightEventStorage storage = new FlightEventStorage(new EventsFilePathGenerator());
+    private final FlightEventStorage storage = new FlightEventStorage(new EventsFilePathGeneratorForWriting());
 
     public FlightEventConsumer(String url) {
         this.url = url;
@@ -34,7 +34,7 @@ public class FlightEventConsumer {
                 try {
                     String json = ((TextMessage) message).getText();
                     FlightEvent event = deserializer.deserializeFlightEvent(json);
-                    storage.saveToEventsFile(json);
+                    storage.saveFlightsToEventsFile(json, event);
                     System.out.println("Mensaje guardado: " + json);
                 } catch (Exception e) {
                     e.printStackTrace();

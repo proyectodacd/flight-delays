@@ -9,12 +9,12 @@ public class FlightEventsFileReader {
     FlightEventDeserializer flightEventDeserializer = new FlightEventDeserializer();
     Gson gson = new Gson();
     ArrayList<FlightEvent> flightEventList = new ArrayList<>();
-    EventsFilePathGenerator eventsFilePathGenerator = new EventsFilePathGenerator();
+    EventsFilePathGeneratorForReading eventsFilePathGeneratorForReading = new EventsFilePathGeneratorForReading();
 
 
     public ArrayList<FlightEvent> extractFlightEventsFromFile() {
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(eventsFilePathGenerator.getEventFilePath(1)))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(eventsFilePathGeneratorForReading.getEventFilePathForReading(1)))) {
             String linea;
             while ((linea = reader.readLine()) != null) {
                 FlightEvent flightEvent = flightEventDeserializer.deserializeFlightEvent(linea);

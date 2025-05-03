@@ -3,9 +3,9 @@ package com.duodinamico.infrastructure.adapters.activemq;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class EventsFilePathGenerator {
+public class EventsFilePathGeneratorForReading {
 
-    public String getEventFilePath(int delayDays) {
+    public String getEventFilePathForReading(int delayDays) {
         String topic = "Flights";
         String subSegment = "AviationStackFeeder";
         String date = LocalDate.now().minusDays(delayDays).format(DateTimeFormatter.ofPattern("yyyyMMdd"));

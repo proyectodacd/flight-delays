@@ -1,5 +1,7 @@
 package com.duodinamico.flight;
 
+import com.duodinamico.domain.model.FlightEvent;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -9,15 +11,15 @@ import java.time.format.DateTimeFormatter;
 
 public class FlightEventStorage {
 
-    private EventsFilePathGenerator filePathGenerator;
+    private EventsFilePathGeneratorForWriting filePathGenerator;
 
-    public FlightEventStorage(EventsFilePathGenerator filePathGenerator) {
+    public FlightEventStorage(EventsFilePathGeneratorForWriting filePathGenerator) {
         this.filePathGenerator = filePathGenerator;
     }
 
-    public void saveToEventsFile(String json) {
+    public void saveFlightsToEventsFile(String json, FlightEvent event) {
         try {
-            String path = filePathGenerator.getEventFilePath(0);
+            String path = filePathGenerator.getFlightsFilePathForWriting(0, event);
             File file = new File(path);
             file.getParentFile().mkdirs();
 

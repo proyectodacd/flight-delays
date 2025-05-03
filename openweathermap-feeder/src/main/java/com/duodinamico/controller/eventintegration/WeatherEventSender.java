@@ -89,7 +89,6 @@ public class WeatherEventSender implements WeatherStore {
                 Topic topic = session.createTopic(topicName);
                 MessageProducer producer = session.createProducer(topic);
                 producer.setDeliveryMode(DeliveryMode.PERSISTENT);
-                System.out.println("topic created");
 
 
                 String content = weatherEventSerializer.serializeWeatherEvent(weatherEvent);
