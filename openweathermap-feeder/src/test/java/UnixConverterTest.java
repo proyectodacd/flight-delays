@@ -6,7 +6,7 @@ public class UnixConverterTest {
     @Test
     public void convertToUnixTest(){
         UnixConverter converter = new UnixConverter();
-        int result = converter.convertToUnix("2025-03-28 00:35:00","Asia/Singapore");
-        Assert.assertEquals(1743093300+600, result);
+        int result = converter.convertToUnix("2025-03-28T00:35+00:00");
+        Assert.assertEquals(1743122700, result);
     }
 }

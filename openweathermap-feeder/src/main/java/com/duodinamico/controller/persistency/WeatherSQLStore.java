@@ -3,6 +3,7 @@ package com.duodinamico.controller.persistency;
 import com.duodinamico.controller.WeatherResultMapper;
 import com.duodinamico.controller.apiconsumer.OpenWeatherMapProvider;
 import com.duodinamico.controller.apiconsumer.schema.WeatherResponse;
+import com.duodinamico.domain.model.FlightEvent;
 import com.duodinamico.domain.model.FlightModel;
 import com.duodinamico.controller.model.WeatherResult;
 import com.duodinamico.infrastructure.adapters.apiconsumer.schema.FlightResponse;
@@ -37,14 +38,16 @@ public class WeatherSQLStore implements WeatherStore{
     }
 
     @Override
-    public void saveDepartureWeather(ArrayList<FlightModel> flights){
+    public void saveDepartureWeather(ArrayList<FlightEvent> flights){
 
         try(Connection connection = sql.connect(databasePath)) {
-            for(FlightModel flight : flights) {
-                WeatherResponse departureInfo = (coordinates.getAirportCoordinates(flight.getDepartureIata()) != null) ? openWeatherMapProvider.weatherProvider(coordinates.getAirportCoordinates(flight.getDepartureIata()), String.valueOf(unixConverter.convertToUnix(flight.getEstimatedDepartureTime(), flight.getDepartureTimezone()))) : null;
-                Statement statement = connection.createStatement();
-                WeatherResult departure = weatherResultMapper.getWeatherResult(departureInfo);
-                sqlModifierWeather.insertDepartureWeather(statement, flight, departure);
+            for(FlightEvent flight : flights) {
+                WeatherResponse departureInfo = (coordinates.getAirportCoordinates(flight.getDepartureIata()) != null) ? openWeatherMapProvider.weatherProvider(coordinates.getAirportCoordinates(flight.getDepartureIata()), String.valueOf(unixConverter.convertToUnix(flight.getEstimatedDepartureTime()))) : null;
+                if (departureInfo != null) {
+                    Statement statement = connection.createStatement();
+                    WeatherResult departure = weatherResultMapper.getWeatherResult(departureInfo);
+                    sqlModifierWeather.insertDepartureWeather(statement, flight, departure);
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -52,14 +55,16 @@ public class WeatherSQLStore implements WeatherStore{
     }
 
     @Override
-    public void saveArrivalWeather(ArrayList<FlightModel> flights){
+    public void saveArrivalWeather(ArrayList<FlightEvent> flights){
 
         try(Connection connection = sql.connect(databasePath)) {
-            for (FlightModel flight : flights){
-                WeatherResponse arrivalInfo = (coordinates.getAirportCoordinates(flight.getArrivalIata()) != null) ? openWeatherMapProvider.weatherProvider(coordinates.getAirportCoordinates(flight.getArrivalIata()), String.valueOf(unixConverter.convertToUnix(flight.getEstimatedArrivalTime(), flight.getArrivalTimezone()))) : null;
-                Statement statement = connection.createStatement();
-                WeatherResult arrival = weatherResultMapper.getWeatherResult(arrivalInfo);
-                sqlModifierWeather.insertArrivalWeather(statement, flight, arrival);
+            for (FlightEvent flight : flights){
+                WeatherResponse arrivalInfo = (coordinates.getAirportCoordinates(flight.getArrivalIata()) != null) ? openWeatherMapProvider.weatherProvider(coordinates.getAirportCoordinates(flight.getArrivalIata()), String.valueOf(unixConverter.convertToUnix(flight.getEstimatedArrivalTime()))) : null;
+                if (arrivalInfo != null) {
+                    Statement statement = connection.createStatement();
+                    WeatherResult arrival = weatherResultMapper.getWeatherResult(arrivalInfo);
+                    sqlModifierWeather.insertArrivalWeather(statement, flight, arrival);
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

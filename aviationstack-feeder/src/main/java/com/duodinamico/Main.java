@@ -4,7 +4,6 @@ import com.duodinamico.infrastructure.adapters.sqlite.FlightSQLStore;
 import com.duodinamico.infrastructure.rest.controller.FlightController;
 import com.duodinamico.controller.TaskScheduler;
 import com.duodinamico.infrastructure.adapters.apiconsumer.AviationStackProvider;
-import com.duodinamico.infrastructure.adapters.activemq.FlightEventSender;
 
 import java.util.Arrays;
 

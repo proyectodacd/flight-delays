@@ -9,20 +9,17 @@ import java.time.format.DateTimeFormatter;
 
 public class FlightEventStorage {
 
-    public String getEventFilePath() {
-        String topic = "Flights";
-        String subSegment = "AviationStackFeeder";
-        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+    private EventsFilePathGenerator filePathGenerator;
 
-        return String.format("eventstore/%s/%s/%s.events", topic, subSegment, date);
+    public FlightEventStorage(EventsFilePathGenerator filePathGenerator) {
+        this.filePathGenerator = filePathGenerator;
     }
 
     public void saveToEventsFile(String json) {
         try {
-            String path = getEventFilePath();
+            String path = filePathGenerator.getEventFilePath(0);
             File file = new File(path);
             file.getParentFile().mkdirs();
-
 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
                 writer.write(json);

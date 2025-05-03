@@ -6,6 +6,7 @@ import com.duodinamico.controller.apiconsumer.OpenWeatherMapProvider;
 import com.duodinamico.controller.persistency.AirportToCoordinates;
 import com.duodinamico.controller.persistency.UnixConverter;
 import com.duodinamico.controller.persistency.WeatherStore;
+import com.duodinamico.domain.model.FlightEvent;
 import com.duodinamico.domain.model.FlightModel;
 import com.duodinamico.infrastructure.adapters.apiconsumer.schema.FlightResponse;
 import com.duodinamico.infrastructure.adapters.mappers.FlightModelMapper;
@@ -34,9 +35,9 @@ public class WeatherEventSender implements WeatherStore {
     }
 
     @Override
-    public void saveDepartureWeather(ArrayList<FlightModel> flights) {
-        for(FlightModel flight : flights) {
-            WeatherEvent weatherEvent = (coordinates.getAirportCoordinates(flight.getDepartureIata()) != null) ? weatherEventMapper.getWeatherEvent(flight, openWeatherMapProvider.weatherProvider(coordinates.getAirportCoordinates(flight.getDepartureIata()), String.valueOf(unixConverter.convertToUnix(flight.getEstimatedDepartureTime(), flight.getDepartureTimezone())))) : null;
+    public void saveDepartureWeather(ArrayList<FlightEvent> flights) {
+        for(FlightEvent flight : flights) {
+            WeatherEvent weatherEvent = (coordinates.getAirportCoordinates(flight.getDepartureIata()) != null) ? weatherEventMapper.getWeatherEvent(flight, openWeatherMapProvider.weatherProvider(coordinates.getAirportCoordinates(flight.getDepartureIata()), String.valueOf(unixConverter.convertToUnix(flight.getEstimatedDepartureTime())))) : null;
 
             Connection connection = null;
             try {
@@ -49,7 +50,6 @@ public class WeatherEventSender implements WeatherStore {
                 Topic topic = session.createTopic(topicName);
                 MessageProducer producer = session.createProducer(topic);
                 producer.setDeliveryMode(DeliveryMode.PERSISTENT);
-                System.out.println("topic created");
 
 
                 String content = weatherEventSerializer.serializeWeatherEvent(weatherEvent);
@@ -74,9 +74,9 @@ public class WeatherEventSender implements WeatherStore {
     }
 
     @Override
-    public void saveArrivalWeather(ArrayList<FlightModel> flights) {
-        for(FlightModel flight : flights) {
-            WeatherEvent weatherEvent = (coordinates.getAirportCoordinates(flight.getArrivalIata()) != null) ? weatherEventMapper.getWeatherEvent(flight, openWeatherMapProvider.weatherProvider(coordinates.getAirportCoordinates(flight.getArrivalIata()),String.valueOf(unixConverter.convertToUnix(flight.getEstimatedArrivalTime(),flight.getArrivalTimezone())))) : null;
+    public void saveArrivalWeather(ArrayList<FlightEvent> flights) {
+        for(FlightEvent flight : flights) {
+            WeatherEvent weatherEvent = (coordinates.getAirportCoordinates(flight.getArrivalIata()) != null) ? weatherEventMapper.getWeatherEvent(flight, openWeatherMapProvider.weatherProvider(coordinates.getAirportCoordinates(flight.getArrivalIata()),String.valueOf(unixConverter.convertToUnix(flight.getEstimatedArrivalTime())))) : null;
 
             Connection connection = null;
             try {

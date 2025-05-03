@@ -2,13 +2,14 @@ package com.duodinamico.controller;
 
 import com.duodinamico.controller.apiconsumer.schema.WeatherResponse;
 import com.duodinamico.controller.eventintegration.WeatherEvent;
+import com.duodinamico.domain.model.FlightEvent;
 import com.duodinamico.domain.model.FlightModel;
 
 public class WeatherEventMapper {
-    public WeatherEvent getWeatherEvent(FlightModel flightModel, WeatherResponse weatherResponse) {
+    public WeatherEvent getWeatherEvent(FlightEvent flightEvent, WeatherResponse weatherResponse) {
         WeatherEvent weatherEvent = new WeatherEvent(
-                flightModel.getFlightIcao(),
-                flightModel.getFlightDate(),
+                flightEvent.getFlightIcao(),
+                flightEvent.getFlightDate(),
                 weatherResponse.getList().getFirst().getTime(),
                 weatherResponse.getList().getFirst().getThermalConditions().getTemperature(),
                 weatherResponse.getList().getFirst().getThermalConditions().getFeelsLike(),

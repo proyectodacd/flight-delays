@@ -2,7 +2,6 @@ package com.duodinamico.infrastructure.adapters.activemq;
 
 import com.duodinamico.domain.model.FlightEvent;
 import com.duodinamico.domain.ports.FlightStore;
-import com.duodinamico.infrastructure.adapters.apiconsumer.schema.Flight;
 import com.duodinamico.infrastructure.adapters.apiconsumer.schema.FlightResponse;
 import com.duodinamico.infrastructure.adapters.mappers.FlightEventMapper;
 import jakarta.jms.*;
@@ -10,7 +9,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
 import java.util.ArrayList;
 
-public class FlightEventSender implements FlightStore<FlightEvent>{
+public class FlightEventStore implements FlightStore<FlightEvent>{
 
 
     private final String url;
@@ -18,7 +17,7 @@ public class FlightEventSender implements FlightStore<FlightEvent>{
     private FlightEventSerializer flightEventSerializer = new FlightEventSerializer();
     private FlightEventMapper flightEventMapper = new FlightEventMapper();
 
-    public FlightEventSender(String url) {
+    public FlightEventStore(String url) {
         this.url = url;
     }
 
@@ -61,10 +60,11 @@ public class FlightEventSender implements FlightStore<FlightEvent>{
     }
 
 
-
     @Override
     public ArrayList<FlightEvent> loadFlights() {
-        return null;
+        FlightEventsFileReader flightEventsFileReader = new FlightEventsFileReader();
+        ArrayList<FlightEvent> flightEvents = flightEventsFileReader.extractFlightEventsFromFile();
+        return flightEvents;
     }
 
 

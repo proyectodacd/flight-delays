@@ -11,7 +11,7 @@ public class FlightEventConsumer {
     private final String topicName = "Flights";
     private final String clientID = "event-store-consumer";
     private final FlightEventDeserializer deserializer = new FlightEventDeserializer();
-    private final FlightEventStorage storage = new FlightEventStorage();
+    private final FlightEventStorage storage = new FlightEventStorage(new EventsFilePathGenerator());
 
     public FlightEventConsumer(String url) {
         this.url = url;
