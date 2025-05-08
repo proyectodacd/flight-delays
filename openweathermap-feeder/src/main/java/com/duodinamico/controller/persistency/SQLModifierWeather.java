@@ -1,6 +1,6 @@
 package com.duodinamico.controller.persistency;
 
-import com.duodinamico.controller.model.FlightModel;
+import com.duodinamico.domain.model.FlightEvent;
 import com.duodinamico.controller.model.WeatherResult;
 
 import java.sql.SQLException;
@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 public class SQLModifierWeather {
 
-    public void insertDepartureWeather(Statement statement, FlightModel flight, WeatherResult weatherResult) throws SQLException {
+    public void insertDepartureWeather(Statement statement, FlightEvent flight, WeatherResult weatherResult) throws SQLException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             UnixConverter converter = new UnixConverter();
@@ -29,9 +29,9 @@ public class SQLModifierWeather {
                     "    airport_description text," +
                     "    primary key (flight_icao, standard_time)" +
                     ");");
-            statement.execute("insert into weather (flight_icao, unixtime, standard_time, airport_name, timezone, temperature, feels_like, wind_speed, wind_direction, precipitations, snow_measurement, description, airport_description) values ('" +
+            statement.execute("insert or ignore into weather (flight_icao, unixtime, standard_time, airport_name, timezone, temperature, feels_like, wind_speed, wind_direction, precipitations, snow_measurement, description, airport_description) values ('" +
                     flight.getFlightIcao() + "', '" +
-                    converter.convertToUnix(flight.getEstimatedDepartureTime(),flight.getDepartureTimezone()) + "'," +
+                    converter.convertToUnix(flight.getEstimatedDepartureTime()) + "'," +
                     "'" + flight.getEstimatedDepartureTime() + "'," +
                     "'" + flight.getDepartureAirport() + "'," +
                     "'" + flight.getDepartureTimezone() + "'," +
@@ -54,7 +54,7 @@ public class SQLModifierWeather {
 
     }
 
-    public void insertArrivalWeather(Statement statement, FlightModel flight, WeatherResult weatherResult) throws SQLException {
+    public void insertArrivalWeather(Statement statement, FlightEvent flight, WeatherResult weatherResult) throws SQLException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             UnixConverter converter = new UnixConverter();
@@ -74,9 +74,9 @@ public class SQLModifierWeather {
                     "    airport_description text," +
                     "    primary key (flight_icao, standard_time)" +
                     ");");
-            statement.execute("insert into weather (flight_icao, unixtime, standard_time, airport_name, timezone, temperature, feels_like, wind_speed, wind_direction, precipitations, snow_measurement, description, airport_description) values ('" +
+            statement.execute("insert or ignore into weather (flight_icao, unixtime, standard_time, airport_name, timezone, temperature, feels_like, wind_speed, wind_direction, precipitations, snow_measurement, description, airport_description) values ('" +
                     flight.getFlightIcao() + "', '" +
-                    converter.convertToUnix(flight.getEstimatedArrivalTime(),flight.getArrivalTimezone()) + "'," +
+                    converter.convertToUnix(flight.getEstimatedArrivalTime()) + "'," +
                     "'" + flight.getEstimatedArrivalTime() + "'," +
                     "'" + flight.getArrivalAirport() + "'," +
                     "'" + flight.getArrivalTimezone() + "'," +

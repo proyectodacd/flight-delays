@@ -4,23 +4,18 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+import java.time.*;
+import java.time.format.DateTimeParseException;
+
 public class UnixConverter {
-    public int convertToUnix(String dateTime, String timeZone) {
+    public int convertToUnix(String dateTime) {
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-            LocalDateTime localDateTime = LocalDateTime.parse(dateTime, formatter);
-
-            ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.of(timeZone));
-
-            return (int) (zonedDateTime.toEpochSecond()+600);
+            OffsetDateTime offsetDateTime = OffsetDateTime.parse(dateTime);
+            return (int) (offsetDateTime.toEpochSecond() + 600);
         } catch (DateTimeException e) {
             System.out.println("Error: " + e.getMessage());
             return -1;
         }
     }
-
-    public static void main(String[] args) {
-        System.out.println(LocalDate.now().minusDays(1).toString());
-    }
 }
+

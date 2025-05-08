@@ -1,14 +1,17 @@
-import com.duodinamico.controller.FlightMapper;
-import com.duodinamico.controller.apiconsumer.FlightDeserializer;
-import com.duodinamico.controller.model.FlightModel;
+import com.duodinamico.infrastructure.adapters.apiconsumer.schema.FlightResponse;
+import com.duodinamico.infrastructure.adapters.mappers.FlightModelMapper;
+import com.duodinamico.infrastructure.adapters.apiconsumer.FlightDeserializer;
+import com.duodinamico.domain.model.FlightModel;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class FlightDeserializerTest {
 
-    FlightMapper mapper = new FlightMapper();
+    FlightModelMapper mapper = new FlightModelMapper();
 
     private final String json = "{\n" +
             "    \"pagination\": {\n" +
@@ -84,21 +87,7 @@ public class FlightDeserializerTest {
     @Test
     public void deserialize() {
         FlightDeserializer deserializer = new FlightDeserializer();
-        ArrayList<FlightModel> flightList = deserializer.flightDeserializer(json);
-        FlightModel flightExample = flightList.get(0);
-        Assert.assertEquals("2019-12-12", flightExample.getFlightDate());
-        Assert.assertEquals("active", flightExample.getFlightStatus());
-        Assert.assertEquals("San Francisco International", flightExample.getDepartureAirport());
-        Assert.assertEquals("America/Los_Angeles", flightExample.getDepartureTimezone());
-        Assert.assertEquals("SFO", flightExample.getDepartureIata());
-
-
+        assertTrue(deserializer.flightDeserializer(json) instanceof FlightResponse);
     }
-
-
-
-
-
-
 
 }

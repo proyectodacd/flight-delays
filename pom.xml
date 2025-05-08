@@ -11,6 +11,7 @@
     <modules>
         <module>aviationstack-feeder</module>
         <module>openweathermap-feeder</module>
+        <module>event-store-builder</module>
     </modules>
 
     <properties>
@@ -51,6 +52,11 @@
             <artifactId>junit-jupiter</artifactId>
             <version>RELEASE</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-client</artifactId>
+            <version>6.1.6</version>
         </dependency>
     </dependencies>
 
