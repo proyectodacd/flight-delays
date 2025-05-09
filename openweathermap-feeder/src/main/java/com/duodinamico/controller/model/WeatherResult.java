@@ -4,7 +4,8 @@ import com.duodinamico.controller.apiconsumer.schema.WeatherResponse;
 
 public class WeatherResult {
 
-    private final int time;
+    private final String city;
+    private final int dataCalculationTime;
     private final float temperature;
     private final float feelsLike;
     private final float windSpeed;
@@ -14,8 +15,9 @@ public class WeatherResult {
     private final float snowmeasurement;
     private final String weatherDescription;
 
-    public WeatherResult(int time, float temperature, float feelsLike, float windSpeed, int windDirection, int percentageOfClouds, float precipitation, float snowmeasurement, String weatherDescription) {
-        this.time = time;
+    public WeatherResult(String city, int dataCalculationTime, float temperature, float feelsLike, float windSpeed, int windDirection, int percentageOfClouds, float precipitation, float snowmeasurement, String weatherDescription) {
+        this.city = city;
+        this.dataCalculationTime = dataCalculationTime;
         this.temperature = temperature;
         this.feelsLike = feelsLike;
         this.windSpeed = windSpeed;
@@ -26,8 +28,12 @@ public class WeatherResult {
         this.weatherDescription = weatherDescription;
     }
 
-    public int getTime() {
-        return time;
+    public String getCity() {
+        return city;
+    }
+
+    public int getDataCalculationTime() {
+        return dataCalculationTime;
     }
 
     public float getTemperature() {

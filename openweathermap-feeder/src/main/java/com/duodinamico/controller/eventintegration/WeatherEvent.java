@@ -1,6 +1,7 @@
 package com.duodinamico.controller.eventintegration;
 
-import com.duodinamico.domain.model.FlightModel;
+import com.duodinamico.controller.persistency.UnixConverter;
+import com.duodinamico.controller.persistency.UnixToUTCDateFormatter;
 
 import java.time.Instant;
 
@@ -8,24 +9,25 @@ public class WeatherEvent {
 
     private final String ts;
     private final String ss;
-    private final String flighticao;
-    private final String flightDate;
-    private final int time;
+    private final String city;
+    private final int dataCalculationTime;
+    private final String standardTime;
     private final float temperature;
+    private final int percentageOfClouds;
     private final float feelsLike;
     private final float windSpeed;
     private final int windDirection;
-    private final int percentageOfClouds;
     private final float precipitation;
     private final float snowmeasurement;
     private final String weatherDescription;
 
-    public WeatherEvent(String flightIcao, String flightDate, int time, float temperature, float feelsLike, float windSpeed, int windDirection, int percentageOfClouds, float precipitation, float snowmeasurement, String weatherDescription) {
+
+    public WeatherEvent(String city, int time, String standardTime, float temperature, float feelsLike, float windSpeed, int windDirection, int percentageOfClouds, float precipitation, float snowmeasurement, String weatherDescription) {
         this.ts = Instant.now().toString();
         this.ss = "OpenWeatherMapFeeder";
-        this.flighticao = flightIcao;
-        this.flightDate = flightDate;
-        this.time = time;
+        this.city = city;
+        this.dataCalculationTime = time;
+        this.standardTime = standardTime;
         this.temperature = temperature;
         this.feelsLike = feelsLike;
         this.windSpeed = windSpeed;
@@ -44,8 +46,17 @@ public class WeatherEvent {
         return ss;
     }
 
-    public int getTime() {
-        return time;
+
+    public String getCity() {
+        return this.city;
+    }
+
+    public int getDataCalculationTime() {
+        return this.dataCalculationTime;
+    }
+
+    public String getStandardTime() {
+        return this.standardTime;
     }
 
     public float getTemperature() {
