@@ -27,8 +27,8 @@ public class AviationStackProviderTest {
     public void aviationStackProviderTest() throws Exception {
         setUpForRegularCase();
         AviationStackProvider aviationStackProvider = new AviationStackProvider(apiKeys);
-        assertTrue(aviationStackProvider.flightProvider() instanceof FlightResponse);
-        System.out.println(aviationStackProvider.flightProvider().toString());
+        assertTrue(aviationStackProvider.flightProvider("dep_iata","LPA") instanceof FlightResponse);
+        System.out.println(aviationStackProvider.flightProvider("dep_iata","LPA").toString());
     }
 
 }
