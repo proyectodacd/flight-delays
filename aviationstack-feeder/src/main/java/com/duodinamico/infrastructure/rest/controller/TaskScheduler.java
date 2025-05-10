@@ -1,4 +1,4 @@
-package com.duodinamico.controller;
+package com.duodinamico.infrastructure.rest.controller;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

@@ -1,7 +1,6 @@
 package com.duodinamico.infrastructure.rest.controller;
 
 
-import com.duodinamico.controller.TaskScheduler;
 import com.duodinamico.infrastructure.adapters.apiconsumer.AviationStackProvider;
 import com.duodinamico.domain.ports.FlightStore;
 
@@ -26,7 +25,7 @@ public class FlightController {
     public void execute() {
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         Runnable tarea = () -> { runnableCreator(); };
-        this.taskScheduler.programarTarea(scheduler, tarea, 16, 25);
+        this.taskScheduler.programarTarea(scheduler, tarea, 12, 58);
         this.taskScheduler.programarTarea(scheduler, tarea, 23, 32);
 
         try {
