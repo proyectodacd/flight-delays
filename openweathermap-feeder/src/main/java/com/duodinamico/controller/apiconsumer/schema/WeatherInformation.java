@@ -6,7 +6,7 @@ import java.util.List;
 
 public class WeatherInformation {
     @SerializedName("dt")
-    private final int time;
+    private final int dataCalculationTime;
     @SerializedName("main")
     private final ThermalConditions thermalConditions;
     private final Wind wind;
@@ -16,18 +16,18 @@ public class WeatherInformation {
     private final Rain rain;
     private final Snow snow;
 
-    public WeatherInformation(Wind wind, Clouds clouds, int time, ThermalConditions thermalConditions, List<Description> description, Rain rain, Snow snow) {
+    public WeatherInformation(Wind wind, Clouds clouds, int dataCalculationTime, ThermalConditions thermalConditions, List<Description> description, Rain rain, Snow snow) {
         this.wind = wind;
         this.clouds = clouds;
-        this.time = time;
+        this.dataCalculationTime = dataCalculationTime;
         this.thermalConditions = thermalConditions;
         this.description = description;
         this.rain = rain;
         this.snow = snow;
     }
 
-    public int getTime() {
-        return time;
+    public int getDataCalculationTime() {
+        return dataCalculationTime;
     }
 
     public ThermalConditions getThermalConditions() {

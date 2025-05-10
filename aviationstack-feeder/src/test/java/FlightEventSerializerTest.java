@@ -30,7 +30,7 @@ public class FlightEventSerializerTest {
         AviationStackProvider aviationStackProvider = new AviationStackProvider(apiKeys);
         FlightEventSerializer flightEventSerializer = new FlightEventSerializer();
         FlightEventMapper flightEventMapper = new FlightEventMapper();
-        ArrayList<FlightEvent> flightEvents = flightEventMapper.mapToFlightEvents(aviationStackProvider.flightProvider());
+        ArrayList<FlightEvent> flightEvents = flightEventMapper.mapToFlightEvents(aviationStackProvider.flightProvider("dep_iata","LPA"));
         Assert.assertTrue(flightEventSerializer.serializeFlightEvent(flightEvents.getFirst()) instanceof String);
         System.out.println(flightEventSerializer.serializeFlightEvent(flightEvents.getFirst()));
     }

@@ -23,7 +23,7 @@ public class AviationStackProcessor {
         return currentKeyNumber;
     }
 
-    public Connection.Response flightsPetition() {
+    public Connection.Response flightsPetition(String airportType, String airportIata) {
         Connection.Response response;
         try {
             String endpoint = "https://api.aviationstack.com/v1/flights";
@@ -31,6 +31,7 @@ public class AviationStackProcessor {
             connection.ignoreContentType(true);
             connection.data("access_key", this.apiKeyList[this.currentKeyNumber]);
             connection.data("flight_status", "active");
+            connection.data(airportType, airportIata);
 
             response = connection.method(Connection.Method.GET).execute();
             return response;
@@ -41,7 +42,7 @@ public class AviationStackProcessor {
     }
 
 
-    public String petitionValidator(Connection.Response response) {
+    public String petitionValidator(Connection.Response response, String airportType, String airportIata) {
         int maxKeys = this.apiKeyList.length;
         int attempts = 0;
 
@@ -52,7 +53,7 @@ public class AviationStackProcessor {
 
             this.currentKeyNumber = (this.currentKeyNumber + 1) % maxKeys;
 
-            response = flightsPetition();
+            response = flightsPetition(airportType, airportIata);
 
             attempts++;
         }

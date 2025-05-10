@@ -17,10 +17,10 @@ public class AviationStackProvider implements FlightProvider {
     }
 
     @Override
-    public FlightResponse flightProvider() {
+    public FlightResponse flightProvider(String airportType, String airportIata) {
         AviationStackProcessor aviationStackProcessor = new AviationStackProcessor(this.apiKeys);
         FlightDeserializer flightDeserializer = new FlightDeserializer();
-        return flightDeserializer.flightDeserializer(aviationStackProcessor.petitionValidator(aviationStackProcessor.flightsPetition()));
+        return flightDeserializer.flightDeserializer(aviationStackProcessor.petitionValidator(aviationStackProcessor.flightsPetition(airportType, airportIata),airportType,airportIata));
     }
 
 }

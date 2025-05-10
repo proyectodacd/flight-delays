@@ -23,8 +23,9 @@ public class AviationStackProcessorTest {
     public void aviationStackProcessorTestNoInvalidKeys() throws Exception {
         setUpForRegularCase();
         AviationStackProcessor aviationStackProcessor = new AviationStackProcessor(apiKeys);
-        assertTrue(aviationStackProcessor.petitionValidator(aviationStackProcessor.flightsPetition()) instanceof String);
-        System.out.println(aviationStackProcessor.petitionValidator(aviationStackProcessor.flightsPetition()));
+        String result = aviationStackProcessor.petitionValidator(aviationStackProcessor.flightsPetition("dep_iata","MAD"),"dep_iata","MAD");
+        assertTrue(result instanceof String);
+        System.out.println(result);
         System.out.println(aviationStackProcessor.getApiKeyList()[aviationStackProcessor.getCurrentKeyNumber()]);
     }
 
@@ -39,8 +40,9 @@ public class AviationStackProcessorTest {
     public void aviationStackProcessorTestWithInvalidKeys() throws Exception {
         setUpForWeirdCase();
         AviationStackProcessor aviationStackProcessor = new AviationStackProcessor(apiKeys);
-        assertTrue(aviationStackProcessor.petitionValidator(aviationStackProcessor.flightsPetition()) instanceof String);
-        System.out.println(aviationStackProcessor.petitionValidator(aviationStackProcessor.flightsPetition()));
+        String result = aviationStackProcessor.petitionValidator(aviationStackProcessor.flightsPetition("arr_iata","MAD"),"arr_iata","MAD");
+        assertTrue(result instanceof String);
+        System.out.println(result);
         System.out.println(aviationStackProcessor.getApiKeyList()[aviationStackProcessor.getCurrentKeyNumber()]);
     }
 }
