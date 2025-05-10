@@ -9,7 +9,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
 import java.util.ArrayList;
 
-public class FlightEventStore implements FlightStore<FlightEvent>{
+public class FlightEventStore implements FlightStore{
 
 
     private final String url;
@@ -60,12 +60,7 @@ public class FlightEventStore implements FlightStore<FlightEvent>{
     }
 
 
-    @Override
-    public ArrayList<FlightEvent> loadFlights() {
-        FlightEventsFileReader flightEventsFileReader = new FlightEventsFileReader();
-        ArrayList<FlightEvent> flightEvents = flightEventsFileReader.extractFlightEventsFromFile();
-        return flightEvents;
-    }
+
 
 
 }

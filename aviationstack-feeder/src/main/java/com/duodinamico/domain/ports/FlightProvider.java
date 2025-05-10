@@ -6,5 +6,5 @@ import com.duodinamico.infrastructure.adapters.apiconsumer.schema.FlightResponse
 import java.util.ArrayList;
 
 public interface FlightProvider {
-    public FlightResponse flightProvider();
+    public FlightResponse flightProvider(String airportType, String airportIata);
 }

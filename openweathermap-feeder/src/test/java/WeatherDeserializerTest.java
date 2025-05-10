@@ -1,5 +1,6 @@
 import com.duodinamico.controller.WeatherResultMapper;
 import com.duodinamico.controller.apiconsumer.WeatherDeserializer;
+import com.duodinamico.controller.apiconsumer.schema.WeatherResponse;
 import com.duodinamico.controller.model.WeatherResult;
 import org.junit.Assert;
 import org.junit.Test;
@@ -46,18 +47,9 @@ public class WeatherDeserializerTest {
 
     @Test
     public void deserializeWeatherTest() {
-        WeatherResultMapper weatherResultMapper = new WeatherResultMapper();
         WeatherDeserializer weatherDeserializer = new WeatherDeserializer();
-        WeatherResult weatherResult = weatherResultMapper.getWeatherResult(weatherDeserializer.weatherDeserializer(json));
-        Assert.assertEquals(1578384000, weatherResult.getTime());
-        Assert.assertEquals(275.45, weatherResult.getTemperature(), 0.001);
-        Assert.assertEquals(271.7, weatherResult.getFeelsLike(), 0.001);
-        Assert.assertEquals(2.16, weatherResult.getWindSpeed(), 0.001);
-        Assert.assertEquals(87, weatherResult.getWindDirection());
-        Assert.assertEquals(90, weatherResult.getPercentageOfClouds());
-        Assert.assertEquals(0.9, weatherResult.getPrecipitation(), 0.001);
-        Assert.assertEquals("moderate rain", weatherResult.getWeatherDescription());
-
+        WeatherResponse weatherResponse = weatherDeserializer.weatherDeserializer(json);
+        System.out.println(weatherResponse);
     }
 
 

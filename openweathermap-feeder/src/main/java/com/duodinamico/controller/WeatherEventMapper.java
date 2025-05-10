@@ -1,26 +1,31 @@
 package com.duodinamico.controller;
 
+import com.duodinamico.controller.apiconsumer.schema.WeatherInformation;
 import com.duodinamico.controller.apiconsumer.schema.WeatherResponse;
 import com.duodinamico.controller.eventintegration.WeatherEvent;
-import com.duodinamico.domain.model.FlightEvent;
-import com.duodinamico.domain.model.FlightModel;
+import com.duodinamico.controller.model.WeatherResult;
+import com.duodinamico.controller.persistency.UnixToUTCDateFormatter;
+
+import java.util.ArrayList;
 
 public class WeatherEventMapper {
-    public WeatherEvent getWeatherEvent(FlightEvent flightEvent, WeatherResponse weatherResponse) {
-        WeatherEvent weatherEvent = new WeatherEvent(
-                flightEvent.getFlightIcao(),
-                flightEvent.getFlightDate(),
-                weatherResponse.getList().getFirst().getTime(),
-                weatherResponse.getList().getFirst().getThermalConditions().getTemperature(),
-                weatherResponse.getList().getFirst().getThermalConditions().getFeelsLike(),
-                weatherResponse.getList().getFirst().getWind().getSpeed(),
-                weatherResponse.getList().getFirst().getWind().getDeg(),
-                weatherResponse.getList().getFirst().getClouds().getCloudiness(),
-                weatherResponse.getList().getFirst().getRain().getRainOneHour(),
-                weatherResponse.getList().getFirst().getSnow().getSnowOneHour(),
-                weatherResponse.getList().getFirst().getDescription().getFirst().getDescription()
-
-        );
-        return weatherEvent;
+    public ArrayList<WeatherEvent> getWeatherEvent(WeatherResponse weatherResponse, String city) {
+        ArrayList<WeatherEvent> weatherEventArrayList = new ArrayList<>();
+        UnixToUTCDateFormatter unixToUTCDateFormatter = new UnixToUTCDateFormatter();
+        for (WeatherInformation weatherInformation : weatherResponse.getList()){
+            WeatherEvent weatherEvent = new WeatherEvent(city,
+                    weatherInformation.getDataCalculationTime(),
+                    unixToUTCDateFormatter.formatUnixSecondsToISO8601UTC(weatherInformation.getDataCalculationTime()),
+                    weatherInformation.getThermalConditions().getTemperature(),
+                    weatherInformation.getThermalConditions().getFeelsLike(),
+                    weatherInformation.getWind().getSpeed(),
+                    weatherInformation.getWind().getDeg(),
+                    weatherInformation.getClouds().getCloudiness(),
+                    weatherInformation.getRain().getRainOneHour(),
+                    weatherInformation.getSnow().getSnowOneHour(),
+                    weatherInformation.getDescription().getFirst().getDescription());
+            weatherEventArrayList.add(weatherEvent);
+        }
+        return weatherEventArrayList;
     }
 }

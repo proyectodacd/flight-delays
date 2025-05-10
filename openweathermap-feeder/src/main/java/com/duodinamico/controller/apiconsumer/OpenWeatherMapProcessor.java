@@ -1,6 +1,7 @@
 package com.duodinamico.controller.apiconsumer;
 
 import com.duodinamico.controller.persistency.Coordinates;
+import org.apache.activemq.command.Response;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
@@ -19,21 +20,26 @@ public class OpenWeatherMapProcessor {
 
 
     public String weatherPetition(Coordinates coordinates, String time) {
-        Connection.Response response;
-        try {
-            String endpoint = "https://history.openweathermap.org/data/2.5/history/city";
-            Connection connection = Jsoup.connect(endpoint);
-            connection.ignoreContentType(true);
-            connection.data("lon", String.valueOf(coordinates.getLongitude()));
-            connection.data("lat", String.valueOf(coordinates.getLatitude()));
-            connection.data("type", "hour");
-            connection.data("appid", this.apiKey);
-            connection.data("units", "metric");
-            connection.data("start", time);
-            connection.data("cnt", "1");
+        String endpoint = "https://history.openweathermap.org/data/2.5/history/city";
+        Connection connection = Jsoup.connect(endpoint);
+        connection.ignoreContentType(true);
+        connection.data("lon", String.valueOf(coordinates.getLongitude()));
+        connection.data("lat", String.valueOf(coordinates.getLatitude()));
+        connection.data("start", time);
+        return executePetition(connection).body();
+    }
 
-            response = connection.method(Connection.Method.GET).execute();
-            return response.body();
+    public void adjustAdditionalParameters(Connection connection) {
+        connection.data("type", "hour");
+        connection.data("appid", this.apiKey);
+        connection.data("units", "metric");
+        connection.data("cnt", "24");
+    }
+
+    public Connection.Response executePetition(Connection connection) {
+        try {
+            adjustAdditionalParameters(connection);
+            return connection.method(Connection.Method.GET).execute();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

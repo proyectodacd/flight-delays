@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class FlightSQLStore implements FlightStore<FlightModel> {
+public class FlightSQLStore implements FlightStore {
 
     private final String dbPath;
     private FlightModelMapper mapper;
@@ -44,7 +44,6 @@ public class FlightSQLStore implements FlightStore<FlightModel> {
         }
     }
 
-    @Override
     public ArrayList<FlightModel> loadFlights(){
         SQLConnection sql = new SQLConnection();
         SQLRetrieverFlights sqlretriever = new SQLRetrieverFlights();
