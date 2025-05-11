@@ -25,7 +25,7 @@ public class FlightController {
     public void execute() {
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         Runnable tarea = () -> { runnableCreator(); };
-        this.taskScheduler.programarTarea(scheduler, tarea, 12, 58);
+        this.taskScheduler.programarTarea(scheduler, tarea, 16, 23);
         this.taskScheduler.programarTarea(scheduler, tarea, 23, 32);
 
         try {
@@ -38,7 +38,7 @@ public class FlightController {
     public void runnableCreator(){
         System.out.println("Ejecutando FlightController a las: " + LocalDateTime.now());
         for (String airportType: List.of("dep_iata","arr_iata")) {
-            for (String airportIata: List.of("MAD","BCN","LPA")) {
+            for (String airportIata: List.of("MAD","AMS","JFK","ZRH")) {
                 flightStore.saveFlights(aviationStackProvider.flightProvider(airportType, airportIata));
             }
         }

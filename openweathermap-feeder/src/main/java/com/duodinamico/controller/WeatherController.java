@@ -31,7 +31,7 @@ public class WeatherController {
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         Runnable tarea2 = () -> { runnableCreator(); };
 
-        taskScheduler.programarTarea(scheduler, tarea2, 13, 3);
+        taskScheduler.programarTarea(scheduler, tarea2, 16, 28);
         try {
             scheduler.awaitTermination(1, TimeUnit.DAYS);
         } catch (InterruptedException e) {
@@ -41,7 +41,7 @@ public class WeatherController {
 
     public void runnableCreator() {
         System.out.println("Ejecutando WeatherController a las: " + LocalDateTime.now());
-        for (String airportIata : List.of("MAD","BCN","LPA")){
+        for (String airportIata : List.of("MAD","AMS","JFK","ZRH")){
             weatherStore.saveWeather(openWeatherMapProvider.weatherProvider(airportToCoordinates.getAirportCoordinates(airportIata), unixConverter.findUnixOfYesterday()), airportIata);
         }
         System.out.println("Clima de aeropuertos guardados.");
