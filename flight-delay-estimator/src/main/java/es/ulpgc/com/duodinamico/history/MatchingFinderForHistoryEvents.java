@@ -1,4 +1,4 @@
-package es.ulpgc.com.duodinamico;
+package es.ulpgc.com.duodinamico.history;
 
 import com.duodinamico.controller.eventintegration.WeatherEvent;
 import com.duodinamico.domain.model.FlightEvent;

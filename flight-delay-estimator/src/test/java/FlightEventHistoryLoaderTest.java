@@ -1,11 +1,6 @@
-import com.duodinamico.domain.model.FlightEvent;
-import es.ulpgc.com.duodinamico.FlightEventHistoryLoader;
 import org.junit.Test;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 public class FlightEventHistoryLoaderTest {
 

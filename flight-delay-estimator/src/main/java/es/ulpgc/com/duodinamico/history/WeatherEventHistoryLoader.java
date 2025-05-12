@@ -1,9 +1,7 @@
-package es.ulpgc.com.duodinamico;
+package es.ulpgc.com.duodinamico.history;
 
 import com.duodinamico.controller.eventintegration.WeatherEvent;
 import com.duodinamico.controller.eventintegration.WeatherEventDeserializer;
-import com.duodinamico.domain.model.FlightEvent;
-import com.duodinamico.infrastructure.adapters.activemq.FlightEventDeserializer;
 
 import java.io.BufferedReader;
 import java.io.File;

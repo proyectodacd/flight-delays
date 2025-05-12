@@ -1,4 +1,4 @@
-package es.ulpgc.com.duodinamico;
+package es.ulpgc.com.duodinamico.modelling;
 
 public class ValuableContentForPrediction {
 

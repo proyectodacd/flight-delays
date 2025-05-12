@@ -31,7 +31,7 @@ public class WeatherController {
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         Runnable tarea2 = () -> { runnableCreator(); };
 
-        taskScheduler.programarTarea(scheduler, tarea2, 16, 28);
+        taskScheduler.programarTarea(scheduler, tarea2, 12, 43);
         try {
             scheduler.awaitTermination(1, TimeUnit.DAYS);
         } catch (InterruptedException e) {

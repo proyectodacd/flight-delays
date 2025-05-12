@@ -1,11 +1,6 @@
-import com.duodinamico.controller.eventintegration.WeatherEvent;
-import es.ulpgc.com.duodinamico.WeatherEventHistoryLoader;
 import org.junit.Test;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 public class WeatherEventHistoryLoaderTest {
 

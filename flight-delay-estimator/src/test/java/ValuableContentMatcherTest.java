@@ -1,15 +1,7 @@
-import com.duodinamico.controller.eventintegration.WeatherEvent;
-import com.duodinamico.domain.model.FlightEvent;
-import es.ulpgc.com.duodinamico.MatchingFinderForHistoryEvents;
-import es.ulpgc.com.duodinamico.ValuableContentForPrediction;
-import es.ulpgc.com.duodinamico.ValuableContentMatcher;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class ValuableContentMatcherTest {
 

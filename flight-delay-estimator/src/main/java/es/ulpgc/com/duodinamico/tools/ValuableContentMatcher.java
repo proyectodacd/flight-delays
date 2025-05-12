@@ -1,8 +1,9 @@
-package es.ulpgc.com.duodinamico;
+package es.ulpgc.com.duodinamico.tools;
 
 import com.duodinamico.controller.eventintegration.WeatherEvent;
 import com.duodinamico.controller.persistency.UnixConverter;
 import com.duodinamico.domain.model.FlightEvent;
+import es.ulpgc.com.duodinamico.modelling.ValuableContentForPrediction;
 
 import java.util.*;
 

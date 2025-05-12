@@ -1,6 +1,8 @@
-package es.ulpgc.com.duodinamico;
+package es.ulpgc.com.duodinamico.history;
 
 import com.opencsv.CSVWriter;
+import es.ulpgc.com.duodinamico.modelling.ValuableContentForPrediction;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
