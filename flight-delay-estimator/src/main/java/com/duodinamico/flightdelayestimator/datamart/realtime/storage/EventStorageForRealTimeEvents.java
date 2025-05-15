@@ -1,4 +1,4 @@
-package com.duodinamico.realtime.storage;
+package com.duodinamico.flightdelayestimator.datamart.realtime.storage;
 
 public class EventStorageForRealTimeEvents {
 

@@ -1,4 +1,4 @@
-package com.duodinamico.eventstorebuilder.application.usecases.eventstorebuilder;
+package com.duodinamico.eventstorebuilder.application.usecases.eventstorebuildermanager;
 
 import com.duodinamico.openweathermapfeeder.domain.model.WeatherEvent;
 import com.duodinamico.aviationstackfeeder.domain.model.FlightEvent;
@@ -7,7 +7,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
-public class EventsFilePathGeneratorForWriting {
+public class EventsFilePathGenerator {
 
     public String getFlightsFilePathForWriting(FlightEvent flightEvent) {
         String topic = "Flights";

@@ -1,26 +1,23 @@
-package com.duodinamico.realtime.storage;
-
+package com.duodinamico.eventstorebuilder.application.usecases.eventstorebuildermanager;
 import jakarta.jms.*;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import java.util.List;
 import java.util.UUID;
 
-public class EventListenerForRealTimeEvents {
+public class EventConsumer {
 
     private final String url;
     private final List<String> topicNames;
-    private final String clientID = "datamart-" + UUID.randomUUID();
-    private final EventStorageForRealTimeEvents eventStorage;
+    private final String clientID = "event-store-builder-" + UUID.randomUUID();
+    private final EventStorage eventStorage = new EventStorage(new EventsFilePathGenerator());
 
-
-    public EventListenerForRealTimeEvents(String url, List<String> topicNames, EventStorageForRealTimeEvents eventStorage) {
+    public EventConsumer(String url, List<String> topicNames) {
         this.url = url;
         this.topicNames = topicNames;
-        this.eventStorage = eventStorage;
     }
 
-    public void consumeRealTimeEvents() throws JMSException {
+    public void consumeEvents() throws JMSException {
         ConnectionFactory factory = new ActiveMQConnectionFactory(url);
         Connection connection = factory.createConnection();
         connection.setClientID(clientID);
@@ -28,12 +25,12 @@ public class EventListenerForRealTimeEvents {
 
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-        System.out.println("Datamart ahora escuchando a los topics: " + topicNames);
+        System.out.println("EventStoreBuilder ahora escuchando a los topics: " + topicNames);
         System.out.println("----------------------------");
 
         for (String topicName : topicNames) {
             Topic topic = session.createTopic(topicName);
-            String subscriptionName = topicName + "-subscription for Datamart";
+            String subscriptionName = topicName + "-subscription for EventStoreBuilder";
 
             MessageConsumer consumer = session.createDurableSubscriber(topic, subscriptionName);
 
@@ -41,8 +38,8 @@ public class EventListenerForRealTimeEvents {
                 if (message instanceof TextMessage) {
                     try {
                         String json = ((TextMessage) message).getText();
-                        this.eventStorage.saveRealTimeEventToDatamart(json,topicName);
-                        System.out.println("Mensaje guardado en Datamart, de [" + topicName + "]: " + json);
+                        eventStorage.saveToEventsFile(json, topicName);
+                        System.out.println("Mensaje guardado en EventStore, de [" + topicName + "]: " + json);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

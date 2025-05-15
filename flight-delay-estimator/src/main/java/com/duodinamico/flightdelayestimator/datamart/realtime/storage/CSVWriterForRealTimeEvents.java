@@ -1,4 +1,4 @@
-package com.duodinamico.realtime.storage;
+package com.duodinamico.flightdelayestimator.datamart.realtime.storage;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

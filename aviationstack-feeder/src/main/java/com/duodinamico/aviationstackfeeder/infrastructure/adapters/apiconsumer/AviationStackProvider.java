@@ -7,9 +7,15 @@ import com.duodinamico.aviationstackfeeder.domain.schema.FlightResponse;
 public class AviationStackProvider implements FlightProvider {
 
     private final String[] apiKeys;
+    private final String[] preferredAirports;
 
-    public AviationStackProvider(String[] apiKeys) {
+    public AviationStackProvider(String[] apiKeys, String[] preferredAirports) {
         this.apiKeys = apiKeys;
+        this.preferredAirports = preferredAirports;
+    }
+
+    public String[] getPreferredAirports() {
+        return preferredAirports;
     }
 
     @Override

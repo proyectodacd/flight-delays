@@ -1,4 +1,4 @@
-package com.duodinamico.eventstorebuilder.application.usecases.eventstorebuilder;
+package com.duodinamico.eventstorebuilder.application.usecases.eventstorebuildermanager;
 
 import com.duodinamico.openweathermapfeeder.infrastructure.adapters.store.activemq.WeatherEventDeserializer;
 import com.duodinamico.aviationstackfeeder.infrastructure.adapters.store.activemq.FlightEventDeserializer;
@@ -10,11 +10,11 @@ import java.io.IOException;
 
 public class EventStorage {
 
-    private EventsFilePathGeneratorForWriting filePathGenerator;
+    private EventsFilePathGenerator filePathGenerator;
     private FlightEventDeserializer flightEventDeserializer;
     private WeatherEventDeserializer weatherEventDeserializer;
 
-    public EventStorage(EventsFilePathGeneratorForWriting filePathGenerator) {
+    public EventStorage(EventsFilePathGenerator filePathGenerator) {
         this.filePathGenerator = filePathGenerator;
         this.flightEventDeserializer = new FlightEventDeserializer();
         this.weatherEventDeserializer = new WeatherEventDeserializer();

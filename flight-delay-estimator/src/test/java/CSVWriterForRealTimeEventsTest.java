@@ -1,4 +1,4 @@
-import com.duodinamico.realtime.storage.CSVWriterForRealTimeEvents;
+import com.duodinamico.flightdelayestimator.datamart.realtime.storage.CSVWriterForRealTimeEvents;
 import org.junit.Test;
 
 public class CSVWriterForRealTimeEventsTest {

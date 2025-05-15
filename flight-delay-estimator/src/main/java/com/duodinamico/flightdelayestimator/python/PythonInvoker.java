@@ -1,25 +1,27 @@
-package com.duodinamico.tools;
+package com.duodinamico.flightdelayestimator.python;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
-public class PythonInvoker {
+public class PythonInvoker implements ProcessInvoker{
 
-    public PythonInvoker() {
+    private final String processedDatamartFilePath;
+
+    public PythonInvoker(String processedDatamartFilePath) {
+        this.processedDatamartFilePath = processedDatamartFilePath;
     }
 
-    public void executePythonScript() throws IOException, InterruptedException {
+    @Override
+    public void executeExternalProcess() throws IOException, InterruptedException {
+        System.out.println("Entrenando modelos predictivos...");
+
         File script = copiarRecursoAArchivo("script.py", "script.py");
         File csv = copiarRecursoAArchivo("datamart-processed-data.csv", "datos.csv");
-        ProcessBuilder pb = new ProcessBuilder("python3", script.getAbsolutePath(), csv.getAbsolutePath());
-        pb.inheritIO();
+        ProcessBuilder pb = new ProcessBuilder("python", script.getAbsolutePath(), csv.getAbsolutePath(), this.processedDatamartFilePath);
         Process process = pb.start();
-        int exitCode = process.waitFor();
-        System.out.println("Código de salida: " + exitCode);
+        String exitCode = process.waitFor() == 0 ? "Modelos entrenados con éxito."  : "Error al entrenar los modelos.";
+        System.out.println(exitCode);
     }
 
     private File copiarRecursoAArchivo(String recurso, String nombreArchivoDestino) throws IOException {

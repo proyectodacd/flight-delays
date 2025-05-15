@@ -1,4 +1,4 @@
-package com.duodinamico.history;
+package com.duodinamico.flightdelayestimator.datamart.history;
 
 import com.duodinamico.aviationstackfeeder.domain.model.FlightEvent;
 import com.duodinamico.aviationstackfeeder.infrastructure.adapters.store.activemq.FlightEventDeserializer;
