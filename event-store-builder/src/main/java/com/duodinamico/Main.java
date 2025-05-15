@@ -1,5 +1,6 @@
 package com.duodinamico;
 
+import com.duodinamico.eventstorebuilder.application.usecases.eventstorebuilder.EventConsumer;
 import jakarta.jms.JMSException;
 
 import java.util.Arrays;

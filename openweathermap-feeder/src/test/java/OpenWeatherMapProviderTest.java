@@ -1,9 +1,7 @@
-import com.duodinamico.controller.WeatherEventMapper;
-import com.duodinamico.controller.WeatherResultMapper;
-import com.duodinamico.controller.apiconsumer.OpenWeatherMapProvider;
-import com.duodinamico.controller.eventintegration.WeatherEvent;
-import com.duodinamico.controller.persistency.Coordinates;
-import com.duodinamico.controller.model.WeatherResult;
+import com.duodinamico.openweathermapfeeder.tools.mappers.WeatherEventMapper;
+import com.duodinamico.openweathermapfeeder.infrastructure.adapters.apiconsumer.OpenWeatherMapProvider;
+import com.duodinamico.openweathermapfeeder.domain.model.WeatherEvent;
+import com.duodinamico.openweathermapfeeder.domain.model.Coordinates;
 import org.junit.Before;
 import org.junit.Test;
 

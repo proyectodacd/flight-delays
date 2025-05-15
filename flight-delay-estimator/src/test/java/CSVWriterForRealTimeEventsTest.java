@@ -1,4 +1,4 @@
-import es.ulpgc.com.duodinamico.realtime.CSVWriterForRealTimeEvents;
+import com.duodinamico.realtime.storage.CSVWriterForRealTimeEvents;
 import org.junit.Test;
 
 public class CSVWriterForRealTimeEventsTest {

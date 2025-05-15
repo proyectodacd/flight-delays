@@ -1,7 +1,7 @@
-import com.duodinamico.infrastructure.adapters.apiconsumer.AviationStackProvider;
-import com.duodinamico.domain.model.FlightEvent;
-import com.duodinamico.infrastructure.adapters.activemq.FlightEventSerializer;
-import com.duodinamico.infrastructure.adapters.mappers.FlightEventMapper;
+import com.duodinamico.aviationstackfeeder.infrastructure.adapters.apiconsumer.AviationStackProvider;
+import com.duodinamico.aviationstackfeeder.domain.model.FlightEvent;
+import com.duodinamico.aviationstackfeeder.infrastructure.adapters.store.activemq.FlightEventSerializer;
+import com.duodinamico.aviationstackfeeder.tools.mappers.FlightEventMapper;
 import org.junit.Assert;
 import org.junit.Before;
 

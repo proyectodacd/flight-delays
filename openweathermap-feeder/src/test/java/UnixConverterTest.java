@@ -1,4 +1,4 @@
-import com.duodinamico.controller.persistency.UnixConverter;
+import com.duodinamico.openweathermapfeeder.tools.converters.UnixConverter;
 import org.junit.Assert;
 import org.junit.Test;
 

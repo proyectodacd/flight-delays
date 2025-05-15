@@ -1,11 +1,7 @@
-import com.duodinamico.infrastructure.adapters.apiconsumer.schema.FlightResponse;
-import com.duodinamico.infrastructure.adapters.mappers.FlightModelMapper;
-import com.duodinamico.infrastructure.adapters.apiconsumer.FlightDeserializer;
-import com.duodinamico.domain.model.FlightModel;
-import org.junit.Assert;
+import com.duodinamico.aviationstackfeeder.domain.schema.FlightResponse;
+import com.duodinamico.aviationstackfeeder.tools.mappers.FlightModelMapper;
+import com.duodinamico.aviationstackfeeder.infrastructure.adapters.apiconsumer.FlightDeserializer;
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

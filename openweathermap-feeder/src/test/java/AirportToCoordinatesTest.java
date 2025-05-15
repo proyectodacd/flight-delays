@@ -1,5 +1,5 @@
-import com.duodinamico.controller.persistency.AirportToCoordinates;
-import com.duodinamico.controller.persistency.Coordinates;
+import com.duodinamico.openweathermapfeeder.tools.converters.AirportToCoordinates;
+import com.duodinamico.openweathermapfeeder.domain.model.Coordinates;
 import org.junit.Before;
 import org.junit.Test;
 

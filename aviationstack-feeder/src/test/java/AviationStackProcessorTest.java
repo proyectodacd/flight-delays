@@ -1,4 +1,4 @@
-import com.duodinamico.infrastructure.adapters.apiconsumer.AviationStackProcessor;
+import com.duodinamico.aviationstackfeeder.infrastructure.adapters.apiconsumer.AviationStackProcessor;
 import org.junit.Before;
 
 import java.nio.file.Files;

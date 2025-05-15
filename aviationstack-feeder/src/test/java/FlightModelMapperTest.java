@@ -1,8 +1,6 @@
-import com.duodinamico.domain.model.FlightEvent;
-import com.duodinamico.domain.model.FlightModel;
-import com.duodinamico.infrastructure.adapters.apiconsumer.AviationStackProvider;
-import com.duodinamico.infrastructure.adapters.mappers.FlightEventMapper;
-import com.duodinamico.infrastructure.adapters.mappers.FlightModelMapper;
+import com.duodinamico.aviationstackfeeder.domain.model.FlightModel;
+import com.duodinamico.aviationstackfeeder.infrastructure.adapters.apiconsumer.AviationStackProvider;
+import com.duodinamico.aviationstackfeeder.tools.mappers.FlightModelMapper;
 import org.junit.Before;
 import org.junit.Test;
 
