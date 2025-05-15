@@ -1,11 +1,10 @@
-package com.duodinamico;
-import com.duodinamico.tools.DatamartManager;
-import com.duodinamico.history.MatchingFinderForHistoryEvents;
-import com.duodinamico.realtime.processing.MatchingFinderForRealTimeEvents;
-import com.duodinamico.realtime.storage.EventListenerForRealTimeEvents;
-import com.duodinamico.tools.PythonInvoker;
-import com.duodinamico.tools.TaskScheduler;
-import com.duodinamico.tools.ValuableContentMatcher;
+package com.duodinamico.flightdelayestimator.datamart;
+import com.duodinamico.flightdelayestimator.datamart.tools.DatamartManager;
+import com.duodinamico.flightdelayestimator.datamart.history.MatchingFinderForHistoryEvents;
+import com.duodinamico.flightdelayestimator.datamart.realtime.processing.MatchingFinderForRealTimeEvents;
+import com.duodinamico.flightdelayestimator.datamart.realtime.storage.EventListenerForRealTimeEvents;
+import com.duodinamico.flightdelayestimator.datamart.tools.TaskScheduler;
+import com.duodinamico.flightdelayestimator.datamart.tools.ValuableContentMatcher;
 import jakarta.jms.JMSException;
 import java.io.IOException;
 import java.text.ParseException;
@@ -21,16 +20,14 @@ public class DatamartServiceController {
     private final EventListenerForRealTimeEvents eventListenerForRealTimeEvents;
     private final MatchingFinderForRealTimeEvents matchingFinderForRealTimeEvents;
     private final TaskScheduler taskScheduler;
-    private final PythonInvoker pythonInvoker;
 
-    public DatamartServiceController(ValuableContentMatcher valuableContentMatcher, MatchingFinderForHistoryEvents matchingFinderForHistoryEvents, DatamartManager datamartManager, EventListenerForRealTimeEvents eventListenerForRealTimeEvents, MatchingFinderForRealTimeEvents matchingFinderForRealTimeEvents, TaskScheduler taskScheduler, PythonInvoker pythonInvoker) {
+    public DatamartServiceController(ValuableContentMatcher valuableContentMatcher, MatchingFinderForHistoryEvents matchingFinderForHistoryEvents, DatamartManager datamartManager, EventListenerForRealTimeEvents eventListenerForRealTimeEvents, MatchingFinderForRealTimeEvents matchingFinderForRealTimeEvents, TaskScheduler taskScheduler) {
         this.eventListenerForRealTimeEvents = eventListenerForRealTimeEvents;
         this.valuableContentMatcher = valuableContentMatcher;
         this.matchingFinderForHistoryEvents = matchingFinderForHistoryEvents;
         this.datamartManager = datamartManager;
         this.matchingFinderForRealTimeEvents = matchingFinderForRealTimeEvents;
         this.taskScheduler = taskScheduler;
-        this.pythonInvoker = pythonInvoker;
     }
 
     public void execute() throws IOException, InterruptedException {
@@ -40,9 +37,8 @@ public class DatamartServiceController {
         //saveHistoryToDatamart();
         System.out.println("----------------------------");
         listenToRealTimeEvents();
-        //this.pythonInvoker.executePythonScript();
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-        Runnable refreshDatamart = () -> {matchRealTimeEventsIfPossible();};
+        Runnable refreshDatamart = () -> {matchRealTimeEvents();};
         this.taskScheduler.programarTareaCadaMinuto(scheduler, refreshDatamart);
         try {
             scheduler.awaitTermination(1, TimeUnit.DAYS);
@@ -71,12 +67,11 @@ public class DatamartServiceController {
         }
     }
 
-    public void matchRealTimeEventsIfPossible() {
+    public void matchRealTimeEvents() {
         try {
             if (this.matchingFinderForRealTimeEvents.findPossibleMatchesForRealTimeEvents().size() != 0) {
                 System.out.println("Actualizando Datamart a partir de eventos en tiempo real...");
                 this.datamartManager.writeCleanContentToDatamart(this.valuableContentMatcher.mapToValuableContent(this.matchingFinderForRealTimeEvents.findPossibleMatchesForRealTimeEvents()));
-                //this.pythonInvoker.executePythonScript();
             }
         } catch (IOException | ParseException e) {
             throw new RuntimeException(e);

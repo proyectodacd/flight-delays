@@ -1,4 +1,4 @@
-package com.duodinamico.modelling;
+package com.duodinamico.flightdelayestimator.datamart.modelling;
 
 public class ValuableContentForPrediction {
 

@@ -1,7 +1,5 @@
-package com.duodinamico.tools;
+package com.duodinamico.flightdelayestimator.datamart.tools;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 

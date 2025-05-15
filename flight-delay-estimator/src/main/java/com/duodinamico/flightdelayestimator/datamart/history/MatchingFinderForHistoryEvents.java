@@ -1,4 +1,4 @@
-package com.duodinamico.history;
+package com.duodinamico.flightdelayestimator.datamart.history;
 
 import com.duodinamico.openweathermapfeeder.domain.model.WeatherEvent;
 import com.duodinamico.aviationstackfeeder.domain.model.FlightEvent;

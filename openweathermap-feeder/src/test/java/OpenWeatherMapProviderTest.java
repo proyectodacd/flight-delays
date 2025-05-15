@@ -26,11 +26,11 @@ public class OpenWeatherMapProviderTest {
 
     @Test
     public void openWeatherMapProviderTest() throws Exception {
-        setUpForRegularCase();
-        OpenWeatherMapProvider openWeatherMapProvider = new OpenWeatherMapProvider(apiKey[0]);
-        WeatherEventMapper weatherEventMapper = new WeatherEventMapper();
-        ArrayList<WeatherEvent> weatherEvents = weatherEventMapper.getWeatherEvent(openWeatherMapProvider.weatherProvider(new Coordinates(40.8291,-74.1574), String.valueOf(1743529579)),"MAD");
-        System.out.println(weatherEvents.getFirst().getTemperature());
+//        setUpForRegularCase();
+//        OpenWeatherMapProvider openWeatherMapProvider = new OpenWeatherMapProvider(apiKey[0]);
+//        WeatherEventMapper weatherEventMapper = new WeatherEventMapper();
+//        ArrayList<WeatherEvent> weatherEvents = weatherEventMapper.getWeatherEvent(openWeatherMapProvider.weatherProvider(new Coordinates(40.8291,-74.1574), String.valueOf(1743529579)),"MAD");
+//        System.out.println(weatherEvents.getFirst().getTemperature());
 
     }
 

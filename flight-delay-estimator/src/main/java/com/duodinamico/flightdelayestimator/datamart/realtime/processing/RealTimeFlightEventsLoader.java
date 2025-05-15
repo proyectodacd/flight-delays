@@ -1,7 +1,7 @@
-package com.duodinamico.realtime.processing;
+package com.duodinamico.flightdelayestimator.datamart.realtime.processing;
 
-import com.duodinamico.openweathermapfeeder.domain.model.WeatherEvent;
-import com.duodinamico.openweathermapfeeder.infrastructure.adapters.store.activemq.WeatherEventDeserializer;
+import com.duodinamico.aviationstackfeeder.domain.model.FlightEvent;
+import com.duodinamico.aviationstackfeeder.infrastructure.adapters.store.activemq.FlightEventDeserializer;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -11,23 +11,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RealTimeWeatherEventsLoader {
+public class RealTimeFlightEventsLoader {
     private final String datamartPartition;
-    private final WeatherEventDeserializer deserializer = new WeatherEventDeserializer();
+    private final FlightEventDeserializer deserializer = new FlightEventDeserializer();
 
-    public RealTimeWeatherEventsLoader(String datamartPartition) {
+    public RealTimeFlightEventsLoader(String datamartPartition) {
         this.datamartPartition = datamartPartition;
     }
 
-    public Map<String, List<WeatherEvent>> loadWeatherEventsFromDatamartPartition() throws IOException {
-        Map<String, List<WeatherEvent>> result = new HashMap<>();
+    public Map<String, List<FlightEvent>> loadFlightEventsFromDatamartPartition() throws IOException {
+        Map<String, List<FlightEvent>> result = new HashMap<>();
         List<String> ids = getUniqueIds(this.datamartPartition);
         for (String id : ids) {
-            List<WeatherEvent> weatherEvents = new ArrayList<>();
-            for (String json : getJsonsById(this.datamartPartition,id)) { weatherEvents.add(this.deserializer.deserializeWeatherEvent(cleanEscapedJson(json))); }
+            List<FlightEvent> flightEvents = new ArrayList<>();
+            for (String json : getJsonsById(this.datamartPartition,id)) { flightEvents.add(this.deserializer.deserializeFlightEvent(cleanEscapedJson(json))); }
             System.out.println(id);
-            System.out.println(weatherEvents);
-            result.put(id, weatherEvents);
+            System.out.println(flightEvents);
+            result.put(id, flightEvents);
         }
         return result;
     }
@@ -58,4 +58,5 @@ public class RealTimeWeatherEventsLoader {
                 .replace("\"\"", "\"")
                 .replaceAll("^\"|\"$", "");
     }
+
 }

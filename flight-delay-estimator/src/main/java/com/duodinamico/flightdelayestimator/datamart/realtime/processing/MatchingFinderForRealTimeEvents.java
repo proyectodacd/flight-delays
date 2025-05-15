@@ -1,4 +1,4 @@
-package com.duodinamico.realtime.processing;
+package com.duodinamico.flightdelayestimator.datamart.realtime.processing;
 
 import com.duodinamico.openweathermapfeeder.domain.model.WeatherEvent;
 import com.duodinamico.aviationstackfeeder.domain.model.FlightEvent;

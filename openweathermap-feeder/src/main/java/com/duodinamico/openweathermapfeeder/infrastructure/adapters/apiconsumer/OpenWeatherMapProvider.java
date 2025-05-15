@@ -7,8 +7,14 @@ import com.duodinamico.openweathermapfeeder.infrastructure.ports.WeatherProvider
 public class OpenWeatherMapProvider implements WeatherProvider {
 
     private final String apiKey;
-    public OpenWeatherMapProvider(String apiKey) {
+    private final String[] preferredAirports;
+    public OpenWeatherMapProvider(String apiKey, String[] preferredAirports) {
         this.apiKey = apiKey;
+        this.preferredAirports = preferredAirports;
+    }
+
+    public String[] getPreferredAirports() {
+        return preferredAirports;
     }
 
     @Override

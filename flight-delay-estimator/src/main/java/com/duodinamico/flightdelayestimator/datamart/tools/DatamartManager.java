@@ -1,7 +1,7 @@
-package com.duodinamico.tools;
+package com.duodinamico.flightdelayestimator.datamart.tools;
 
 import com.opencsv.CSVWriter;
-import com.duodinamico.modelling.ValuableContentForPrediction;
+import com.duodinamico.flightdelayestimator.datamart.modelling.ValuableContentForPrediction;
 
 import java.io.File;
 import java.io.FileWriter;
