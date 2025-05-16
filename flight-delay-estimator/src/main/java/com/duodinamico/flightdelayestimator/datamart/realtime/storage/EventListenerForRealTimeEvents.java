@@ -29,7 +29,7 @@ public class EventListenerForRealTimeEvents {
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
         System.out.println("Datamart ahora escuchando a los topics: " + topicNames);
-        System.out.println("----------------------------");
+        System.out.println("-----------------------------------------------------------------------");
 
         for (String topicName : topicNames) {
             Topic topic = session.createTopic(topicName);

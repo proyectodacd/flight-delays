@@ -1,4 +1,4 @@
-package com.duodinamico.flightdelayestimator.python;
+package com.duodinamico.flightdelayestimator.ui;
 
 import java.io.IOException;
 

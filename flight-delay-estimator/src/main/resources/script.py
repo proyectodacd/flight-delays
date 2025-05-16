@@ -9,12 +9,17 @@ except ImportError:
     subprocess.check_call([sys.executable, "-m", "pip", "install", "scikit-learn"])
     import sklearn  # vuelve a intentar importarlo ahora que está instalado
 
+try:
+    import pandas
+except ImportError:
+    import subprocess
+    import sys
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "pandas"])
+    import pandas  # vuelve a intentarlo
 
 
 import sys
 import pandas as pd
-import matplotlib.pyplot as plt
-import numpy as np
 
 from sklearn.linear_model import LinearRegression
 from sklearn.neighbors import KNeighborsRegressor
@@ -25,6 +30,11 @@ from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
 csv_path = sys.argv[1]
 df = pd.read_csv(csv_path)
 df_noduplicates = df.drop_duplicates()
+
+df_noduplicates['airportType'] = df_noduplicates['airportType'].replace({
+    'Departure': 'Salida',
+    'Arrival': 'Llegada'
+})
 
 # Lista para guardar resultados
 resultados = []

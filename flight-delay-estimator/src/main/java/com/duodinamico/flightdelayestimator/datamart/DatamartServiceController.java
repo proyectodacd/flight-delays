@@ -31,27 +31,22 @@ public class DatamartServiceController {
     }
 
     public void execute() throws IOException, InterruptedException {
-        //ºthis.datamartManager.deleteWholeDatamart();
-        System.out.println("Bienvenido a FlightDelays®");
-        System.out.println("----------------------------");
-        //saveHistoryToDatamart();
-        System.out.println("----------------------------");
+        this.datamartManager.deleteWholeDatamart();
+        System.out.println("BIENVENIDO A FLIGHTDELAYS®");
+        System.out.println("-----------------------------------------------------------------------");
+        saveHistoryToDatamart();
+        System.out.println("-----------------------------------------------------------------------");
         listenToRealTimeEvents();
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-        Runnable refreshDatamart = () -> {matchRealTimeEvents();};
-        this.taskScheduler.programarTareaCadaMinuto(scheduler, refreshDatamart);
-        try {
-            scheduler.awaitTermination(1, TimeUnit.DAYS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
+        Runnable realTimeMatcher = matchRealTimeEvents();
+        this.taskScheduler.programarTareaCadaCiertoTiempo(scheduler, realTimeMatcher, 300);
     }
 
     public void saveHistoryToDatamart() {
         try {
             System.out.println("Cargando histórico de datos...");
             this.datamartManager.writeCleanContentToDatamart(this.valuableContentMatcher.mapToValuableContent(this.matchingFinderForHistoryEvents.findPossibleMatches()));
-            System.out.println("Histórico de datos cargado con éxito");
+            System.out.println("Histórico de datos cargado con éxito.");
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (ParseException e) {
@@ -67,14 +62,16 @@ public class DatamartServiceController {
         }
     }
 
-    public void matchRealTimeEvents() {
-        try {
-            if (this.matchingFinderForRealTimeEvents.findPossibleMatchesForRealTimeEvents().size() != 0) {
-                System.out.println("Actualizando Datamart a partir de eventos en tiempo real...");
-                this.datamartManager.writeCleanContentToDatamart(this.valuableContentMatcher.mapToValuableContent(this.matchingFinderForRealTimeEvents.findPossibleMatchesForRealTimeEvents()));
+    public Runnable matchRealTimeEvents() {
+        return () -> {
+            try {
+                if (this.matchingFinderForRealTimeEvents.findPossibleMatchesForRealTimeEvents().size() != 0) {
+                    System.out.println("Actualizando Datamart a partir de eventos en tiempo real...");
+                    this.datamartManager.writeCleanContentToDatamart(this.valuableContentMatcher.mapToValuableContent(this.matchingFinderForRealTimeEvents.findPossibleMatchesForRealTimeEvents()));
+                }
+            } catch (IOException | ParseException e) {
+                throw new RuntimeException(e);
             }
-        } catch (IOException | ParseException e) {
-            throw new RuntimeException(e);
-        }
+        };
     }
 }

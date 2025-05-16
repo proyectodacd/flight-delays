@@ -1,4 +1,4 @@
-package com.duodinamico.flightdelayestimator.python;
+package com.duodinamico.flightdelayestimator.ui;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -15,12 +15,11 @@ public class PythonInvoker implements ProcessInvoker{
     @Override
     public void executeExternalProcess() throws IOException, InterruptedException {
         System.out.println("Entrenando modelos predictivos...");
-
         File script = copiarRecursoAArchivo("script.py", "script.py");
-        File csv = copiarRecursoAArchivo("datamart-processed-data.csv", "datos.csv");
+        File csv = copiarRecursoAArchivo("clean-datamart.csv", "datos.csv");
         ProcessBuilder pb = new ProcessBuilder("python", script.getAbsolutePath(), csv.getAbsolutePath(), this.processedDatamartFilePath);
         Process process = pb.start();
-        String exitCode = process.waitFor() == 0 ? "Modelos entrenados con éxito."  : "Error al entrenar los modelos.";
+        String exitCode = process.waitFor() == 0 ? "Modelos entrenados con éxito." + "\n-----------------------------------------------------------------------" : "Error al entrenar los modelos." + "\n-----------------------------------------------------------------------";
         System.out.println(exitCode);
     }
 
