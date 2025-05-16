@@ -6,11 +6,13 @@ import com.duodinamico.aviationstackfeeder.domain.schema.FlightResponse;
 
 public class AviationStackProvider implements FlightProvider {
 
-    private final String[] apiKeys;
+    private final AviationStackProcessor aviationStackProcessor;
+    private final FlightDeserializer flightDeserializer;
     private final String[] preferredAirports;
 
-    public AviationStackProvider(String[] apiKeys, String[] preferredAirports) {
-        this.apiKeys = apiKeys;
+    public AviationStackProvider(AviationStackProcessor aviationStackProcessor, FlightDeserializer flightDeserializer, String[] preferredAirports) {
+        this.aviationStackProcessor = aviationStackProcessor;
+        this.flightDeserializer = flightDeserializer;
         this.preferredAirports = preferredAirports;
     }
 
@@ -20,9 +22,7 @@ public class AviationStackProvider implements FlightProvider {
 
     @Override
     public FlightResponse flightProvider(String airportType, String airportIata) {
-        AviationStackProcessor aviationStackProcessor = new AviationStackProcessor(this.apiKeys);
-        FlightDeserializer flightDeserializer = new FlightDeserializer();
-        return flightDeserializer.flightDeserializer(aviationStackProcessor.petitionValidator(aviationStackProcessor.flightsPetition(airportType, airportIata),airportType,airportIata));
+        return this.flightDeserializer.flightDeserializer(this.aviationStackProcessor.petitionValidator(this.aviationStackProcessor.flightsPetition(airportType, airportIata),airportType,airportIata));
     }
 
 }

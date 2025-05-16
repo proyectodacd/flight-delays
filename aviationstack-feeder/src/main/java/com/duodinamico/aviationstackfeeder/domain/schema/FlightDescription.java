@@ -2,7 +2,7 @@ package com.duodinamico.aviationstackfeeder.domain.schema;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Flight {
+public class FlightDescription {
     @SerializedName("flight_date")
     private final String flightDate;
     @SerializedName("flight_status")
@@ -10,17 +10,14 @@ public class Flight {
     private final Departure departure;
     private final Arrival arrival;
     @SerializedName("flight")
-    private final FlightId flightId;
-    @SerializedName("live")
-    private final LiveStatus liveStatus;
+    private final FlightIdentifier flightIdentifier;
 
-    public Flight(Departure departure, Arrival arrival, String flightDate, String flightStatus, LiveStatus liveStatus, FlightId flightId) {
+    public FlightDescription(Departure departure, Arrival arrival, String flightDate, String flightStatus, FlightIdentifier flightIdentifier) {
         this.departure = departure;
         this.arrival = arrival;
         this.flightDate = flightDate;
         this.flightStatus = flightStatus;
-        this.liveStatus = liveStatus == null ? null : liveStatus;
-        this.flightId = flightId;
+        this.flightIdentifier = flightIdentifier;
     }
 
     public String getFlightDate() {
@@ -39,12 +36,8 @@ public class Flight {
         return arrival;
     }
 
-    public LiveStatus getLiveStatus() {
-        return liveStatus;
-    }
-
-    public FlightId getFlightId() {
-        return flightId;
+    public FlightIdentifier getFlightId() {
+        return flightIdentifier;
     }
 }
 

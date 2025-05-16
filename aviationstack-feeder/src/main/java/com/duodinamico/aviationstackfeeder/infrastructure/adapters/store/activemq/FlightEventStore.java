@@ -11,20 +11,22 @@ import java.util.ArrayList;
 
 public class FlightEventStore implements FlightStore{
 
-
     private final String url;
-    private final String topicName = "Flights";
-    private FlightEventSerializer flightEventSerializer = new FlightEventSerializer();
-    private FlightEventMapper flightEventMapper = new FlightEventMapper();
+    private final String topicName;
+    private FlightEventSerializer flightEventSerializer;
+    private FlightEventMapper flightEventMapper;
 
-    public FlightEventStore(String url) {
+    public FlightEventStore(String url, FlightEventSerializer flightEventSerializer, FlightEventMapper flightEventMapper) {
         this.url = url;
+        this.topicName = "Flights";
+        this.flightEventSerializer = new FlightEventSerializer();
+        this.flightEventMapper = new FlightEventMapper();
     }
 
     @Override
     public void saveFlights(FlightResponse flightResponse) {
 
-        ArrayList<FlightEvent> flightEvents = flightEventMapper.mapToFlightEvents(flightResponse);
+        ArrayList<FlightEvent> flightEvents = this.flightEventMapper.mapToFlightEvents(flightResponse);
 
         Connection connection = null;
 
@@ -39,7 +41,7 @@ public class FlightEventStore implements FlightStore{
             producer.setDeliveryMode(DeliveryMode.PERSISTENT);
 
             for (FlightEvent flightEvent : flightEvents) {
-                String content = flightEventSerializer.serializeFlightEvent(flightEvent);
+                String content = this.flightEventSerializer.serializeFlightEvent(flightEvent);
                 TextMessage message = session.createTextMessage(content);
                 producer.send(message);
                 System.out.println("Mensaje enviado: " + message.getText());

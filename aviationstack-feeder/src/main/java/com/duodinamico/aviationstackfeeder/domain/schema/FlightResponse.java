@@ -4,14 +4,14 @@ import java.util.List;
 
 public class FlightResponse {
     private Pagination pagination;
-    private List<Flight> data;
+    private List<FlightDescription> data;
 
-    public FlightResponse(Pagination pagination, List<Flight> data) {
+    public FlightResponse(Pagination pagination, List<FlightDescription> data) {
         this.pagination = pagination;
         this.data = data;
     }
 
-    public List<Flight> getData() {
+    public List<FlightDescription> getData() {
         return data;
     }
 }

@@ -14,11 +14,14 @@ public class FlightSQLStore implements FlightStore {
 
     private final String dbPath;
     private FlightModelMapper mapper;
+    private final SQLConnection connection;
+    private final SQLModifierFlights sqlmodder;
 
-    public FlightSQLStore(String dbPath) {
+    public FlightSQLStore(String dbPath, SQLConnection connection, SQLModifierFlights sqlmodder, FlightModelMapper mapper) {
         this.dbPath = dbPath;
-        this.mapper = new FlightModelMapper();
-
+        this.mapper = mapper;
+        this.sqlmodder = sqlmodder;
+        this.connection = connection;
     }
 
     public String getDbPath() {
@@ -27,27 +30,14 @@ public class FlightSQLStore implements FlightStore {
 
     @Override
     public void saveFlights(FlightResponse flightResponse) {
-
-        SQLConnection sql = new SQLConnection();
-        SQLModifierFlights sqlmodder = new SQLModifierFlights();
-        try(Connection connection = sql.connect(this.dbPath)) {
-            ArrayList<FlightModel> flights = mapper.mapToFlightModels(flightResponse);
+        try(Connection connection = this.connection.connect(this.dbPath)) {
+            ArrayList<FlightModel> flights = this.mapper.mapToFlightModels(flightResponse);
             Statement statement = connection.createStatement();
             for(FlightModel flight : flights) {
-                sqlmodder.insert(statement, flight);
+                this.sqlmodder.insert(statement, flight);
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    public ArrayList<FlightModel> loadFlights(){
-        SQLConnection sql = new SQLConnection();
-        SQLRetrieverFlights sqlretriever = new SQLRetrieverFlights();
-        try(Connection connection = sql.connect(this.dbPath)) {
-            return sqlretriever.select(connection);
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
         }
     }
 

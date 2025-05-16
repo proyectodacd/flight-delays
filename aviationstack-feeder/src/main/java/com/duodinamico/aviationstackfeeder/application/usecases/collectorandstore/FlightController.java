@@ -2,6 +2,7 @@ package com.duodinamico.aviationstackfeeder.application.usecases.collectorandsto
 
 
 import com.duodinamico.aviationstackfeeder.infrastructure.adapters.apiconsumer.AviationStackProvider;
+import com.duodinamico.aviationstackfeeder.infrastructure.ports.FlightProvider;
 import com.duodinamico.aviationstackfeeder.infrastructure.ports.FlightStore;
 import com.duodinamico.aviationstackfeeder.tools.scheduler.TaskScheduler;
 
@@ -12,13 +13,12 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class FlightController {
-    private AviationStackProvider aviationStackProvider;
+    private final FlightProvider flightProvider;
     private FlightStore flightStore;
     private TaskScheduler taskScheduler;
 
-    public FlightController(AviationStackProvider aviationStackProvider, FlightStore flightStore,
-                            TaskScheduler taskScheduler) {
-        this.aviationStackProvider = aviationStackProvider;
+    public FlightController(FlightProvider flightProvider, FlightStore flightStore, TaskScheduler taskScheduler) {
+        this.flightProvider = flightProvider;
         this.taskScheduler = taskScheduler;
         this.flightStore = flightStore;
     }
@@ -26,7 +26,7 @@ public class FlightController {
     public void execute() {
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         Runnable tarea = runnableCreator();
-        this.taskScheduler.programarTarea(scheduler, tarea, 22, 39);
+        this.taskScheduler.programarTarea(scheduler, tarea, 10, 18);
         this.taskScheduler.programarTarea(scheduler, tarea, 23, 32);
 
         try {
@@ -40,8 +40,8 @@ public class FlightController {
         return () -> {
             System.out.println("Ejecutando FlightController a las: " + LocalDateTime.now());
             for (String airportType : List.of("dep_iata", "arr_iata")) {
-                for (String airportIata : List.of(this.aviationStackProvider.getPreferredAirports())) {
-                    flightStore.saveFlights(aviationStackProvider.flightProvider(airportType, airportIata));
+                for (String airportIata : List.of(this.flightProvider.getPreferredAirports())) {
+                    this.flightStore.saveFlights(this.flightProvider.flightProvider(airportType, airportIata));
                 }
             }
             System.out.println("Vuelos guardados.");

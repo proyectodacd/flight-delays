@@ -9,26 +9,28 @@ public class EventConsumer {
 
     private final String url;
     private final List<String> topicNames;
-    private final String clientID = "event-store-builder-" + UUID.randomUUID();
-    private final EventStorage eventStorage = new EventStorage(new EventsFilePathGenerator());
+    private final String clientID;
+    private final EventStorage eventStorage;
 
-    public EventConsumer(String url, List<String> topicNames) {
+    public EventConsumer(String url, List<String> topicNames, EventStorage eventStorage) {
         this.url = url;
         this.topicNames = topicNames;
+        this.clientID = "event-store-builder-" + UUID.randomUUID();
+        this.eventStorage = eventStorage;
     }
 
     public void consumeEvents() throws JMSException {
         ConnectionFactory factory = new ActiveMQConnectionFactory(url);
         Connection connection = factory.createConnection();
-        connection.setClientID(clientID);
+        connection.setClientID(this.clientID);
         connection.start();
 
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-        System.out.println("EventStoreBuilder ahora escuchando a los topics: " + topicNames);
+        System.out.println("EventStoreBuilder ahora escuchando a los topics: " + this.topicNames);
         System.out.println("----------------------------");
 
-        for (String topicName : topicNames) {
+        for (String topicName : this.topicNames) {
             Topic topic = session.createTopic(topicName);
             String subscriptionName = topicName + "-subscription for EventStoreBuilder";
 
@@ -38,7 +40,7 @@ public class EventConsumer {
                 if (message instanceof TextMessage) {
                     try {
                         String json = ((TextMessage) message).getText();
-                        eventStorage.saveToEventsFile(json, topicName);
+                        this.eventStorage.saveToEventsFile(json, topicName);
                         System.out.println("Mensaje guardado en EventStore, de [" + topicName + "]: " + json);
                     } catch (Exception e) {
                         e.printStackTrace();
