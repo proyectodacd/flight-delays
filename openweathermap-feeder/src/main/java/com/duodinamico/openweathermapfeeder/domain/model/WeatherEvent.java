@@ -11,22 +11,19 @@ public class WeatherEvent {
     private final String standardTime;
     private final float temperature;
     private final int percentageOfClouds;
-    private final float feelsLike;
     private final float windSpeed;
     private final int windDirection;
     private final float precipitation;
     private final float snowmeasurement;
     private final String weatherDescription;
 
-
-    public WeatherEvent(String city, int time, String standardTime, float temperature, float feelsLike, float windSpeed, int windDirection, int percentageOfClouds, float precipitation, float snowmeasurement, String weatherDescription) {
+    public WeatherEvent(String city, int time, String standardTime, float temperature, float windSpeed, int windDirection, int percentageOfClouds, float precipitation, float snowmeasurement, String weatherDescription) {
         this.ts = Instant.now().toString();
         this.ss = "OpenWeatherMapFeeder";
         this.city = city;
         this.dataCalculationTime = time;
         this.standardTime = standardTime;
         this.temperature = temperature;
-        this.feelsLike = feelsLike;
         this.windSpeed = windSpeed;
         this.windDirection = windDirection;
         this.percentageOfClouds = percentageOfClouds;
@@ -43,7 +40,6 @@ public class WeatherEvent {
         return ss;
     }
 
-
     public String getCity() {
         return this.city;
     }
@@ -58,10 +54,6 @@ public class WeatherEvent {
 
     public float getTemperature() {
         return temperature;
-    }
-
-    public float getFeelsLike() {
-        return feelsLike;
     }
 
     public float getWindSpeed() {

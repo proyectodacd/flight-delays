@@ -1,4 +1,4 @@
-package com.duodinamico.aviationstackfeeder.infrastructure.adapters.store.activemq;
+package com.duodinamico.eventstorebuilder.tools;
 
 import com.duodinamico.aviationstackfeeder.domain.model.FlightEvent;
 import com.google.gson.Gson;

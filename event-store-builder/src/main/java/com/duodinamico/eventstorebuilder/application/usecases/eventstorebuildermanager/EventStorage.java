@@ -1,7 +1,7 @@
 package com.duodinamico.eventstorebuilder.application.usecases.eventstorebuildermanager;
 
-import com.duodinamico.openweathermapfeeder.infrastructure.adapters.store.activemq.WeatherEventDeserializer;
-import com.duodinamico.aviationstackfeeder.infrastructure.adapters.store.activemq.FlightEventDeserializer;
+import com.duodinamico.eventstorebuilder.tools.WeatherEventDeserializer;
+import com.duodinamico.eventstorebuilder.tools.FlightEventDeserializer;
 
 import java.io.BufferedWriter;
 import java.io.File;

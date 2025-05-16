@@ -4,7 +4,7 @@ import com.duodinamico.openweathermapfeeder.tools.scheduler.TaskScheduler;
 import com.duodinamico.openweathermapfeeder.infrastructure.adapters.apiconsumer.OpenWeatherMapProvider;
 import com.duodinamico.openweathermapfeeder.tools.converters.AirportToCoordinates;
 import com.duodinamico.openweathermapfeeder.infrastructure.ports.WeatherStore;
-import com.duodinamico.openweathermapfeeder.tools.converters.UnixConverter;
+import com.duodinamico.openweathermapfeeder.tools.converters.UnixUtils;
 
 
 import java.time.LocalDateTime;
@@ -18,21 +18,21 @@ public class WeatherController {
     private WeatherStore weatherStore;
     private TaskScheduler taskScheduler;
     private AirportToCoordinates airportToCoordinates;
-    private UnixConverter unixConverter;
+    private UnixUtils unixUtils;
 
-    public WeatherController(OpenWeatherMapProvider openWeatherMapProvider, WeatherStore weatherStore, TaskScheduler taskScheduler, AirportToCoordinates airportToCoordinates) {
+    public WeatherController(OpenWeatherMapProvider openWeatherMapProvider, WeatherStore weatherStore, TaskScheduler taskScheduler, AirportToCoordinates airportToCoordinates, UnixUtils unixUtils) {
         this.openWeatherMapProvider = openWeatherMapProvider;
         this.weatherStore = weatherStore;
         this.taskScheduler = taskScheduler;
         this.airportToCoordinates = airportToCoordinates;
-        this.unixConverter = new UnixConverter();
+        this.unixUtils = unixUtils;
     }
 
     public void execute() {
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         Runnable tarea2 = runnableCreator();
 
-        taskScheduler.programarTarea(scheduler, tarea2, 22, 50);
+        this.taskScheduler.scheduleTask(scheduler, tarea2, 19, 56);
         try {
             scheduler.awaitTermination(1, TimeUnit.DAYS);
         } catch (InterruptedException e) {
@@ -43,7 +43,7 @@ public class WeatherController {
     public Runnable runnableCreator() {
         return () -> { System.out.println("Ejecutando WeatherController a las: " + LocalDateTime.now());
         for (String airportIata : List.of(this.openWeatherMapProvider.getPreferredAirports())){
-            weatherStore.saveWeather(openWeatherMapProvider.weatherProvider(airportToCoordinates.getAirportCoordinates(airportIata), unixConverter.findUnixOfYesterday()), airportIata);
+            this.weatherStore.saveWeather(this.openWeatherMapProvider.provideWeather(this.airportToCoordinates.getAirportCoordinates(airportIata), this.unixUtils.findUnixOfYesterday()), airportIata);
         }
         System.out.println("Clima de aeropuertos guardados.");
         };

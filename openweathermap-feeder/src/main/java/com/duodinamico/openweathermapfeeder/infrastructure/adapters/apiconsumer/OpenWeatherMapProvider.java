@@ -6,10 +6,13 @@ import com.duodinamico.openweathermapfeeder.infrastructure.ports.WeatherProvider
 
 public class OpenWeatherMapProvider implements WeatherProvider {
 
-    private final String apiKey;
     private final String[] preferredAirports;
-    public OpenWeatherMapProvider(String apiKey, String[] preferredAirports) {
-        this.apiKey = apiKey;
+    private final OpenWeatherMapProcessor openWeatherMapProcessor;
+    private final WeatherDeserializer weatherDeserializer;
+
+    public OpenWeatherMapProvider(OpenWeatherMapProcessor openWeatherMapProcessor, WeatherDeserializer weatherDeserializer, String[] preferredAirports) {
+        this.openWeatherMapProcessor = openWeatherMapProcessor;
+        this.weatherDeserializer = weatherDeserializer;
         this.preferredAirports = preferredAirports;
     }
 
@@ -18,10 +21,8 @@ public class OpenWeatherMapProvider implements WeatherProvider {
     }
 
     @Override
-    public WeatherResponse weatherProvider(Coordinates coordinates, String time) {
-        OpenWeatherMapProcessor openWeatherMapProcessor = new OpenWeatherMapProcessor(this.apiKey);
-        WeatherDeserializer weatherDeserializer = new WeatherDeserializer();
-        return weatherDeserializer.weatherDeserializer(openWeatherMapProcessor.weatherPetition(coordinates, time));
+    public WeatherResponse provideWeather(Coordinates coordinates, String time) {
+        return this.weatherDeserializer.weatherDeserializer(this.openWeatherMapProcessor.weatherPetition(coordinates, time));
     }
 
 }

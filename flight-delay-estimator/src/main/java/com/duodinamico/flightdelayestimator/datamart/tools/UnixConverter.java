@@ -1,4 +1,4 @@
-package com.duodinamico.openweathermapfeeder.tools.converters;
+package com.duodinamico.flightdelayestimator.datamart.tools;
 
 import java.time.*;
 
@@ -11,13 +11,6 @@ public class UnixConverter {
             System.out.println("Error: " + e.getMessage());
             return -1;
         }
-    }
-
-    public String findUnixOfYesterday() {
-        LocalDateTime yesterdayMidnightUTC = LocalDate.now(ZoneOffset.UTC).minusDays(1).atStartOfDay();
-        long epochSeconds = yesterdayMidnightUTC.toEpochSecond(ZoneOffset.UTC);
-        return String.valueOf(epochSeconds);
-
     }
 }
 

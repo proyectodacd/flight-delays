@@ -7,15 +7,15 @@ import java.util.concurrent.TimeUnit;
 
 public class TaskScheduler {
 
-    public void programarTarea(ScheduledExecutorService scheduler, Runnable tarea, int hora, int minuto) {
-        long delay = calcularTiempoHasta(hora, minuto);
-        System.out.println("Programando tarea para las " + hora + ":" + minuto + " con delay de " + delay + " segundos.");
-        scheduler.scheduleAtFixedRate(tarea, delay, 12 * 3600, TimeUnit.SECONDS);
+    public void scheduleTask(ScheduledExecutorService scheduler, Runnable task, int hour, int minute) {
+        long delay = calculateDelay(hour, minute);
+        System.out.println("Programando tarea para las " + hour + ":" + minute + " con delay de " + delay + " segundos.");
+        scheduler.scheduleAtFixedRate(task, delay, 12 * 3600, TimeUnit.SECONDS);
     }
 
-    public long calcularTiempoHasta(int hora, int minuto) {
+    public long calculateDelay(int hour, int minute) {
         LocalDateTime ahora = LocalDateTime.now();
-        LocalDateTime proximo = ahora.withHour(hora).withMinute(minuto).withSecond(0);
+        LocalDateTime proximo = ahora.withHour(hour).withMinute(minute).withSecond(0);
 
         if (ahora.isAfter(proximo)) {
             proximo = proximo.plusDays(1);

@@ -16,7 +16,6 @@ public class WeatherEventMapper {
                     weatherInformation.getDataCalculationTime(),
                     unixToUTCDateFormatter.formatUnixSecondsToISO8601UTC(weatherInformation.getDataCalculationTime()),
                     weatherInformation.getThermalConditions().getTemperature(),
-                    weatherInformation.getThermalConditions().getFeelsLike(),
                     weatherInformation.getWind().getSpeed(),
                     weatherInformation.getWind().getDeg(),
                     weatherInformation.getClouds().getCloudiness(),

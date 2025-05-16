@@ -14,7 +14,6 @@ public class WeatherResultMapper {
             WeatherResult weatherResult = new WeatherResult(city,
                     weatherInformation.getDataCalculationTime(),
                     weatherInformation.getThermalConditions().getTemperature(),
-                    weatherInformation.getThermalConditions().getFeelsLike(),
                     weatherInformation.getWind().getSpeed(),
                     weatherInformation.getWind().getDeg(),
                     weatherInformation.getClouds().getCloudiness(),

@@ -12,13 +12,15 @@ import java.util.ArrayList;
 public class WeatherEventStore implements WeatherStore {
 
     private final String url;
-    private final String topicName = "Weather";
+    private final String topicName;
     private WeatherEventMapper weatherEventMapper;
-    private WeatherEventSerializer weatherEventSerializer = new WeatherEventSerializer();
+    private WeatherEventSerializer weatherEventSerializer;
 
-    public WeatherEventStore(String url) {
+    public WeatherEventStore(String url, WeatherEventMapper weatherEventMapper, WeatherEventSerializer weatherEventSerializer) {
         this.url = url;
-        this.weatherEventMapper = new WeatherEventMapper();
+        this.topicName = "Weather";
+        this.weatherEventMapper = weatherEventMapper;
+        this.weatherEventSerializer = weatherEventSerializer;
     }
 
     @Override

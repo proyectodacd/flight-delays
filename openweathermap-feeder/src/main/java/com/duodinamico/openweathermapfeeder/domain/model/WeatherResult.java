@@ -5,7 +5,6 @@ public class WeatherResult {
     private final String city;
     private final int dataCalculationTime;
     private final float temperature;
-    private final float feelsLike;
     private final float windSpeed;
     private final int windDirection;
     private final int percentageOfClouds;
@@ -13,11 +12,10 @@ public class WeatherResult {
     private final float snowmeasurement;
     private final String weatherDescription;
 
-    public WeatherResult(String city, int dataCalculationTime, float temperature, float feelsLike, float windSpeed, int windDirection, int percentageOfClouds, float precipitation, float snowmeasurement, String weatherDescription) {
+    public WeatherResult(String city, int dataCalculationTime, float temperature, float windSpeed, int windDirection, int percentageOfClouds, float precipitation, float snowmeasurement, String weatherDescription) {
         this.city = city;
         this.dataCalculationTime = dataCalculationTime;
         this.temperature = temperature;
-        this.feelsLike = feelsLike;
         this.windSpeed = windSpeed;
         this.windDirection = windDirection;
         this.percentageOfClouds = percentageOfClouds;
@@ -36,10 +34,6 @@ public class WeatherResult {
 
     public float getTemperature() {
         return temperature;
-    }
-
-    public float getFeelsLike() {
-        return feelsLike;
     }
 
     public float getWindSpeed() {

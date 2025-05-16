@@ -1,4 +1,4 @@
-package com.duodinamico.openweathermapfeeder.infrastructure.adapters.store.activemq;
+package com.duodinamico.eventstorebuilder.tools;
 
 import com.duodinamico.openweathermapfeeder.domain.model.WeatherEvent;
 import com.google.gson.Gson;

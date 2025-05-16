@@ -1,7 +1,6 @@
 package com.duodinamico.flightdelayestimator.datamart.tools;
 
 import com.duodinamico.openweathermapfeeder.domain.model.WeatherEvent;
-import com.duodinamico.openweathermapfeeder.tools.converters.UnixConverter;
 import com.duodinamico.aviationstackfeeder.domain.model.FlightEvent;
 import com.duodinamico.flightdelayestimator.datamart.modelling.ValuableContentForPrediction;
 

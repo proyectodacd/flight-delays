@@ -15,7 +15,7 @@ public class SQLModifierWeather {
                     "    datacalculationtime integer," +
                     "    standard_time text," +
                     "    temperature real," +
-                    "    feels_like real," +
+                    " percentageOfClouds real," +
                     "    wind_speed real," +
                     "    wind_direction integer," +
                     "    precipitations real," +
@@ -23,12 +23,12 @@ public class SQLModifierWeather {
                     "    description text," +
                     "    primary key (city, dataCalculationTime)" +
                     ");");
-            statement.execute("insert or ignore into weather (city, datacalculationtime, standard_time, temperature, feels_like, wind_speed, wind_direction, precipitations, snow_measurement, description) values ('" +
+            statement.execute("insert or ignore into weather (city, datacalculationtime, standard_time, temperature, percentageOfClouds, wind_speed, wind_direction, precipitations, snow_measurement, description) values ('" +
                      city + "', '" +
                     weatherResult.getDataCalculationTime() + "'," +
                     "'" + utcFormatter.formatUnixSecondsToISO8601UTC(weatherResult.getDataCalculationTime()) + "'," +
                     "'" + weatherResult.getTemperature() + "'," +
-                    "'" + weatherResult.getFeelsLike() + "'," +
+                    "'" + weatherResult.getPercentageOfClouds() + "'," +
                     "'" + weatherResult.getWindSpeed() + "'," +
                     "'" + weatherResult.getWindDirection() + "'," +
                     "'" + weatherResult.getPrecipitation() + "'," +
