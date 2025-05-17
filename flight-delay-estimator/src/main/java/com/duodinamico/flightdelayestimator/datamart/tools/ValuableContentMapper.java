@@ -6,14 +6,14 @@ import com.duodinamico.flightdelayestimator.datamart.modelling.ValuableContentFo
 
 public class ValuableContentMapper {
 
-    public ValuableContentForPrediction departureContentMatcher(FlightEvent flightEvent, WeatherEvent weatherEvent) {
+    public ValuableContentForPrediction mapToDepartureValuableContent(FlightEvent flightEvent, WeatherEvent weatherEvent) {
         return new ValuableContentForPrediction(flightEvent.getEstimatedDepartureTime(),flightEvent.getDepartureTimezone(),
-                "Departure", flightEvent.getDepartureIata(), weatherEvent.getTemperature(), weatherEvent.getWindSpeed(),
+                "Departure", flightEvent.getDepartureIata(), weatherEvent.getTemperature(), weatherEvent.getPercentageOfClouds(), weatherEvent.getWindSpeed(),
                 weatherEvent.getWindDirection(), weatherEvent.getPrecipitation(), weatherEvent.getSnowmeasurement(), weatherEvent.getWeatherDescription(), flightEvent.getDepartureDelay());
     }
 
-    public ValuableContentForPrediction     arrivalContentMatcher(FlightEvent flightEvent, WeatherEvent weatherEvent) {
-        return new ValuableContentForPrediction(flightEvent.getEstimatedArrivalTime(), flightEvent.getArrivalTimezone(), "Arrival", flightEvent.getArrivalIata(), weatherEvent.getTemperature(), weatherEvent.getWindSpeed(),
+    public ValuableContentForPrediction mapToArrivalValuableContent(FlightEvent flightEvent, WeatherEvent weatherEvent) {
+        return new ValuableContentForPrediction(flightEvent.getEstimatedArrivalTime(), flightEvent.getArrivalTimezone(), "Arrival", flightEvent.getArrivalIata(), weatherEvent.getTemperature(), weatherEvent.getPercentageOfClouds(), weatherEvent.getWindSpeed(),
                 weatherEvent.getWindDirection(), weatherEvent.getPrecipitation(), weatherEvent.getSnowmeasurement(), weatherEvent.getWeatherDescription(), flightEvent.getArrivalDelay());
     }
 }

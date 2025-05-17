@@ -7,6 +7,7 @@ public class ValuableContentForPrediction {
     private String airportType;
     private String airportName;
     private double temperature;
+    private int percentageOfClouds;
     private double windSpeed;
     private double windDirection;
     private double precipitations;
@@ -14,12 +15,13 @@ public class ValuableContentForPrediction {
     private String description;
     private int delay;
 
-    public ValuableContentForPrediction(String standardTime, String timezone, String airportType, String airportName, double temperature, double windSpeed, double windDirection, double precipitations, double snow, String description, int delay) {
+    public ValuableContentForPrediction(String standardTime, String timezone, String airportType, String airportName, double temperature, int percentageOfClouds, double windSpeed, double windDirection, double precipitations, double snow, String description, int delay) {
         this.standardTime = standardTime;
         this.timezone = timezone;
         this.airportType = airportType;
         this.airportName = airportName;
         this.temperature = temperature;
+        this.percentageOfClouds = percentageOfClouds;
         this.windSpeed = windSpeed;
         this.windDirection = windDirection;
         this.precipitations = precipitations;
@@ -46,6 +48,10 @@ public class ValuableContentForPrediction {
 
     public double getTemperature() {
         return temperature;
+    }
+
+    public int getPercentageOfClouds() {
+        return percentageOfClouds;
     }
 
     public double getWindSpeed() {

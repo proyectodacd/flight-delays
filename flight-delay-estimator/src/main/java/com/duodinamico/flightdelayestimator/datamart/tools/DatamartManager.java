@@ -21,20 +21,37 @@ public class DatamartManager {
     }
 
     public void writeCleanContentToDatamart(ArrayList<ValuableContentForPrediction> valuableContentForPredictionArrayList) throws IOException {
-        try (CSVWriter writer = new CSVWriter(new FileWriter(this.cleanDatamartPath))) {
-            writer.writeNext(new String[] {"standardTime", "timezone", "airportType", "airportName", "temperature", "windSpeed", "windDirection", "precipitations", "snowMeasurement", "description", "delay"});
-            for (ValuableContentForPrediction valuableContentForPrediction : valuableContentForPredictionArrayList) {
-                writer.writeNext(new String[] {valuableContentForPrediction.getStandardTime(), valuableContentForPrediction.getTimezone(), valuableContentForPrediction.getAirportType(),
-                        valuableContentForPrediction.getAirportName(), String.valueOf(valuableContentForPrediction.getTemperature()), String.valueOf(valuableContentForPrediction.getWindSpeed()),
-                String.valueOf(valuableContentForPrediction.getWindDirection()), String.valueOf(valuableContentForPrediction.getPrecipitations()), String.valueOf(valuableContentForPrediction.getSnow()),
-                        valuableContentForPrediction.getDescription(), String.valueOf(valuableContentForPrediction.getDelay())});
-            }
-        }
 
+        boolean fileExists = new File(this.cleanDatamartPath).exists();
+        try (CSVWriter writer = new CSVWriter(new FileWriter(this.cleanDatamartPath, true))) {
+            if (!fileExists) {
+                writer.writeNext(new String[] {
+                        "standardTime", "timezone", "airportType", "airportName", "temperature", "percentageOfClouds", "windSpeed", "windDirection", "precipitations", "snowMeasurement", "description", "delay"
+                });
+            }
+            for (ValuableContentForPrediction valuableContent : valuableContentForPredictionArrayList) {
+                writer.writeNext(new String[] {
+                        valuableContent.getStandardTime(), valuableContent.getTimezone(), valuableContent.getAirportType(), valuableContent.getAirportName(), String.valueOf(valuableContent.getTemperature()), String.valueOf(valuableContent.getPercentageOfClouds()), String.valueOf(valuableContent.getWindSpeed()), String.valueOf(valuableContent.getWindDirection()), String.valueOf(valuableContent.getPrecipitations()), String.valueOf(valuableContent.getSnow()), valuableContent.getDescription(), String.valueOf(valuableContent.getDelay())
+                });
+            }
+            deleteRawDatamartPartitions();
+        }
     }
 
     public void deleteWholeDatamart() throws IOException {
         for (String path : List.of(this.cleanDatamartPath, this.datamartPartitionForRawFlightDataPath, this.datamartPartitionForRawWeatherDataPath)) {
+            File file = new File(path);
+            if (file.exists()) {
+                boolean deleted = file.delete();
+                if (!deleted) {
+                    System.err.println("No se pudo borrar: " + path);
+                }
+            }
+        }
+    }
+
+    public void deleteRawDatamartPartitions() throws IOException {
+        for (String path : List.of(this.datamartPartitionForRawFlightDataPath, this.datamartPartitionForRawWeatherDataPath)) {
             File file = new File(path);
             if (file.exists()) {
                 boolean deleted = file.delete();

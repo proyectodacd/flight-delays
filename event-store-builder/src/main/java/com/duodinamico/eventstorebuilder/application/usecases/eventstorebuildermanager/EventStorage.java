@@ -1,7 +1,6 @@
 package com.duodinamico.eventstorebuilder.application.usecases.eventstorebuildermanager;
 
-import com.duodinamico.eventstorebuilder.tools.WeatherEventDeserializer;
-import com.duodinamico.eventstorebuilder.tools.FlightEventDeserializer;
+import com.google.gson.JsonParser;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,18 +10,14 @@ import java.io.IOException;
 public class EventStorage {
 
     private EventsFilePathGenerator filePathGenerator;
-    private FlightEventDeserializer flightEventDeserializer;
-    private WeatherEventDeserializer weatherEventDeserializer;
 
     public EventStorage(EventsFilePathGenerator filePathGenerator) {
         this.filePathGenerator = filePathGenerator;
-        this.flightEventDeserializer = new FlightEventDeserializer();
-        this.weatherEventDeserializer = new WeatherEventDeserializer();
     }
 
     public void saveToEventsFile(String json, String topic) {
         try {
-            String path = topic.equals("Flights") ? this.filePathGenerator.getFlightsFilePathForWriting(this.flightEventDeserializer.deserializeFlightEvent(json)) : this.filePathGenerator.getWeatherFilePathForWriting(this.weatherEventDeserializer.deserializeWeatherEvent(json)) ;
+            String path = topic.equals("Flights") ? this.filePathGenerator.getFlightsFilePathForWriting(JsonParser.parseString(json).getAsJsonObject()) : this.filePathGenerator.getWeatherFilePathForWriting(JsonParser.parseString(json).getAsJsonObject()) ;
             File file = new File(path);
             file.getParentFile().mkdirs();
 

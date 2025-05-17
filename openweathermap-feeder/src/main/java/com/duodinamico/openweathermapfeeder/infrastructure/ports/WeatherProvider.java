@@ -5,4 +5,5 @@ import com.duodinamico.openweathermapfeeder.domain.model.Coordinates;
 
 public interface WeatherProvider {
     WeatherResponse provideWeather(Coordinates coordinates, String time);
+    String[] getPreferredAirports();
 }

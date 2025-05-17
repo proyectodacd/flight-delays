@@ -60,10 +60,4 @@ public class QueryTools {
         return true;
     }
 
-    public String obtenerCampos(String[] fila, List<String> columnas, Map<String, Integer> indices) {
-        List<String> valores = new ArrayList<>();
-        for (String col : columnas)
-            valores.add(fila[indices.get(col)]);
-        return String.join(",", valores);
-    }
 }

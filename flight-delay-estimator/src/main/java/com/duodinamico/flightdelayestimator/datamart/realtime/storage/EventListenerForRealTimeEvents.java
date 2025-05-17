@@ -42,7 +42,7 @@ public class EventListenerForRealTimeEvents {
                     try {
                         String json = ((TextMessage) message).getText();
                         this.eventStorage.saveRealTimeEventToDatamart(json,topicName);
-                        System.out.println("Mensaje guardado en Datamart, de [" + topicName + "]: " + json);
+                        System.out.println("\nMensaje guardado en Datamart, de [" + topicName + "]: " + json);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

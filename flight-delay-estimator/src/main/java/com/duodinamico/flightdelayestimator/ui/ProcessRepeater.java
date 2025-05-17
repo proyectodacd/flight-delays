@@ -11,7 +11,7 @@ public class ProcessRepeater {
             generarMetodo.get().run();
 
             System.out.print(mensaje);
-            System.out.flush(); // asegura que el mensaje aparezca antes de leer
+            System.out.flush();
             String respuesta = sc.nextLine().trim().toLowerCase();
 
             if (!respuesta.equals("s")) {

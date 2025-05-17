@@ -1,4 +1,4 @@
-package com.duodinamico.eventstorebuilder.tools;
+package com.duodinamico.flightdelayestimator.datamart.tools;
 
 import com.duodinamico.openweathermapfeeder.domain.model.WeatherEvent;
 import com.google.gson.Gson;

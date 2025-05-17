@@ -31,16 +31,9 @@ public class MatchingFinderForRealTimeEvents {
             }
         }
 
-        System.out.println("Conjuntos de eventos captados en tiempo real con matching disponible: " + result.size());
+        String outputMessage = result.size() != 0 ? "\nConjuntos de eventos captados en tiempo real con matching disponible: " + result.size() + "\nActualizando Datamart a partir de eventos en tiempo real..." : "\nConjuntos de eventos captados en tiempo real con matching disponible: " + result.size();
+        System.out.println(outputMessage);
         return result;
-    }
-
-    public Optional<File> getMatchingFile (File file, Map<File, List<WeatherEvent>> weatherHistory) {
-        String nextDateStr = getNextDayDate(file.getName());
-        Optional<File> matchingFile = weatherHistory.keySet().stream()
-                .filter(f -> f.getName().equals(nextDateStr))
-                .findFirst();
-        return matchingFile;
     }
 
     public boolean checkWeatherAvailability (String date, Map<String, List<WeatherEvent>> weatherHistory) throws ParseException {

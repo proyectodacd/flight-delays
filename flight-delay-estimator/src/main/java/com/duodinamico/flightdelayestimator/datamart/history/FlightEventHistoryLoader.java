@@ -1,7 +1,8 @@
 package com.duodinamico.flightdelayestimator.datamart.history;
 
 import com.duodinamico.aviationstackfeeder.domain.model.FlightEvent;
-import com.duodinamico.aviationstackfeeder.infrastructure.adapters.store.activemq.FlightEventDeserializer;
+import com.duodinamico.flightdelayestimator.datamart.tools.FlightEventDeserializer;
+
 
 import java.io.*;
 import java.util.*;

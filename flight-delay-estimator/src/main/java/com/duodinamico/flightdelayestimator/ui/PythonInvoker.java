@@ -19,7 +19,7 @@ public class PythonInvoker implements ProcessInvoker{
         File csv = copiarRecursoAArchivo("clean-datamart.csv", "datos.csv");
         ProcessBuilder pb = new ProcessBuilder("python", script.getAbsolutePath(), csv.getAbsolutePath(), this.processedDatamartFilePath);
         Process process = pb.start();
-        String exitCode = process.waitFor() == 0 ? "Modelos entrenados con éxito." + "\n-----------------------------------------------------------------------" : "Error al entrenar los modelos." + "\n-----------------------------------------------------------------------";
+        String exitCode = process.waitFor() == 0 ? "Modelos entrenados con éxito. (Próximo ajuste de modelos en 30 minutos)" + "\n-----------------------------------------------------------------------" : "Error al entrenar los modelos." + "\n-----------------------------------------------------------------------";
         System.out.println(exitCode);
     }
 

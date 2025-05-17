@@ -1,16 +1,21 @@
 package com.duodinamico.flightdelayestimator.datamart;
+import com.duodinamico.aviationstackfeeder.domain.model.FlightEvent;
 import com.duodinamico.flightdelayestimator.datamart.tools.DatamartManager;
 import com.duodinamico.flightdelayestimator.datamart.history.MatchingFinderForHistoryEvents;
 import com.duodinamico.flightdelayestimator.datamart.realtime.processing.MatchingFinderForRealTimeEvents;
 import com.duodinamico.flightdelayestimator.datamart.realtime.storage.EventListenerForRealTimeEvents;
 import com.duodinamico.flightdelayestimator.datamart.tools.TaskScheduler;
 import com.duodinamico.flightdelayestimator.datamart.tools.ValuableContentMatcher;
+import com.duodinamico.openweathermapfeeder.domain.model.WeatherEvent;
 import jakarta.jms.JMSException;
 import java.io.IOException;
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class DatamartServiceController {
 
@@ -31,21 +36,21 @@ public class DatamartServiceController {
     }
 
     public void execute() throws IOException, InterruptedException {
-        this.datamartManager.deleteWholeDatamart();
+        //this.datamartManager.deleteWholeDatamart();
         System.out.println("BIENVENIDO A FLIGHTDELAYS®");
         System.out.println("-----------------------------------------------------------------------");
-        saveHistoryToDatamart();
+        //saveHistoryToDatamart();
         System.out.println("-----------------------------------------------------------------------");
         listenToRealTimeEvents();
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
         Runnable realTimeMatcher = matchRealTimeEvents();
-        this.taskScheduler.programarTareaCadaCiertoTiempo(scheduler, realTimeMatcher, 300);
+        this.taskScheduler.programarTareaCadaCiertoTiempo(scheduler, realTimeMatcher, 300, 120);
     }
 
     public void saveHistoryToDatamart() {
         try {
             System.out.println("Cargando histórico de datos...");
-            this.datamartManager.writeCleanContentToDatamart(this.valuableContentMatcher.mapToValuableContent(this.matchingFinderForHistoryEvents.findPossibleMatches()));
+            this.datamartManager.writeCleanContentToDatamart(this.valuableContentMatcher.matchCompatibleCouples(this.matchingFinderForHistoryEvents.findPossibleMatches()));
             System.out.println("Histórico de datos cargado con éxito.");
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -65,12 +70,10 @@ public class DatamartServiceController {
     public Runnable matchRealTimeEvents() {
         return () -> {
             try {
-                if (this.matchingFinderForRealTimeEvents.findPossibleMatchesForRealTimeEvents().size() != 0) {
-                    System.out.println("Actualizando Datamart a partir de eventos en tiempo real...");
-                    this.datamartManager.writeCleanContentToDatamart(this.valuableContentMatcher.mapToValuableContent(this.matchingFinderForRealTimeEvents.findPossibleMatchesForRealTimeEvents()));
-                }
+                List<Map<List<FlightEvent>, List<WeatherEvent>>> temporaryExample = this.matchingFinderForRealTimeEvents.findPossibleMatchesForRealTimeEvents();
+                this.datamartManager.writeCleanContentToDatamart(this.valuableContentMatcher.matchCompatibleCouples(temporaryExample));
             } catch (IOException | ParseException e) {
-                throw new RuntimeException(e);
+                System.out.println("\nEventos recogidos en tiempo real insuficientes para hacer matching. (Próxima actualización en 5 minutos)");
             }
         };
     }

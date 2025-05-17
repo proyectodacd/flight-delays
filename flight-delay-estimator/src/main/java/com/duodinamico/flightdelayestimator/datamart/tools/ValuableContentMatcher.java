@@ -11,7 +11,7 @@ public class ValuableContentMatcher {
     private UnixConverter unixConverter = new UnixConverter();
     private ValuableContentMapper valuableContentMapper = new ValuableContentMapper();
 
-    public ArrayList<ValuableContentForPrediction> mapToValuableContent (List<Map<List<FlightEvent>, List<WeatherEvent>>> history) {
+    public ArrayList<ValuableContentForPrediction> matchCompatibleCouples(List<Map<List<FlightEvent>, List<WeatherEvent>>> history) {
         ArrayList<ValuableContentForPrediction> valuableContentForPredictions = new ArrayList<ValuableContentForPrediction>();
         for (Map<List<FlightEvent>, List<WeatherEvent>> couple : history) {
             for (List<FlightEvent> flightEvents : couple.keySet()) {
@@ -36,7 +36,7 @@ public class ValuableContentMatcher {
         }
         Optional<WeatherEvent> resultado = validator == true ? weatherEvents.stream().filter(p -> p.getCity().equals(flightEvent.getDepartureIata()) && p.getDataCalculationTime() == (timeDifferences.get(Collections.min(timeDifferences.keySet())))).findFirst() : Optional.empty();
         if (resultado.isPresent()) {
-            return valuableContentMapper.departureContentMatcher(flightEvent, resultado.get());
+            return valuableContentMapper.mapToDepartureValuableContent(flightEvent, resultado.get());
         }
         return null;
     }
@@ -52,7 +52,7 @@ public class ValuableContentMatcher {
         }
         Optional<WeatherEvent> resultado = validator == true ? weatherEvents.stream().filter(p -> p.getCity().equals(flightEvent.getArrivalIata()) && p.getDataCalculationTime() == (timeDifferences.get(Collections.min(timeDifferences.keySet())))).findFirst() : Optional.empty();
         if (resultado.isPresent()) {
-            return valuableContentMapper.arrivalContentMatcher(flightEvent, resultado.get());
+            return valuableContentMapper.mapToArrivalValuableContent(flightEvent, resultado.get());
         }
         return null;
     }

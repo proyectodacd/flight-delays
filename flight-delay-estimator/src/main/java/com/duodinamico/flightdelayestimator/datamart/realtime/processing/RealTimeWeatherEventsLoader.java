@@ -1,7 +1,7 @@
 package com.duodinamico.flightdelayestimator.datamart.realtime.processing;
 
+import com.duodinamico.flightdelayestimator.datamart.tools.WeatherEventDeserializer;
 import com.duodinamico.openweathermapfeeder.domain.model.WeatherEvent;
-import com.duodinamico.openweathermapfeeder.infrastructure.adapters.store.activemq.WeatherEventDeserializer;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
