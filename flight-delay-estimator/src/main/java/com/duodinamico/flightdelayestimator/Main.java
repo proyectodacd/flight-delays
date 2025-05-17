@@ -22,7 +22,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws IOException, ParseException, InterruptedException {
         DatamartServiceController datamartServiceController = new DatamartServiceController(new ValuableContentMatcher(), new MatchingFinderForHistoryEvents(new FlightEventHistoryLoader(args[0]), new WeatherEventHistoryLoader(args[1])), new DatamartManager(args[2],args[6],args[7]), new EventListenerForRealTimeEvents(args[3], List.of(Arrays.copyOfRange(args,4,6)), new EventStorageForRealTimeEvents(args[6],args[7])), new MatchingFinderForRealTimeEvents(new RealTimeFlightEventsLoader(args[6]),new RealTimeWeatherEventsLoader(args[7])), new TaskScheduler());
-        UserInterfaceController userInterfaceController = new UserInterfaceController(new PythonInvoker(args[8]), new TaskScheduler(),new UserInterfaceForQueries(args[8],new QueryTools(), new ProcessRepeater()));
+        UserInterfaceController userInterfaceController = new UserInterfaceController(new PythonInvoker(args[8],args[2]), new TaskScheduler(),new UserInterfaceForQueries(args[8],new QueryTools(), new ProcessRepeater()));
 
         datamartServiceController.execute();
         userInterfaceController.execute();

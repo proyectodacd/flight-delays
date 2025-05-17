@@ -36,10 +36,10 @@ public class DatamartServiceController {
     }
 
     public void execute() throws IOException, InterruptedException {
-        //this.datamartManager.deleteWholeDatamart();
+        this.datamartManager.deleteWholeDatamart();
         System.out.println("BIENVENIDO A FLIGHTDELAYS®");
         System.out.println("-----------------------------------------------------------------------");
-        //saveHistoryToDatamart();
+        saveHistoryToDatamart();
         System.out.println("-----------------------------------------------------------------------");
         listenToRealTimeEvents();
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);

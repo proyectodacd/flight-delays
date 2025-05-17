@@ -7,17 +7,18 @@ import java.nio.file.StandardCopyOption;
 public class PythonInvoker implements ProcessInvoker{
 
     private final String processedDatamartFilePath;
+    private final String cleanDatamartFilePath;
 
-    public PythonInvoker(String processedDatamartFilePath) {
+    public PythonInvoker(String processedDatamartFilePath, String cleanDatamartFilePath) {
         this.processedDatamartFilePath = processedDatamartFilePath;
+        this.cleanDatamartFilePath = cleanDatamartFilePath;
     }
 
     @Override
     public void executeExternalProcess() throws IOException, InterruptedException {
         System.out.println("Entrenando modelos predictivos...");
         File script = copiarRecursoAArchivo("script.py", "script.py");
-        File csv = copiarRecursoAArchivo("clean-datamart.csv", "datos.csv");
-        ProcessBuilder pb = new ProcessBuilder("python", script.getAbsolutePath(), csv.getAbsolutePath(), this.processedDatamartFilePath);
+        ProcessBuilder pb = new ProcessBuilder("python", script.getAbsolutePath(), this.cleanDatamartFilePath, this.processedDatamartFilePath);
         Process process = pb.start();
         String exitCode = process.waitFor() == 0 ? "Modelos entrenados con éxito. (Próximo ajuste de modelos en 30 minutos)" + "\n-----------------------------------------------------------------------" : "Error al entrenar los modelos." + "\n-----------------------------------------------------------------------";
         System.out.println(exitCode);
