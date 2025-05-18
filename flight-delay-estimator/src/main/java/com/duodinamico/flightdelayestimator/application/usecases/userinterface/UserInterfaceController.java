@@ -23,7 +23,7 @@ public class UserInterfaceController {
     public void execute() {
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
         Runnable processDatamart = processDatamart();
-        this.taskScheduler.programarTareaCadaCiertoTiempo(scheduler, processDatamart, 120,0);
+        this.taskScheduler.scheduleTask(scheduler, processDatamart, 120,0);
         try {
             latch.await();
         } catch (Exception e) {

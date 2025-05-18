@@ -33,7 +33,7 @@ public class WeatherEventStore implements WeatherStore {
                 MessageProducer producer = session.createProducer(topic);
                 producer.setDeliveryMode(DeliveryMode.PERSISTENT);
                 for (WeatherEvent weatherEvent : weatherEvents) {
-                    System.out.println("Mensaje enviado: " + sendFlightEvent(weatherEvent,session,producer));
+                    System.out.println("Mensaje enviado: " + sendFlightEvent(weatherEvent,session,producer).getText());
                 }
 
             } catch (JMSException e) {

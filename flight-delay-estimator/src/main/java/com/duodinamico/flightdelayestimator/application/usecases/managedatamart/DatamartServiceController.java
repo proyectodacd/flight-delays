@@ -43,7 +43,7 @@ public class DatamartServiceController {
         listenToRealTimeEvents();
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
         Runnable realTimeMatcher = matchRealTimeEvents();
-        this.taskScheduler.programarTareaCadaCiertoTiempo(scheduler, realTimeMatcher, 120, 60);
+        this.taskScheduler.scheduleTask(scheduler, realTimeMatcher, 120, 60);
     }
 
     public void saveHistoryToDatamart() {
