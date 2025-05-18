@@ -1,19 +1,18 @@
 package com.duodinamico.flightdelayestimator.datamart.tools;
 
-import com.duodinamico.openweathermapfeeder.domain.model.WeatherEvent;
-import com.duodinamico.aviationstackfeeder.domain.model.FlightEvent;
 import com.duodinamico.flightdelayestimator.datamart.modelling.ValuableContentForPrediction;
+import com.google.gson.JsonObject;
 
 public class ValuableContentMapper {
 
-    public ValuableContentForPrediction mapToDepartureValuableContent(FlightEvent flightEvent, WeatherEvent weatherEvent) {
-        return new ValuableContentForPrediction(flightEvent.getEstimatedDepartureTime(),flightEvent.getDepartureTimezone(),
-                "Departure", flightEvent.getDepartureIata(), weatherEvent.getTemperature(), weatherEvent.getPercentageOfClouds(), weatherEvent.getWindSpeed(),
-                weatherEvent.getWindDirection(), weatherEvent.getPrecipitation(), weatherEvent.getSnowmeasurement(), weatherEvent.getWeatherDescription(), flightEvent.getDepartureDelay());
+    public ValuableContentForPrediction mapToDepartureValuableContent(JsonObject flightEvent, JsonObject weatherEvent) {
+        return new ValuableContentForPrediction(flightEvent.get("estimatedDepartureTime").getAsString(),flightEvent.get("departureTimezone").getAsString(),
+                "Departure", flightEvent.get("departureIata").getAsString(), weatherEvent.get("temperature").getAsFloat(), weatherEvent.get("percentageOfClouds").getAsInt(), weatherEvent.get("windSpeed").getAsFloat(),
+                weatherEvent.get("windDirection").getAsInt(), weatherEvent.get("precipitation").getAsFloat(), weatherEvent.get("snowmeasurement").getAsFloat(), weatherEvent.get("weatherDescription").getAsString(), flightEvent.get("departureDelay").getAsInt());
     }
 
-    public ValuableContentForPrediction mapToArrivalValuableContent(FlightEvent flightEvent, WeatherEvent weatherEvent) {
-        return new ValuableContentForPrediction(flightEvent.getEstimatedArrivalTime(), flightEvent.getArrivalTimezone(), "Arrival", flightEvent.getArrivalIata(), weatherEvent.getTemperature(), weatherEvent.getPercentageOfClouds(), weatherEvent.getWindSpeed(),
-                weatherEvent.getWindDirection(), weatherEvent.getPrecipitation(), weatherEvent.getSnowmeasurement(), weatherEvent.getWeatherDescription(), flightEvent.getArrivalDelay());
+    public ValuableContentForPrediction mapToArrivalValuableContent(JsonObject flightEvent, JsonObject weatherEvent) {
+        return new ValuableContentForPrediction(flightEvent.get("estimatedArrivalTime").getAsString(), flightEvent.get("arrivalTimezone").getAsString(), "Arrival", flightEvent.get("arrivalIata").getAsString(), weatherEvent.get("temperature").getAsFloat(), weatherEvent.get("percentageOfClouds").getAsInt(), weatherEvent.get("windSpeed").getAsFloat(),
+                weatherEvent.get("windDirection").getAsInt(), weatherEvent.get("precipitation").getAsFloat(), weatherEvent.get("snowmeasurement").getAsFloat(), weatherEvent.get("weatherDescription").getAsString(), flightEvent.get("arrivalDelay").getAsInt());
     }
 }

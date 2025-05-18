@@ -1,7 +1,7 @@
 package com.duodinamico.flightdelayestimator.datamart.realtime.processing;
 
-import com.duodinamico.aviationstackfeeder.domain.model.FlightEvent;
-import com.duodinamico.flightdelayestimator.datamart.tools.FlightEventDeserializer;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 
 import java.io.BufferedReader;
@@ -14,20 +14,18 @@ import java.util.Map;
 
 public class RealTimeFlightEventsLoader {
     private final String datamartPartition;
-    private final FlightEventDeserializer deserializer = new FlightEventDeserializer();
 
     public RealTimeFlightEventsLoader(String datamartPartition) {
         this.datamartPartition = datamartPartition;
     }
 
-    public Map<String, List<FlightEvent>> loadFlightEventsFromDatamartPartition() throws IOException {
-        Map<String, List<FlightEvent>> result = new HashMap<>();
+    public Map<String, List<JsonObject>> loadFlightEventsFromDatamartPartition() throws IOException {
+        Map<String, List<JsonObject>> result = new HashMap<>();
         List<String> ids = getUniqueIds(this.datamartPartition);
         for (String id : ids) {
-            List<FlightEvent> flightEvents = new ArrayList<>();
-            for (String json : getJsonsById(this.datamartPartition,id)) { flightEvents.add(this.deserializer.deserializeFlightEvent(cleanEscapedJson(json))); }
-            System.out.println(id);
-            System.out.println(flightEvents);
+            List<JsonObject> flightEvents = new ArrayList<>();
+            for (String json : getJsonsById(this.datamartPartition,id)) {
+                flightEvents.add(JsonParser.parseString(cleanEscapedJson(json)).getAsJsonObject()); }
             result.put(id, flightEvents);
         }
         return result;

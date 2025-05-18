@@ -1,7 +1,7 @@
 package com.duodinamico.flightdelayestimator.datamart.realtime.processing;
 
-import com.duodinamico.flightdelayestimator.datamart.tools.WeatherEventDeserializer;
-import com.duodinamico.openweathermapfeeder.domain.model.WeatherEvent;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -13,20 +13,17 @@ import java.util.Map;
 
 public class RealTimeWeatherEventsLoader {
     private final String datamartPartition;
-    private final WeatherEventDeserializer deserializer = new WeatherEventDeserializer();
 
     public RealTimeWeatherEventsLoader(String datamartPartition) {
         this.datamartPartition = datamartPartition;
     }
 
-    public Map<String, List<WeatherEvent>> loadWeatherEventsFromDatamartPartition() throws IOException {
-        Map<String, List<WeatherEvent>> result = new HashMap<>();
+    public Map<String, List<JsonObject>> loadWeatherEventsFromDatamartPartition() throws IOException {
+        Map<String, List<JsonObject>> result = new HashMap<>();
         List<String> ids = getUniqueIds(this.datamartPartition);
         for (String id : ids) {
-            List<WeatherEvent> weatherEvents = new ArrayList<>();
-            for (String json : getJsonsById(this.datamartPartition,id)) { weatherEvents.add(this.deserializer.deserializeWeatherEvent(cleanEscapedJson(json))); }
-            System.out.println(id);
-            System.out.println(weatherEvents);
+            List<JsonObject> weatherEvents = new ArrayList<>();
+            for (String json : getJsonsById(this.datamartPartition,id)) { weatherEvents.add(JsonParser.parseString(cleanEscapedJson(json)).getAsJsonObject()); }
             result.put(id, weatherEvents);
         }
         return result;

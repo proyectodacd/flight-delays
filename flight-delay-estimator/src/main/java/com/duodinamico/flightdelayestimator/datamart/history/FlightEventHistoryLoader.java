@@ -1,7 +1,8 @@
 package com.duodinamico.flightdelayestimator.datamart.history;
 
-import com.duodinamico.aviationstackfeeder.domain.model.FlightEvent;
-import com.duodinamico.flightdelayestimator.datamart.tools.FlightEventDeserializer;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 
 import java.io.*;
@@ -10,14 +11,13 @@ import java.util.*;
 public class FlightEventHistoryLoader {
 
     private final File directory;
-    private final FlightEventDeserializer deserializer = new FlightEventDeserializer();
 
     public FlightEventHistoryLoader(String directoryPath) {
         this.directory = new File(directoryPath);
     }
 
-    public Map<File, List<FlightEvent>> loadFlightEventsFromFiles() throws IOException {
-        Map<File, List<FlightEvent>> result = new HashMap<>();
+    public Map<File, List<JsonObject>> loadFlightEventsFromFiles() throws IOException {
+        Map<File, List<JsonObject>> result = new HashMap<>();
 
         if (!directory.exists() || !directory.isDirectory()) {
             throw new IllegalArgumentException("Directorio no válido: " + directory.getAbsolutePath());
@@ -27,11 +27,11 @@ public class FlightEventHistoryLoader {
         if (files == null) return result;
 
         for (File file : files) {
-            List<FlightEvent> events = new ArrayList<>();
+            List<JsonObject> events = new ArrayList<>();
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    FlightEvent event = deserializer.deserializeFlightEvent(line);
+                    JsonObject event = JsonParser.parseString(line).getAsJsonObject();
                     events.add(event);
                 }
             }

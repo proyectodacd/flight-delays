@@ -1,12 +1,13 @@
 package com.duodinamico.flightdelayestimator.datamart;
-import com.duodinamico.aviationstackfeeder.domain.model.FlightEvent;
+
 import com.duodinamico.flightdelayestimator.datamart.tools.DatamartManager;
 import com.duodinamico.flightdelayestimator.datamart.history.MatchingFinderForHistoryEvents;
 import com.duodinamico.flightdelayestimator.datamart.realtime.processing.MatchingFinderForRealTimeEvents;
 import com.duodinamico.flightdelayestimator.datamart.realtime.storage.EventListenerForRealTimeEvents;
 import com.duodinamico.flightdelayestimator.datamart.tools.TaskScheduler;
 import com.duodinamico.flightdelayestimator.datamart.tools.ValuableContentMatcher;
-import com.duodinamico.openweathermapfeeder.domain.model.WeatherEvent;
+
+import com.google.gson.JsonObject;
 import jakarta.jms.JMSException;
 import java.io.IOException;
 import java.text.ParseException;
@@ -44,7 +45,7 @@ public class DatamartServiceController {
         listenToRealTimeEvents();
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
         Runnable realTimeMatcher = matchRealTimeEvents();
-        this.taskScheduler.programarTareaCadaCiertoTiempo(scheduler, realTimeMatcher, 300, 120);
+        this.taskScheduler.programarTareaCadaCiertoTiempo(scheduler, realTimeMatcher, 120, 60);
     }
 
     public void saveHistoryToDatamart() {
@@ -70,10 +71,10 @@ public class DatamartServiceController {
     public Runnable matchRealTimeEvents() {
         return () -> {
             try {
-                List<Map<List<FlightEvent>, List<WeatherEvent>>> temporaryExample = this.matchingFinderForRealTimeEvents.findPossibleMatchesForRealTimeEvents();
+                List<Map<List<JsonObject>, List<JsonObject>>> temporaryExample = this.matchingFinderForRealTimeEvents.findPossibleMatchesForRealTimeEvents();
                 this.datamartManager.writeCleanContentToDatamart(this.valuableContentMatcher.matchCompatibleCouples(temporaryExample));
-            } catch (IOException | ParseException e) {
-                System.out.println("\nEventos recogidos en tiempo real insuficientes para hacer matching. (Próxima actualización en 5 minutos)");
+            } catch (Exception e) {
+                System.out.println("\n\nEventos recogidos en tiempo real insuficientes para hacer matching. (Próxima actualización en 5 minutos)");
             }
         };
     }

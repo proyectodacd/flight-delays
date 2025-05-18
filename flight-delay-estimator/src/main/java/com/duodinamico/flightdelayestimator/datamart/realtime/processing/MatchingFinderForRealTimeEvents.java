@@ -1,7 +1,6 @@
 package com.duodinamico.flightdelayestimator.datamart.realtime.processing;
 
-import com.duodinamico.openweathermapfeeder.domain.model.WeatherEvent;
-import com.duodinamico.aviationstackfeeder.domain.model.FlightEvent;
+import com.google.gson.JsonObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,25 +17,24 @@ public class MatchingFinderForRealTimeEvents {
         this.weatherEventsLoader = realTimeWeatherEventsLoader;
     }
 
-    public List<Map<List<FlightEvent>, List<WeatherEvent>>> findPossibleMatchesForRealTimeEvents() throws IOException, ParseException {
-        Map<String, List<FlightEvent>> realTimeFlightHistory = this.flightEventsLoader.loadFlightEventsFromDatamartPartition();
-        Map<String, List<WeatherEvent>> realTimeWeatherHistory = this.weatherEventsLoader.loadWeatherEventsFromDatamartPartition();
-        List<Map<List<FlightEvent>, List<WeatherEvent>>> result = new ArrayList<>();
+    public List<Map<List<JsonObject>, List<JsonObject>>> findPossibleMatchesForRealTimeEvents() throws IOException, ParseException {
+        Map<String, List<JsonObject>> realTimeFlightHistory = this.flightEventsLoader.loadFlightEventsFromDatamartPartition();
+        Map<String, List<JsonObject>> realTimeWeatherHistory = this.weatherEventsLoader.loadWeatherEventsFromDatamartPartition();
+        List<Map<List<JsonObject>, List<JsonObject>>> result = new ArrayList<>();
         for (String key : realTimeFlightHistory.keySet()) {
-            System.out.println(getNextDayDate(key));
             if (checkWeatherAvailability(key, realTimeWeatherHistory)) {
-                Map<List<FlightEvent>, List<WeatherEvent>> usefulEntry = new HashMap<>();
+                Map<List<JsonObject>, List<JsonObject>> usefulEntry = new HashMap<>();
                 usefulEntry.put(realTimeFlightHistory.get(key), realTimeWeatherHistory.get(getNextDayDate(key)));
                 result.add(usefulEntry);
             }
         }
 
-        String outputMessage = result.size() != 0 ? "\nConjuntos de eventos captados en tiempo real con matching disponible: " + result.size() + "\nActualizando Datamart a partir de eventos en tiempo real..." : "\nConjuntos de eventos captados en tiempo real con matching disponible: " + result.size();
+        String outputMessage = result.size() != 0 ? "\n\nConjuntos de eventos captados en tiempo real con matching disponible: " + result.size() + "\nActualizando Datamart a partir de eventos en tiempo real...\n" + "-----------------------------------------------------------------------" : "\nConjuntos de eventos captados en tiempo real con matching disponible: " + result.size();
         System.out.println(outputMessage);
         return result;
     }
 
-    public boolean checkWeatherAvailability (String date, Map<String, List<WeatherEvent>> weatherHistory) throws ParseException {
+    public boolean checkWeatherAvailability (String date, Map<String, List<JsonObject>> weatherHistory) throws ParseException {
         String nextDateStr = getNextDayDate(date);
         boolean exists = weatherHistory.keySet().stream()
                 .anyMatch(dateReference -> dateReference.equals(nextDateStr));

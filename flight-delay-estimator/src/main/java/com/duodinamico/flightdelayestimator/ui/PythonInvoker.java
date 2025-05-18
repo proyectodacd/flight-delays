@@ -20,7 +20,7 @@ public class PythonInvoker implements ProcessInvoker{
         File script = copiarRecursoAArchivo("script.py", "script.py");
         ProcessBuilder pb = new ProcessBuilder("python", script.getAbsolutePath(), this.cleanDatamartFilePath, this.processedDatamartFilePath);
         Process process = pb.start();
-        String exitCode = process.waitFor() == 0 ? "Modelos entrenados con éxito. (Próximo ajuste de modelos en 30 minutos)" + "\n-----------------------------------------------------------------------" : "Error al entrenar los modelos." + "\n-----------------------------------------------------------------------";
+        String exitCode = process.waitFor() == 0 ? "Modelos entrenados con éxito. (Próximo ajuste de modelos en 10 minutos)" + "\n-----------------------------------------------------------------------" : "Error al entrenar los modelos." + "\n-----------------------------------------------------------------------";
         System.out.println(exitCode);
     }
 

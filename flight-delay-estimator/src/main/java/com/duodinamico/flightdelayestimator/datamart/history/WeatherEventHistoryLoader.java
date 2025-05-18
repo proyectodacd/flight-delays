@@ -1,7 +1,7 @@
 package com.duodinamico.flightdelayestimator.datamart.history;
 
-import com.duodinamico.flightdelayestimator.datamart.tools.WeatherEventDeserializer;
-import com.duodinamico.openweathermapfeeder.domain.model.WeatherEvent;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,14 +15,13 @@ import java.util.Map;
 public class WeatherEventHistoryLoader {
 
     private final File directory;
-    private final WeatherEventDeserializer deserializer = new WeatherEventDeserializer();
 
     public WeatherEventHistoryLoader(String directoryPath) {
         this.directory = new File(directoryPath);
     }
 
-    public Map<File, List<WeatherEvent>> loadWeatherEventsFromFiles() throws IOException {
-        Map<File, List<WeatherEvent>> result = new HashMap<>();
+    public Map<File, List<JsonObject>> loadWeatherEventsFromFiles() throws IOException {
+        Map<File, List<JsonObject>> result = new HashMap<>();
 
         if (!directory.exists() || !directory.isDirectory()) {
             throw new IllegalArgumentException("Directorio no válido: " + directory.getAbsolutePath());
@@ -32,11 +31,11 @@ public class WeatherEventHistoryLoader {
         if (files == null) return result;
 
         for (File file : files) {
-            List<WeatherEvent> events = new ArrayList<>();
+            List<JsonObject> events = new ArrayList<>();
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    WeatherEvent event = deserializer.deserializeWeatherEvent(line);
+                    JsonObject event = JsonParser.parseString(line).getAsJsonObject();
                     events.add(event);
                 }
             }
