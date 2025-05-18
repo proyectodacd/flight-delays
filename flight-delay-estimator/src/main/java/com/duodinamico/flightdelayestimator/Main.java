@@ -1,18 +1,21 @@
 package com.duodinamico.flightdelayestimator;
 
-import com.duodinamico.flightdelayestimator.datamart.DatamartServiceController;
-import com.duodinamico.flightdelayestimator.datamart.history.FlightEventHistoryLoader;
-import com.duodinamico.flightdelayestimator.datamart.tools.DatamartManager;
-import com.duodinamico.flightdelayestimator.datamart.history.MatchingFinderForHistoryEvents;
-import com.duodinamico.flightdelayestimator.datamart.history.WeatherEventHistoryLoader;
-import com.duodinamico.flightdelayestimator.datamart.realtime.processing.MatchingFinderForRealTimeEvents;
-import com.duodinamico.flightdelayestimator.datamart.realtime.processing.RealTimeFlightEventsLoader;
-import com.duodinamico.flightdelayestimator.datamart.realtime.processing.RealTimeWeatherEventsLoader;
-import com.duodinamico.flightdelayestimator.datamart.realtime.storage.EventListenerForRealTimeEvents;
-import com.duodinamico.flightdelayestimator.datamart.realtime.storage.EventStorageForRealTimeEvents;
-import com.duodinamico.flightdelayestimator.ui.*;
-import com.duodinamico.flightdelayestimator.datamart.tools.TaskScheduler;
-import com.duodinamico.flightdelayestimator.datamart.tools.ValuableContentMatcher;
+import com.duodinamico.flightdelayestimator.application.usecases.managedatamart.DatamartServiceController;
+import com.duodinamico.flightdelayestimator.application.usecases.userinterface.UserInterfaceController;
+import com.duodinamico.flightdelayestimator.infrastructure.adapters.PythonInvoker;
+import com.duodinamico.flightdelayestimator.infrastructure.datamart.DatamartManager;
+import com.duodinamico.flightdelayestimator.tools.*;
+import com.duodinamico.flightdelayestimator.infrastructure.datamart.history.FlightEventHistoryLoader;
+import com.duodinamico.flightdelayestimator.infrastructure.datamart.history.MatchingFinderForHistoryEvents;
+import com.duodinamico.flightdelayestimator.infrastructure.datamart.history.WeatherEventHistoryLoader;
+import com.duodinamico.flightdelayestimator.infrastructure.datamart.realtime.processing.MatchingFinderForRealTimeEvents;
+import com.duodinamico.flightdelayestimator.infrastructure.datamart.realtime.processing.RealTimeFlightEventsLoader;
+import com.duodinamico.flightdelayestimator.infrastructure.datamart.realtime.processing.RealTimeWeatherEventsLoader;
+import com.duodinamico.flightdelayestimator.infrastructure.datamart.realtime.storage.EventListenerForRealTimeEvents;
+import com.duodinamico.flightdelayestimator.infrastructure.datamart.realtime.storage.EventStorageForRealTimeEvents;
+import com.duodinamico.flightdelayestimator.tools.ui.ProcessRepeater;
+import com.duodinamico.flightdelayestimator.tools.ui.QueryTools;
+import com.duodinamico.flightdelayestimator.tools.ui.UserInterfaceForQueries;
 
 import java.io.IOException;
 import java.text.ParseException;

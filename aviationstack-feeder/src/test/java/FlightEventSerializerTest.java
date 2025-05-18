@@ -1,5 +1,7 @@
+import com.duodinamico.aviationstackfeeder.infrastructure.adapters.apiconsumer.AviationStackProcessor;
 import com.duodinamico.aviationstackfeeder.infrastructure.adapters.apiconsumer.AviationStackProvider;
 import com.duodinamico.aviationstackfeeder.domain.model.FlightEvent;
+import com.duodinamico.aviationstackfeeder.infrastructure.adapters.apiconsumer.FlightJSONParser;
 import com.duodinamico.aviationstackfeeder.infrastructure.adapters.store.activemq.FlightEventSerializer;
 import com.duodinamico.aviationstackfeeder.tools.mappers.FlightEventMapper;
 import org.junit.Assert;
@@ -26,12 +28,15 @@ public class FlightEventSerializerTest {
 
     @org.junit.Test
     public void flightEventSerializerTest() throws Exception {
-//        setUpForRegularCase();
-//        AviationStackProvider aviationStackProvider = new AviationStackProvider(apiKeys);
-//        FlightEventSerializer flightEventSerializer = new FlightEventSerializer();
-//        FlightEventMapper flightEventMapper = new FlightEventMapper();
-//        ArrayList<FlightEvent> flightEvents = flightEventMapper.mapToFlightEvents(aviationStackProvider.flightProvider("dep_iata","LPA"));
-//        Assert.assertTrue(flightEventSerializer.serializeFlightEvent(flightEvents.getFirst()) instanceof String);
-//        System.out.println(flightEventSerializer.serializeFlightEvent(flightEvents.getFirst()));
+        setUpForRegularCase();
+        String[] airports = {"LPA", "MAD", "BCN", "AMS"};
+        AviationStackProcessor aviationStackProcessor = new AviationStackProcessor(apiKeys);
+        FlightJSONParser flightDeserializer = new FlightJSONParser();
+        AviationStackProvider aviationStackProvider = new AviationStackProvider(aviationStackProcessor, flightDeserializer, airports);
+        FlightEventSerializer flightEventSerializer = new FlightEventSerializer();
+        FlightEventMapper flightEventMapper = new FlightEventMapper();
+        ArrayList<FlightEvent> flightEvents = flightEventMapper.mapToFlightEvents(aviationStackProvider.flightProvider("dep_iata","LPA"));
+        Assert.assertTrue(flightEventSerializer.serializeFlightEvent(flightEvents.getFirst()) instanceof String);
+        System.out.println(flightEventSerializer.serializeFlightEvent(flightEvents.getFirst()));
     }
 }

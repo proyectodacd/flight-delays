@@ -7,6 +7,6 @@ public class UnixUtilsTest {
     @Test
     public void findUnixOfYesterdayTest(){
         UnixUtils converter = new UnixUtils();
-        converter.findUnixOfYesterday();
+        System.out.println(converter.findUnixOfYesterday());
     }
 }

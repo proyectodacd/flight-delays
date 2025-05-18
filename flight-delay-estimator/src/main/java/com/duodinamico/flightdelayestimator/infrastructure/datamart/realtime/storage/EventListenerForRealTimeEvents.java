@@ -1,30 +1,32 @@
-package com.duodinamico.eventstorebuilder.application.usecases.eventstorebuildermanager;
+package com.duodinamico.flightdelayestimator.infrastructure.datamart.realtime.storage;
+
 import jakarta.jms.*;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import java.util.List;
 import java.util.UUID;
 
-public class EventConsumer {
+public class EventListenerForRealTimeEvents {
 
     private final String url;
     private final List<String> topicNames;
-    private final String clientID;
-    private final EventStorage eventStorage;
+    private final String clientID = "datamart-" + UUID.randomUUID();
+    private final EventStorageForRealTimeEvents eventStorage;
 
-    public EventConsumer(String url, List<String> topicNames, EventStorage eventStorage) {
+
+    public EventListenerForRealTimeEvents(String url, List<String> topicNames, EventStorageForRealTimeEvents eventStorage) {
         this.url = url;
         this.topicNames = topicNames;
-        this.clientID = "event-store-builder-" + UUID.randomUUID();
         this.eventStorage = eventStorage;
     }
 
-    public void consumeEvents() throws JMSException {
-        Session session = getConnection().createSession(false, Session.AUTO_ACKNOWLEDGE);
-        System.out.println("EventStoreBuilder ahora escuchando a los topics: " + this.topicNames);
-        System.out.println("----------------------------");
+    public void consumeRealTimeEvents() throws JMSException {
 
-        for (String topicName : this.topicNames) {
+        Session session = getConnection().createSession(false, Session.AUTO_ACKNOWLEDGE);
+        System.out.println("Datamart ahora escuchando a los topics: " + topicNames);
+        System.out.println("-----------------------------------------------------------------------");
+
+        for (String topicName : topicNames) {
             MessageConsumer consumer = getMessageConsumer(session, topicName);
             consumer.setMessageListener(message -> {
                 if (message instanceof TextMessage) {
@@ -48,14 +50,14 @@ public class EventConsumer {
 
     public MessageConsumer getMessageConsumer(Session session, String topicName) throws JMSException {
         Topic topic = session.createTopic(topicName);
-        String subscriptionName = topicName + "-subscription for EventStoreBuilder";
+        String subscriptionName = topicName + "-subscription for Datamart";
         MessageConsumer consumer = session.createDurableSubscriber(topic, subscriptionName);
         return consumer;
     }
 
     public void saveMessage (TextMessage message, String topicName) throws JMSException {
         String json = message.getText();
-        this.eventStorage.saveToEventsFile(json, topicName);
-        System.out.println("Mensaje guardado en EventStore, de [" + topicName + "]: " + json);
+        this.eventStorage.saveRealTimeEventToDatamart(json, topicName);
+        System.out.println("Mensaje guardado en Datamart, de [" + topicName + "]: " + json);
     }
 }

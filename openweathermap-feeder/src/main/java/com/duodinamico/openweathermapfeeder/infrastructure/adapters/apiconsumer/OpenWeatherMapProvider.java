@@ -8,11 +8,11 @@ public class OpenWeatherMapProvider implements WeatherProvider {
 
     private final String[] preferredAirports;
     private final OpenWeatherMapProcessor openWeatherMapProcessor;
-    private final WeatherDeserializer weatherDeserializer;
+    private final WeatherJSONParser weatherJSONParser;
 
-    public OpenWeatherMapProvider(OpenWeatherMapProcessor openWeatherMapProcessor, WeatherDeserializer weatherDeserializer, String[] preferredAirports) {
+    public OpenWeatherMapProvider(OpenWeatherMapProcessor openWeatherMapProcessor, WeatherJSONParser weatherJSONParser, String[] preferredAirports) {
         this.openWeatherMapProcessor = openWeatherMapProcessor;
-        this.weatherDeserializer = weatherDeserializer;
+        this.weatherJSONParser = weatherJSONParser;
         this.preferredAirports = preferredAirports;
     }
 
@@ -22,7 +22,7 @@ public class OpenWeatherMapProvider implements WeatherProvider {
 
     @Override
     public WeatherResponse provideWeather(Coordinates coordinates, String time) {
-        return this.weatherDeserializer.weatherDeserializer(this.openWeatherMapProcessor.weatherPetition(coordinates, time));
+        return this.weatherJSONParser.weatherDeserializer(this.openWeatherMapProcessor.weatherPetition(coordinates, time));
     }
 
 }

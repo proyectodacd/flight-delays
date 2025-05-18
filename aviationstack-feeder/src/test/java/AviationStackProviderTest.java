@@ -1,11 +1,14 @@
+import com.duodinamico.aviationstackfeeder.infrastructure.adapters.apiconsumer.AviationStackProcessor;
 import com.duodinamico.aviationstackfeeder.infrastructure.adapters.apiconsumer.AviationStackProvider;
 import com.duodinamico.aviationstackfeeder.domain.schema.FlightResponse;
+import com.duodinamico.aviationstackfeeder.infrastructure.adapters.apiconsumer.FlightJSONParser;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -23,10 +26,13 @@ public class AviationStackProviderTest {
 
     @Test
     public void aviationStackProviderTest() throws Exception {
-//        setUpForRegularCase();
-//        AviationStackProvider aviationStackProvider = new AviationStackProvider(apiKeys);
-//        assertTrue(aviationStackProvider.flightProvider("dep_iata","LPA") instanceof FlightResponse);
-//        System.out.println(aviationStackProvider.flightProvider("dep_iata","LPA").toString());
+        setUpForRegularCase();
+        String[] airports = {"LPA", "MAD", "BCN", "AMS"};
+        AviationStackProcessor aviationStackProcessor = new AviationStackProcessor(apiKeys);
+        FlightJSONParser flightDeserializer = new FlightJSONParser();
+        AviationStackProvider aviationStackProvider = new AviationStackProvider(aviationStackProcessor, flightDeserializer, airports);
+        assertTrue(aviationStackProvider.flightProvider("dep_iata","LPA") instanceof FlightResponse);
+        System.out.println(aviationStackProvider.flightProvider("dep_iata","LPA").toString());
     }
 
 }

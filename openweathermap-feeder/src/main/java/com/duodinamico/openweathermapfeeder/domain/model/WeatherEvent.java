@@ -32,10 +32,6 @@ public class WeatherEvent {
         this.weatherDescription = weatherDescription;
     }
 
-    public String getTs() {
-        return ts;
-    }
-
     public String getSs() {
         return ss;
     }
@@ -44,39 +40,4 @@ public class WeatherEvent {
         return this.city;
     }
 
-    public int getDataCalculationTime() {
-        return this.dataCalculationTime;
-    }
-
-    public String getStandardTime() {
-        return this.standardTime;
-    }
-
-    public float getTemperature() {
-        return temperature;
-    }
-
-    public float getWindSpeed() {
-        return windSpeed;
-    }
-
-    public int getWindDirection() {
-        return windDirection;
-    }
-
-    public int getPercentageOfClouds() {
-        return percentageOfClouds;
-    }
-
-    public float getPrecipitation() {
-        return precipitation;
-    }
-
-    public float getSnowmeasurement() {
-        return snowmeasurement;
-    }
-
-    public String getWeatherDescription() {
-        return weatherDescription;
-    }
 }

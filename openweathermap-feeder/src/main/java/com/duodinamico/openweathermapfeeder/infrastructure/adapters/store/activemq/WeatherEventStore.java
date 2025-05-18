@@ -26,22 +26,14 @@ public class WeatherEventStore implements WeatherStore {
     @Override
     public void saveWeather(WeatherResponse weatherResponse, String city) {
         ArrayList<WeatherEvent> weatherEvents = this.weatherEventMapper.getWeatherEvent(weatherResponse, city);
-            Connection connection = null;
+        Connection connection = getConnection();
             try {
-                ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
-                connection = connectionFactory.createConnection();
-                connection.start();
-
                 Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
                 Topic topic = session.createTopic(topicName);
                 MessageProducer producer = session.createProducer(topic);
                 producer.setDeliveryMode(DeliveryMode.PERSISTENT);
-
                 for (WeatherEvent weatherEvent : weatherEvents) {
-                    String content = weatherEventSerializer.serializeWeatherEvent(weatherEvent);
-                    TextMessage message = session.createTextMessage(content);
-                    producer.send(message);
-                    System.out.println("Mensaje enviado: " + message.getText());
+                    System.out.println("Mensaje enviado: " + sendFlightEvent(weatherEvent,session,producer));
                 }
 
             } catch (JMSException e) {
@@ -58,6 +50,24 @@ public class WeatherEventStore implements WeatherStore {
             }
         }
 
+    public Connection getConnection() {
+        Connection connection = null;
+        try {
+            ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
+            connection = connectionFactory.createConnection();
+            connection.start();
+        } catch (JMSException e) {
+            e.printStackTrace();
+        }
+        return connection;
+    }
+
+    public TextMessage sendFlightEvent(WeatherEvent weatherEvent, Session session, MessageProducer producer) throws JMSException {
+        String content = this.weatherEventSerializer.serializeWeatherEvent(weatherEvent);
+        TextMessage message = session.createTextMessage(content);
+        producer.send(message);
+        return message;
+    }
 
 
 }

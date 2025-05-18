@@ -19,32 +19,22 @@ public class FlightEventStore implements FlightStore{
     public FlightEventStore(String url, FlightEventSerializer flightEventSerializer, FlightEventMapper flightEventMapper) {
         this.url = url;
         this.topicName = "Flights";
-        this.flightEventSerializer = new FlightEventSerializer();
-        this.flightEventMapper = new FlightEventMapper();
+        this.flightEventSerializer = flightEventSerializer;
+        this.flightEventMapper = flightEventMapper;
     }
 
     @Override
     public void saveFlights(FlightResponse flightResponse) {
 
         ArrayList<FlightEvent> flightEvents = this.flightEventMapper.mapToFlightEvents(flightResponse);
-
-        Connection connection = null;
-
+        Connection connection = getConnection();
         try {
-            ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
-            connection = connectionFactory.createConnection();
-            connection.start();
-
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
             Topic topic = session.createTopic(topicName);
             MessageProducer producer = session.createProducer(topic);
             producer.setDeliveryMode(DeliveryMode.PERSISTENT);
-
             for (FlightEvent flightEvent : flightEvents) {
-                String content = this.flightEventSerializer.serializeFlightEvent(flightEvent);
-                TextMessage message = session.createTextMessage(content);
-                producer.send(message);
-                System.out.println("Mensaje enviado: " + message.getText());
+                System.out.println("Mensaje enviado: " + sendFlightEvent(flightEvent,session,producer).getText());
             }
 
         } catch (JMSException e) {
@@ -61,8 +51,23 @@ public class FlightEventStore implements FlightStore{
         }
     }
 
+    public Connection getConnection() {
+        Connection connection = null;
+        try {
+            ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
+            connection = connectionFactory.createConnection();
+            connection.start();
+        } catch (JMSException e) {
+            e.printStackTrace();
+        }
+        return connection;
+    }
 
-
-
+    public TextMessage sendFlightEvent(FlightEvent flightEvent, Session session, MessageProducer producer) throws JMSException {
+        String content = this.flightEventSerializer.serializeFlightEvent(flightEvent);
+        TextMessage message = session.createTextMessage(content);
+        producer.send(message);
+        return message;
+    }
 
 }

@@ -1,5 +1,7 @@
 import com.duodinamico.aviationstackfeeder.domain.model.FlightEvent;
+import com.duodinamico.aviationstackfeeder.infrastructure.adapters.apiconsumer.AviationStackProcessor;
 import com.duodinamico.aviationstackfeeder.infrastructure.adapters.apiconsumer.AviationStackProvider;
+import com.duodinamico.aviationstackfeeder.infrastructure.adapters.apiconsumer.FlightJSONParser;
 import com.duodinamico.aviationstackfeeder.tools.mappers.FlightEventMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,15 +26,13 @@ public class FlightEventMapperTest {
 
     @Test
     public void flightEventMapperTest() throws Exception {
-//        setUpForRegularCase();
-//        AviationStackProvider aviationStackProvider = new AviationStackProvider(apiKeys);
-//        FlightEventMapper flightEventMapper = new FlightEventMapper();
-//        ArrayList<FlightEvent> flightEvents = flightEventMapper.mapToFlightEvents(aviationStackProvider.flightProvider("dep_iata","LPA"));
-//        assertTrue(flightEvents instanceof ArrayList<FlightEvent>);
-//        FlightEvent firstFlight = flightEvents.get(0);
-//        System.out.println(firstFlight.getFlightIcao());
-//        System.out.println(firstFlight.getFlightDate());
-//        System.out.println(firstFlight.getSs());
-//        System.out.println(firstFlight.getTs());
+        setUpForRegularCase();
+        String[] airports = {"LPA", "MAD", "BCN", "AMS"};
+        AviationStackProcessor aviationStackProcessor = new AviationStackProcessor(apiKeys);
+        FlightJSONParser flightDeserializer = new FlightJSONParser();
+        AviationStackProvider aviationStackProvider = new AviationStackProvider(aviationStackProcessor, flightDeserializer, airports);
+        FlightEventMapper flightEventMapper = new FlightEventMapper();
+        ArrayList<FlightEvent> flightEvents = flightEventMapper.mapToFlightEvents(aviationStackProvider.flightProvider("dep_iata","LPA"));
+        assertTrue(flightEvents instanceof ArrayList<FlightEvent>);
     }
 }

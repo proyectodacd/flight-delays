@@ -20,12 +20,10 @@ public class EventStorage {
             String path = topic.equals("Flights") ? this.filePathGenerator.getFlightsFilePathForWriting(JsonParser.parseString(json).getAsJsonObject()) : this.filePathGenerator.getWeatherFilePathForWriting(JsonParser.parseString(json).getAsJsonObject()) ;
             File file = new File(path);
             file.getParentFile().mkdirs();
-
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
                 writer.write(json);
                 writer.newLine();
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
