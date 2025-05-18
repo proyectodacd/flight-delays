@@ -171,11 +171,13 @@ El usuario será notificado de la ejecución de estos procesos mediante mensajes
 ![Sistema](https://github.com/user-attachments/assets/456f992f-c6a0-4869-b70a-77a686a54f0e)
 
 
-[Diagrama de clases de AviationStackFeeder](https://github.com/user-attachments/assets/60d50096-83be-4934-a2a0-37c6718cf4ea)
+[Diagrama de clases de AviationStackFeeder](https://github.com/user-attachments/assets/d71b49f5-468f-4fb4-9aa9-22921dc00ebd)
 
-[Diagrama de clases de EventStoreBuilder](https://github.com/user-attachments/assets/8c222436-84d9-4061-a934-0685b0343103)
+[Diagrama de clases de EventStoreBuilder](https://github.com/user-attachments/assets/11ea1e2a-01e7-4d2b-9e4d-e9ba79775fdc)
 
-[Diagrama de clases de OpenWeatherMapFeeder](https://github.com/user-attachments/assets/3be6663a-c590-4548-b343-9d2a9ba24053)
+[Diagrama de clases de OpenWeatherMapFeeder](https://github.com/user-attachments/assets/1b0cb9fa-b874-4466-8498-6f8f7168eedc)
+
+[Diagrama de clases de FlightDelayEstimator](https://github.com/user-attachments/assets/4aafacd8-d96b-4c0f-8f43-dc89a0b3a1b3)
 
 ### Principios y patrones de diseño aplicados en cada módulo
 
