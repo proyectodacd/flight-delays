@@ -1,0 +1,17 @@
+airportType,airportName,model,R2,MAE,MSE
+Salida,MAD,LinearRegression,-0.6347,10.7719,179.7351
+Salida,MAD,KNNRegressor,-0.9269,12.4091,211.8636
+Salida,ZRH,LinearRegression,0.2046,9.6525,122.9815
+Salida,ZRH,KNNRegressor,0.2454,9.17,116.666
+Salida,JFK,LinearRegression,-0.1431,8.6551,113.9061
+Salida,JFK,KNNRegressor,-0.4346,8.6519,142.96
+Salida,AMS,LinearRegression,0.0704,6.5895,57.941
+Salida,AMS,KNNRegressor,-0.304,6.85,81.2733
+Llegada,MAD,LinearRegression,0.0333,0.9273,1.246
+Llegada,MAD,KNNRegressor,-0.291,1.0667,1.664
+Llegada,ZRH,LinearRegression,-0.3635,3.8418,24.2365
+Llegada,ZRH,KNNRegressor,-0.5427,4.5231,27.4215
+Llegada,JFK,LinearRegression,-0.1142,0.7143,2.476
+Llegada,JFK,KNNRegressor,-0.3071,0.619,2.9048
+Llegada,AMS,LinearRegression,0.3322,2.9621,14.6257
+Llegada,AMS,KNNRegressor,0.3443,3.1091,14.36
