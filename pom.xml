@@ -12,6 +12,7 @@
         <module>aviationstack-feeder</module>
         <module>openweathermap-feeder</module>
         <module>event-store-builder</module>
+        <module>flight-delay-estimator</module>
     </modules>
 
     <properties>

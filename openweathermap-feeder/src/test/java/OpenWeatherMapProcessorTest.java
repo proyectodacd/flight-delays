@@ -1,5 +1,5 @@
-import com.duodinamico.controller.apiconsumer.OpenWeatherMapProcessor;
-import com.duodinamico.controller.persistency.Coordinates;
+import com.duodinamico.openweathermapfeeder.infrastructure.adapters.apiconsumer.OpenWeatherMapProcessor;
+import com.duodinamico.openweathermapfeeder.domain.model.Coordinates;
 import org.junit.Before;
 
 import java.nio.file.Files;

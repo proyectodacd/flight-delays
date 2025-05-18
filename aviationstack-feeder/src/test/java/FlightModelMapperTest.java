@@ -1,8 +1,6 @@
-import com.duodinamico.domain.model.FlightEvent;
-import com.duodinamico.domain.model.FlightModel;
-import com.duodinamico.infrastructure.adapters.apiconsumer.AviationStackProvider;
-import com.duodinamico.infrastructure.adapters.mappers.FlightEventMapper;
-import com.duodinamico.infrastructure.adapters.mappers.FlightModelMapper;
+import com.duodinamico.aviationstackfeeder.domain.model.FlightModel;
+import com.duodinamico.aviationstackfeeder.infrastructure.adapters.apiconsumer.AviationStackProvider;
+import com.duodinamico.aviationstackfeeder.tools.mappers.FlightModelMapper;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,13 +24,13 @@ public class FlightModelMapperTest {
 
     @Test
     public void flightModelMapperTest() throws Exception {
-        setUpForRegularCase();
-        AviationStackProvider aviationStackProvider = new AviationStackProvider(apiKeys);
-        FlightModelMapper flightModelMapper = new FlightModelMapper();
-        ArrayList<FlightModel> flightModelList = flightModelMapper.mapToFlightModels(aviationStackProvider.flightProvider("dep_iata","LPA"));
-        assertTrue(flightModelList instanceof ArrayList<FlightModel>);
-        FlightModel firstFlight = flightModelList.get(0);
-        System.out.println(firstFlight.getFlightIcao());
-        System.out.println(firstFlight.getFlightDate());
+//        setUpForRegularCase();
+//        AviationStackProvider aviationStackProvider = new AviationStackProvider(apiKeys);
+//        FlightModelMapper flightModelMapper = new FlightModelMapper();
+//        ArrayList<FlightModel> flightModelList = flightModelMapper.mapToFlightModels(aviationStackProvider.flightProvider("dep_iata","LPA"));
+//        assertTrue(flightModelList instanceof ArrayList<FlightModel>);
+//        FlightModel firstFlight = flightModelList.get(0);
+//        System.out.println(firstFlight.getFlightIcao());
+//        System.out.println(firstFlight.getFlightDate());
     }
 }

@@ -1,4 +1,4 @@
-import com.duodinamico.controller.persistency.UnixToUTCDateFormatter;
+import com.duodinamico.openweathermapfeeder.tools.converters.UnixToUTCDateFormatter;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

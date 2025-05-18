@@ -1,8 +1,5 @@
-import com.duodinamico.controller.WeatherResultMapper;
-import com.duodinamico.controller.apiconsumer.WeatherDeserializer;
-import com.duodinamico.controller.apiconsumer.schema.WeatherResponse;
-import com.duodinamico.controller.model.WeatherResult;
-import org.junit.Assert;
+import com.duodinamico.openweathermapfeeder.infrastructure.adapters.apiconsumer.WeatherDeserializer;
+import com.duodinamico.openweathermapfeeder.domain.schema.WeatherResponse;
 import org.junit.Test;
 
 public class WeatherDeserializerTest {
