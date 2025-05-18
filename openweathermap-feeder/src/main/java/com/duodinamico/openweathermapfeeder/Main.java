@@ -20,6 +20,7 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         WeatherController controller = new WeatherController(new OpenWeatherMapProvider(new OpenWeatherMapProcessor(args[3]),new WeatherDeserializer(), Arrays.copyOfRange(args,4,args.length)), new WeatherEventStore(args[1],new WeatherEventMapper(),new WeatherEventSerializer()), new TaskScheduler(), new AirportToCoordinates(args[2]), new UnixUtils());
+
         controller.execute();
     }
 }

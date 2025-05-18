@@ -18,6 +18,7 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         FlightController controller = new FlightController(new AviationStackProvider(new AviationStackProcessor(Arrays.copyOfRange(args,6,args.length)),new FlightDeserializer(), Arrays.copyOfRange(args,2,6)), new FlightEventStore(args[1],new FlightEventSerializer(),new FlightEventMapper()), new TaskScheduler());
+
         controller.execute();
     }
 }

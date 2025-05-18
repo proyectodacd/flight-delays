@@ -25,8 +25,8 @@ public class UserInterfaceController {
         this.taskScheduler.programarTareaCadaCiertoTiempo(scheduler, processDatamart, 120,0);
         try {
             latch.await();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());;
         }
         this.userInterfaceForQueries.executeUserInterface();
     }
@@ -37,10 +37,8 @@ public class UserInterfaceController {
             try {
                 this.processInvoker.executeExternalProcess();
                 latch.countDown();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());;
             }
         };
     }

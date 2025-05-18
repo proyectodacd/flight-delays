@@ -33,7 +33,7 @@ public class WeatherController {
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         Runnable tarea2 = runnableCreator();
 
-        this.taskScheduler.scheduleTask(scheduler, tarea2, 1, 36);
+        this.taskScheduler.scheduleTask(scheduler, tarea2, 15, 33);
         try {
             scheduler.awaitTermination(1, TimeUnit.DAYS);
         } catch (InterruptedException e) {
