@@ -39,7 +39,7 @@ La estructura del Datamart planteada ofrece una serie de ventajas clave que just
         - **Argumentos en orden (salto de línea para separarlos):** 
             - Ruta absoluta de database.
             - Enlace URL de conexión TCP del broker de ActiveMQ. (Ejemplo: ```tcp://localhost:12345```)
-            - Cuatro códigos IATA de aeropuertos, con los que operará el feeder. (Ejemplos: ```MAD``` ```AMS``` ```JFK``` ```ZRH```)*
+            - Cuatro códigos IATA de aeropuertos, con los que trabajará el feeder. (Ejemplos: ```MAD``` ```AMS``` ```JFK``` ```ZRH```)*
             - Número indefinido, elegido por el consumidor, de apiKeys de AviationStack.*
     - Ir al main de Event-Store-Builder:
         - **Argumentos en orden (salto de línea para separarlos):** 
@@ -81,11 +81,11 @@ Modos de ejecución:
 
 - **Uso del entorno de mensajería e invocación de la UI:**
 
-    Es el modo principal de ejecución. Se realiza una conexión a un broker de mensajería (en nuestro caso ActiveMQ); para que ambos feeders puedan enviar información en formato de eventos, que consisten en mensajes inmutables que perduran a lo largo del tiempo. De esta forma, AviationStackFeeder recoge la información de vuelos activos; y al día siguiente, OpenWeatherMapFeeder suministrará los valores climáticos de los aeropuertos elegidos por el usuario en la configuración de la aplicación. La frecuencia de actualización es de 1 día para ambas APIs ().
+    Es el modo principal de ejecución. Se realiza una conexión a un broker de mensajería (en nuestro caso ActiveMQ); para que ambos feeders puedan enviar información en formato de eventos, que consisten en mensajes inmutables que perduran a lo largo del tiempo. De esta forma, AviationStackFeeder recoge la información de vuelos activos; y al día siguiente, OpenWeatherMapFeeder suministrará los valores climáticos de los aeropuertos elegidos por el usuario en la configuración de la aplicación. La frecuencia de actualización es de 1 día para ambas APIs (por defecto, a las 10:00 se actualiza el AviationStackFeeder y a las 11:00 el OpenWeatherMapFeeder).
 
-    Todos estos eventos son almacenados en un EventStore, para llevar un historial de mensajes recibidos.
+    Todos estos eventos son almacenados en un EventStore para llevar un historial de mensajes recibidos.
 
-    A su vez, el Datamart concentra toda esa información que pudiera ser relevante para la propuesta de valor. Tiene la capacidad de, cargar el historico de mensajes alamacenados en el EventStore; y de recibir eventos en tiempo real, para hacer un posterior procesamiento de los eventos recibidos.
+    A su vez, el Datamart concentra toda esa información que pueda ser relevante para la propuesta de valor. Tiene la capacidad de, cargar el histórico de mensajes almacenados en el EventStore; y de recibir eventos en tiempo real, para hacer un posterior procesamiento de los eventos recibidos.
 
     En último lugar, el usuario podrá interactuar con la UI. (Ejemplos mostrados más abajo ↓)
 
@@ -106,7 +106,7 @@ Modos de ejecución:
 
 - **Guardado en SQLite:**
 
-    Almacena en una base de datos de SQLite la información proveniente de las APIs (no se hace uso del Datamart, ni del EventStore, ni de la UI; simplemente escribe en la database).
+    Almacena en una base de datos de SQLite la información proveniente de las APIs (sin utilizar el Datamart, ni del EventStore, ni de la UI; simplemente escribe en la database).
 
 
     - Ejecutar el main de AviationStackFeeder:
@@ -125,11 +125,11 @@ Modos de ejecución:
 ### Ejemplos de uso
 
 - AviationStackFeeder:
-    - **Envio de mensajes al broker** (habiendo ejecutado el main en modo ActiveMQ, pasara lo siguiente a la hora programada):
+    - **Envio de mensajes al broker** (habiendo ejecutado el main en modo ActiveMQ, pasará lo siguiente a la hora programada):
   
         <img src="https://github.com/user-attachments/assets/0d853e87-d90d-4194-beaa-0ce11703bbc4" width="700">
 
-    - **Guardado de información en SQLite** (habiendo ejecutado el main en modo SQLite, ocurrira esto):
+    - **Guardado de información en SQLite** (habiendo ejecutado el main en modo SQLite, ocurrirá lo siguiente):
       
       <img src="https://github.com/user-attachments/assets/d35901fc-ba87-4657-a2d0-fe37215a8a88" width="700">
 
